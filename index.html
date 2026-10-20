@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NutriPulse">
-    <meta name="theme-color" content="#090d16" id="themeMeta">
+    <meta name="theme-color" content="#000000" id="themeMeta">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -19,24 +19,43 @@
 
     <style>
         :root {
-            --bg: #090d16;
-            --surface: #131b2e;
-            --surface-hover: #1c2640;
-            --surface-card: #0f172a;
-            --border: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --calorie: #f43f5e;
-            --calorie-glow: rgba(244, 63, 94, 0.25);
-            --protein: #06b6d4;
-            --protein-glow: rgba(6, 182, 212, 0.25);
-            --carbs: #22c55e;
-            --carbs-glow: rgba(34, 197, 94, 0.25);
-            --fat: #f59e0b;
-            --fat-glow: rgba(245, 158, 11, 0.25);
-            --water: #38bdf8;
-            --accent: #38bdf8;
-            --mfp-blue: #0066ee;
+            /* Apple Health / Fitness Pitch Dark Theme */
+            --bg: #000000;
+            --surface: #12141A;
+            --surface-elevated: #181C26;
+            --surface-hover: #1E2330;
+            --surface-glass: rgba(18, 20, 26, 0.82);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.16);
+            --text-primary: #FFFFFF;
+            --text-secondary: #98989F;
+            --text-muted: #636366;
+
+            /* Apple Activity Rings & Macro Accents */
+            --calorie: #FA114F;
+            --calorie-glow: rgba(250, 17, 79, 0.35);
+            --calorie-track: #2D050F;
+
+            --protein: #30D158;
+            --protein-glow: rgba(48, 209, 88, 0.35);
+            --protein-track: #05260F;
+
+            --carbs: #0A84FF;
+            --carbs-glow: rgba(10, 132, 255, 0.35);
+            --carbs-track: #041B33;
+
+            --fat: #FF9F0A;
+            --fat-glow: rgba(255, 159, 10, 0.35);
+            --fat-track: #2D1A04;
+
+            --water: #64D2FF;
+            --water-glow: rgba(100, 210, 255, 0.35);
+            --water-track: #072636;
+
+            --accent: #38BDF8;
+            --mfp-blue: #0A84FF;
+            --radius-card: 20px;
+            --radius-btn: 14px;
         }
 
         * {
@@ -46,56 +65,92 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Hide Scrollbars cleanly across all browsers */
+        ::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        * {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro Rounded", system-ui, sans-serif;
             background-color: var(--bg);
             color: var(--text-primary);
             min-height: 100vh;
-            padding-top: env(safe-area-inset-top);
             padding-bottom: calc(env(safe-area-inset-bottom) + 90px);
             user-select: none;
             -webkit-user-select: none;
+            overflow-x: hidden;
+            font-feature-settings: "cv02", "cv03", "cv04", "cv11";
         }
 
-        /* Sticky Glass Header */
+        /* SVG helper icon styles */
+        .svg-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+        .svg-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Sticky Glass Header with Safe-Area Padding */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(9, 13, 22, 0.88);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(25px) saturate(190%);
+            -webkit-backdrop-filter: blur(25px) saturate(190%);
             border-bottom: 1px solid var(--border);
-            padding: 10px 16px;
+            padding: max(12px, env(safe-area-inset-top)) 16px 12px;
         }
 
-        .header-top {
+        .header-container {
+            max-width: 540px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
 
         .brand {
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
         }
 
         .logo-badge {
-            background: linear-gradient(135deg, #f43f5e, #f59e0b);
+            background: linear-gradient(135deg, #FA114F, #FF9F0A);
             color: #ffffff;
             font-size: 13px;
             font-weight: 900;
             padding: 4px 8px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px var(--calorie-glow);
+            border-radius: 9px;
+            box-shadow: 0 0 16px var(--calorie-glow);
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .brand h1 {
             font-size: 19px;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.6px;
+            background: linear-gradient(180deg, #FFFFFF, #E2E8F0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header-actions {
@@ -104,10 +159,59 @@
             gap: 8px;
         }
 
-        .icon-btn {
+        .btn-header-action {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), background 0.15s;
+            position: relative;
+            min-height: 36px;
+        }
+        .btn-header-action:active { transform: scale(0.94); }
+
+        .btn-header-scan {
+            background: rgba(56, 189, 248, 0.14);
+            border-color: rgba(56, 189, 248, 0.35);
+            color: #38BDF8;
+        }
+        .btn-header-scan:hover { background: rgba(56, 189, 248, 0.22); }
+
+        .btn-header-sync {
+            background: rgba(10, 132, 255, 0.14);
+            border-color: rgba(10, 132, 255, 0.35);
+            color: #60A5FA;
+        }
+        .btn-header-sync:hover { background: rgba(10, 132, 255, 0.22); }
+
+        .badge-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #FA114F;
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 800;
+            min-width: 17px;
+            height: 17px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            box-shadow: 0 0 10px rgba(250, 17, 79, 0.7);
+            border: 2px solid #000000;
+        }
+
+        .icon-btn-circle {
             background: var(--surface);
             border: 1px solid var(--border);
-            color: var(--text-primary);
+            color: var(--text-secondary);
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -115,64 +219,16 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 15px;
-            transition: transform 0.15s;
+            transition: transform 0.15s, color 0.15s, border-color 0.15s;
         }
-        .icon-btn:active { transform: scale(0.9); }
+        .icon-btn-circle:hover { color: #FFFFFF; border-color: var(--border-hover); }
+        .icon-btn-circle:active { transform: scale(0.92); }
 
-        .btn-sync-badge {
-            background: rgba(0, 102, 238, 0.18);
-            border: 1px solid rgba(0, 102, 238, 0.5);
-            color: #60a5fa;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 6px 12px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-        .btn-sync-badge:active { transform: scale(0.92); }
-
-        .btn-scan-badge {
-            background: rgba(56, 189, 248, 0.16);
-            border: 1px solid rgba(56, 189, 248, 0.45);
-            color: #38bdf8;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 6px 12px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-        .btn-scan-badge:active { transform: scale(0.92); }
-
-        .btn-scan-large {
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(124, 58, 237, 0.16));
-            border: 1px dashed rgba(56, 189, 248, 0.5);
-            color: #38bdf8;
-            padding: 12px 16px;
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            margin: 10px 16px 4px;
-            transition: all 0.15s;
-        }
-        .btn-scan-large:active { transform: scale(0.98); background: rgba(56, 189, 248, 0.25); }
-
-        /* Container */
+        /* Main Container */
         main {
-            max-width: 600px;
+            max-width: 540px;
             margin: 0 auto;
-            padding: 14px 16px;
+            padding: 14px 16px 20px;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -185,68 +241,93 @@
             justify-content: space-between;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 6px 12px;
+            border-radius: 18px;
+            padding: 6px 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
         .date-nav-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 800;
+            transition: transform 0.15s, background 0.15s;
         }
+        .date-nav-btn:hover { background: rgba(255, 255, 255, 0.1); }
         .date-nav-btn:active { transform: scale(0.9); }
+
         .date-center {
             text-align: center;
             cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 10px;
+            transition: background 0.15s;
         }
+        .date-center:active { background: rgba(255, 255, 255, 0.05); }
+
         .date-label {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 800;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.3px;
             color: var(--text-primary);
         }
         .date-sub {
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--accent);
-        }
-
-        /* Rings & Calorie Card */
-        .card-rings {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 18px 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
-            gap: 16px;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 1px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        /* Apple Health / Fitness Rings Card */
+        .card-rings {
+            background: linear-gradient(165deg, #13161F 0%, #0D0F14 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 16px 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-rings::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
         }
 
         .rings-box {
             position: relative;
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .rings-svg {
             transform: rotate(-90deg);
             width: 100%;
             height: 100%;
+            overflow: visible;
         }
 
         .ring-bg {
             fill: none;
-            stroke: #1e293b;
         }
 
         .ring-fg {
@@ -255,25 +336,46 @@
             transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        .ring-cal-fg {
+            stroke: var(--calorie);
+            filter: drop-shadow(0 0 5px var(--calorie-glow));
+        }
+        .ring-prot-fg {
+            stroke: var(--protein);
+            filter: drop-shadow(0 0 5px var(--protein-glow));
+        }
+        .ring-carb-fg {
+            stroke: var(--carbs);
+            filter: drop-shadow(0 0 5px var(--carbs-glow));
+        }
+
         .rings-center {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
+            pointer-events: none;
         }
         .rings-center-val {
             font-size: 22px;
             font-weight: 900;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.8px;
             line-height: 1;
-            color: var(--calorie);
+            color: #FFFFFF;
+            font-variant-numeric: tabular-nums;
         }
         .rings-center-lbl {
-            font-size: 9px;
-            font-weight: 700;
+            font-size: 8.5px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
             color: var(--text-secondary);
-            margin-top: 3px;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
         }
 
         .macros-info {
@@ -281,6 +383,7 @@
             display: flex;
             flex-direction: column;
             gap: 9px;
+            min-width: 0;
         }
 
         .macro-bar-row {
@@ -291,30 +394,64 @@
         .macro-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-size: 11px;
             font-weight: 700;
+            gap: 4px;
         }
+        .macro-title-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            font-size: 11px;
+        }
+        .macro-val-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+        .macro-fraction {
+            color: var(--text-primary);
+            font-size: 10.5px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .macro-pct-pill {
+            font-size: 8.5px;
+            font-weight: 800;
+            padding: 1px 4px;
+            border-radius: 5px;
+            min-width: 26px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
         .macro-track {
-            height: 6px;
-            background: #1e293b;
-            border-radius: 3px;
+            height: 7px;
+            border-radius: 4px;
             overflow: hidden;
+            position: relative;
         }
         .macro-fill {
             height: 100%;
-            border-radius: 3px;
-            transition: width 0.6s ease;
+            border-radius: 4px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         /* Hydration / Water Card */
         .water-card {
-            background: var(--surface);
+            background: linear-gradient(165deg, #10151E 0%, #0B1017 100%);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 12px 16px;
+            border-radius: var(--radius-card);
+            padding: 14px 16px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
         }
         .water-header {
             display: flex;
@@ -324,28 +461,47 @@
         .water-title {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             font-size: 13px;
             font-weight: 800;
             color: var(--water);
+            letter-spacing: -0.2px;
+        }
+        .water-val-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .water-val {
             font-size: 12px;
             font-weight: 700;
             color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
         }
+        .water-pct-badge {
+            background: rgba(100, 210, 255, 0.15);
+            color: var(--water);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+
         .water-track {
-            height: 7px;
-            background: #1e293b;
+            height: 8px;
+            background: var(--water-track);
             border-radius: 4px;
             overflow: hidden;
+            position: relative;
         }
         .water-fill {
             height: 100%;
-            background: linear-gradient(90deg, #38bdf8, #0284c7);
+            background: linear-gradient(90deg, #38BDF8, #0284C7);
+            box-shadow: 0 0 10px var(--water-glow);
             border-radius: 4px;
             transition: width 0.4s ease;
         }
+
         .water-actions {
             display: flex;
             gap: 8px;
@@ -353,60 +509,118 @@
         }
         .btn-water {
             flex: 1;
-            padding: 7px 10px;
-            background: rgba(56, 189, 248, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            color: #38bdf8;
-            border-radius: 10px;
-            font-size: 11px;
+            padding: 8px 10px;
+            background: rgba(100, 210, 255, 0.1);
+            border: 1px solid rgba(100, 210, 255, 0.25);
+            color: var(--water);
+            border-radius: 12px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: transform 0.12s, background 0.12s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            min-height: 36px;
         }
-        .btn-water:active { transform: scale(0.94); }
+        .btn-water:hover { background: rgba(100, 210, 255, 0.18); }
+        .btn-water:active { transform: scale(0.95); }
+
         .btn-water-reset {
-            padding: 7px 12px;
-            background: var(--bg);
+            padding: 8px 12px;
+            background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text-secondary);
-            border-radius: 10px;
-            font-size: 11px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: transform 0.12s, color 0.12s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 36px;
         }
+        .btn-water-reset:hover { color: #FFFFFF; }
+        .btn-water-reset:active { transform: scale(0.92); }
 
-        /* AI Nutrition Coach Insight */
+        /* AI Nutrition Coach Live Insight Card */
         .ai-coach-card {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.14), rgba(124, 58, 237, 0.14));
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.12) 0%, rgba(175, 82, 222, 0.12) 100%);
+            border: 1px solid rgba(10, 132, 255, 0.35);
+            border-radius: var(--radius-card);
             padding: 13px 15px;
             display: flex;
             align-items: flex-start;
             gap: 12px;
             cursor: pointer;
-            transition: transform 0.15s;
+            transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .ai-coach-card:hover {
+            border-color: rgba(10, 132, 255, 0.55);
+            box-shadow: 0 6px 24px rgba(10, 132, 255, 0.2);
         }
         .ai-coach-card:active { transform: scale(0.98); }
 
         .ai-avatar {
-            font-size: 22px;
-            line-height: 1;
-            padding: 6px;
-            background: rgba(6, 182, 212, 0.2);
-            border-radius: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.25), rgba(175, 82, 222, 0.25));
+            border: 1px solid rgba(10, 132, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38BDF8;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(10, 132, 255, 0.3);
+        }
+
+        .ai-text-box {
+            flex: 1;
+            min-width: 0;
         }
         .ai-text-box h4 {
             font-size: 13px;
             font-weight: 800;
-            color: var(--protein);
+            color: #FFFFFF;
             margin-bottom: 3px;
             display: flex;
             align-items: center;
             gap: 6px;
+            letter-spacing: -0.2px;
         }
+        .ai-live-badge {
+            font-size: 9px;
+            font-weight: 800;
+            background: rgba(48, 209, 88, 0.2);
+            color: #30D158;
+            border: 1px solid rgba(48, 209, 88, 0.35);
+            padding: 1px 6px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .ai-live-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #30D158;
+            box-shadow: 0 0 6px #30D158;
+            animation: pulseDot 1.8s infinite;
+        }
+        @keyframes pulseDot {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
         .ai-text-box p {
             font-size: 12px;
-            color: var(--text-primary);
+            color: #E2E8F0;
             line-height: 1.45;
         }
 
@@ -414,8 +628,13 @@
         .meal-section {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 18px;
+            border-radius: var(--radius-card);
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.15s;
+        }
+        .meal-section:hover {
+            border-color: var(--border-hover);
         }
 
         .meal-header {
@@ -424,6 +643,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.015);
         }
 
         .meal-title-wrap {
@@ -431,33 +651,58 @@
             align-items: center;
             gap: 10px;
         }
-        .meal-icon {
-            font-size: 18px;
+        .meal-icon-box {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .meal-icon-0 { background: rgba(255, 159, 10, 0.16); color: #FF9F0A; } /* Breakfast */
+        .meal-icon-1 { background: rgba(255, 214, 10, 0.16); color: #FFD60A; } /* Lunch */
+        .meal-icon-2 { background: rgba(191, 90, 242, 0.16); color: #BF5AF2; } /* Dinner */
+        .meal-icon-3 { background: rgba(255, 69, 58, 0.16); color: #FF453A; }  /* Snacks */
+
+        .meal-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
         }
         .meal-title {
             font-size: 14px;
             font-weight: 800;
+            letter-spacing: -0.2px;
+            color: #FFFFFF;
         }
         .meal-cal-total {
             font-size: 12px;
             font-weight: 700;
             color: var(--calorie);
+            font-variant-numeric: tabular-nums;
         }
 
-        .btn-add-food {
+        .btn-add-food-pill {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            padding: 5px 12px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 6px 13px;
+            border-radius: 14px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: transform 0.12s, background 0.12s, border-color 0.12s;
+            min-height: 32px;
         }
-        .btn-add-food:active { transform: scale(0.92); }
+        .btn-add-food-pill:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.2); }
+        .btn-add-food-pill:active { transform: scale(0.93); }
 
         .meal-items-list {
-            padding: 2px 16px;
+            padding: 4px 16px;
         }
 
         .food-item-row {
@@ -466,102 +711,290 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            gap: 12px;
         }
         .food-item-row:last-child { border-bottom: none; }
 
         .food-details {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
+            flex: 1;
+            min-width: 0;
         }
         .food-name {
-            font-size: 13px;
+            font-size: 13.5px;
             font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: -0.2px;
+            word-break: break-word;
         }
-        .food-macros-line {
-            font-size: 11px;
-            color: var(--text-secondary);
+
+        .macro-tag-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
+        .macro-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-variant-numeric: tabular-nums;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .tag-prot { background: rgba(48, 209, 88, 0.12); color: #30D158; border: 1px solid rgba(48, 209, 88, 0.25); }
+        .tag-carb { background: rgba(10, 132, 255, 0.12); color: #0A84FF; border: 1px solid rgba(10, 132, 255, 0.25); }
+        .tag-fat  { background: rgba(255, 159, 10, 0.12); color: #FF9F0A; border: 1px solid rgba(255, 159, 10, 0.25); }
+        .tag-mfp  { background: rgba(0, 102, 238, 0.16); color: #60A5FA; border: 1px solid rgba(0, 102, 238, 0.35); font-weight: 800; }
 
         .food-right {
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-shrink: 0;
         }
         .food-cal-badge {
             font-size: 13px;
             font-weight: 800;
-            color: var(--text-primary);
+            color: #FFFFFF;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
         .btn-del-food {
-            background: transparent;
-            border: none;
-            color: #ef4444;
-            font-size: 13px;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            padding: 4px;
+            transition: transform 0.12s, background 0.12s;
         }
+        .btn-del-food:hover { background: rgba(239, 68, 68, 0.2); }
+        .btn-del-food:active { transform: scale(0.9); }
 
         .empty-meal-hint {
-            padding: 12px;
+            padding: 16px;
             text-align: center;
-            font-size: 11px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        .empty-meal-hint:hover {
+            border-color: rgba(255, 255, 255, 0.2);
             color: var(--text-secondary);
         }
 
-        /* Modals & Drawers */
+        /* Floating Nav Bar */
+        .bottom-nav-wrapper {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 90;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(25px) saturate(190%);
+            -webkit-backdrop-filter: blur(25px) saturate(190%);
+            border-top: 1px solid var(--border);
+            padding: 8px 16px max(10px, env(safe-area-inset-bottom));
+        }
+
+        .bottom-nav {
+            max-width: 540px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 12px;
+            transition: color 0.15s, transform 0.15s;
+            min-height: 44px;
+            justify-content: center;
+        }
+        .nav-item:active { transform: scale(0.92); }
+        .nav-item.active {
+            color: var(--accent);
+        }
+        .nav-item.active .nav-icon svg {
+            stroke: var(--accent);
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+        }
+        .nav-icon {
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* iOS Ergonomic Bottom Sheets / Modals */
         .modal {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 200;
             display: none;
             align-items: flex-end;
             justify-content: center;
+            opacity: 0;
+            transition: opacity 0.22s ease-out;
         }
-        .modal.open { display: flex; }
+        .modal.open {
+            display: flex;
+            opacity: 1;
+        }
 
         .modal-content {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px 24px 0 0;
+            background: #12141C;
+            border: 1px solid var(--border-hover);
+            border-bottom: none;
+            border-radius: 26px 26px 0 0;
             width: 100%;
-            max-width: 600px;
-            max-height: 88vh;
+            max-width: 540px;
+            max-height: 90vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            animation: slideUp 0.22s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.75);
+            animation: sheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            padding-bottom: max(16px, env(safe-area-inset-bottom));
         }
-        @keyframes slideUp {
+        @keyframes sheetSlideUp {
             from { transform: translateY(100%); }
             to { transform: translateY(0); }
         }
 
+        .sheet-handle {
+            width: 38px;
+            height: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.22);
+            margin: 10px auto 4px;
+            flex-shrink: 0;
+        }
+
         .modal-header {
-            padding: 16px 20px;
+            padding: 12px 18px 14px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
+        }
+        .modal-header h3 {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
+        .btn-close-modal {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, transform 0.15s;
+        }
+        .btn-close-modal:hover { background: rgba(255, 255, 255, 0.16); color: #FFFFFF; }
+        .btn-close-modal:active { transform: scale(0.9); }
+
+        /* Search Bar in Modal */
         .search-input-box {
-            padding: 10px 16px;
+            padding: 12px 16px;
             border-bottom: 1px solid var(--border);
+            position: relative;
+            flex-shrink: 0;
+        }
+        .search-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            color: var(--text-secondary);
+            pointer-events: none;
         }
         .search-input-box input {
             width: 100%;
-            background: var(--bg);
+            background: #090B0F;
             border: 1px solid var(--border);
-            padding: 10px 14px;
+            padding: 10px 36px 10px 36px;
             border-radius: 12px;
             color: #ffffff;
-            font-size: 14px;
+            font-size: 13.5px;
             outline: none;
+            transition: border-color 0.15s;
         }
+        .search-input-box input:focus {
+            border-color: var(--accent);
+        }
+        .search-clear-btn {
+            position: absolute;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-secondary);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .btn-scan-banner {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(124, 58, 237, 0.15));
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38BDF8;
+            padding: 11px 16px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            margin: 10px 16px 4px;
+            transition: transform 0.12s, background 0.15s;
+            flex-shrink: 0;
+        }
+        .btn-scan-banner:hover { background: rgba(56, 189, 248, 0.22); }
+        .btn-scan-banner:active { transform: scale(0.98); }
 
         .tab-scroll {
             display: flex;
@@ -569,9 +1002,11 @@
             padding: 10px 16px;
             overflow-x: auto;
             border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            -webkit-overflow-scrolling: touch;
         }
         .tab-pill {
-            background: var(--bg);
+            background: #090B0F;
             border: 1px solid var(--border);
             color: var(--text-secondary);
             padding: 6px 12px;
@@ -580,15 +1015,18 @@
             font-weight: 700;
             white-space: nowrap;
             cursor: pointer;
+            transition: all 0.15s;
         }
+        .tab-pill:active { transform: scale(0.94); }
         .tab-pill.active {
             background: var(--accent);
-            color: #090d16;
+            color: #000000;
             border-color: var(--accent);
+            font-weight: 800;
         }
 
         .food-library-list {
-            padding: 10px 16px;
+            padding: 12px 16px;
             overflow-y: auto;
             flex: 1;
             display: flex;
@@ -597,43 +1035,60 @@
         }
 
         .lib-food-card {
-            background: var(--bg);
+            background: #0B0D12;
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 11px 14px;
+            padding: 12px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
             transition: all 0.15s;
+            gap: 12px;
         }
+        .lib-food-card:hover { border-color: rgba(255, 255, 255, 0.2); background: #0E1118; }
         .lib-food-card:active { transform: scale(0.98); border-color: var(--accent); }
 
-        /* Floating Nav Bar */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: rgba(9, 13, 22, 0.94);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border);
-            padding: 10px 20px calc(env(safe-area-inset-bottom) + 8px);
-            display: flex;
-            justify-content: space-around;
-            z-index: 90;
-        }
-        .nav-item {
+        .lib-food-left {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-secondary);
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
+            gap: 3px;
+            flex: 1;
+            min-width: 0;
         }
-        .nav-item.active { color: var(--accent); }
-        .nav-icon { font-size: 20px; }
+        .lib-food-title {
+            font-weight: 700;
+            font-size: 13.5px;
+            color: #FFFFFF;
+        }
+        .lib-food-sub {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .lib-food-cal {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--calorie);
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+            flex-shrink: 0;
+        }
+
+        /* Direct Quick Add Box */
+        .quick-entry-box {
+            background: #0B0D12;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
 
         /* Chat Drawer */
         .chat-msgs-box {
@@ -646,24 +1101,27 @@
             max-height: 52vh;
         }
         .chat-bubble {
-            max-width: 84%;
-            padding: 10px 14px;
-            border-radius: 16px;
-            font-size: 13px;
-            line-height: 1.45;
+            max-width: 85%;
+            padding: 11px 15px;
+            border-radius: 18px;
+            font-size: 13.5px;
+            line-height: 1.5;
             white-space: pre-wrap;
+            word-break: break-word;
         }
         .bubble-ai {
-            background: #1e293b;
-            color: #ffffff;
+            background: #181C26;
+            color: #F8FAFC;
             align-self: flex-start;
             border-bottom-left-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .bubble-user {
-            background: #0284c7;
-            color: #ffffff;
+            background: linear-gradient(135deg, #0A84FF, #0066EE);
+            color: #FFFFFF;
             align-self: flex-end;
             border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 14px rgba(10, 132, 255, 0.35);
         }
 
         .chat-quick-chips {
@@ -672,95 +1130,169 @@
             padding: 8px 16px;
             overflow-x: auto;
             border-top: 1px solid var(--border);
+            flex-shrink: 0;
+            -webkit-overflow-scrolling: touch;
         }
         .chat-chip {
-            background: var(--bg);
+            background: #0B0D12;
             border: 1px solid var(--border);
             color: var(--text-secondary);
             font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 14px;
             white-space: nowrap;
             cursor: pointer;
+            transition: all 0.12s;
         }
-        .chat-chip:active { background: var(--surface-hover); color: var(--text-primary); }
+        .chat-chip:hover { border-color: rgba(255, 255, 255, 0.2); color: #FFFFFF; }
+        .chat-chip:active { background: var(--surface-hover); transform: scale(0.95); }
 
         .chat-input-bar {
             padding: 10px 16px 14px;
             border-top: 1px solid var(--border);
             display: flex;
             gap: 8px;
+            align-items: center;
+            flex-shrink: 0;
         }
         .chat-input-bar input {
             flex: 1;
-            background: var(--bg);
+            background: #0B0D12;
             border: 1px solid var(--border);
-            padding: 10px 14px;
-            border-radius: 20px;
+            padding: 11px 16px;
+            border-radius: 22px;
             color: #ffffff;
-            font-size: 13px;
+            font-size: 13.5px;
             outline: none;
+            transition: border-color 0.15s;
         }
+        .chat-input-bar input:focus { border-color: var(--accent); }
         .btn-send-chat {
             background: var(--accent);
-            color: #090d16;
+            color: #000000;
             border: none;
-            font-weight: 800;
-            padding: 0 16px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-
-        /* Quick Add Direct Form */
-        .quick-entry-box {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 14px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 12px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.12s;
+            flex-shrink: 0;
         }
+        .btn-send-chat:active { transform: scale(0.9); }
 
-        /* Toast Notification */
+        /* Dynamic Island / Top Toast Notification Pill */
         .toast {
             position: fixed;
-            bottom: calc(env(safe-area-inset-bottom) + 75px);
+            top: max(16px, env(safe-area-inset-top));
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #0284c7;
-            color: #ffffff;
+            transform: translateX(-50%) translateY(-80px);
+            background: rgba(18, 22, 32, 0.94);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #FFFFFF;
             font-size: 13px;
             font-weight: 700;
-            padding: 10px 18px;
-            border-radius: 24px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            z-index: 1000;
-            transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(56, 189, 248, 0.2);
+            z-index: 2000;
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s;
             pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
-        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Camera Scanner Viewfinder & Animation */
+        .scan-viewfinder {
+            position: relative;
+            border-radius: 20px;
+            background: #080A0E;
+            border: 1px solid var(--border);
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            transition: border-color 0.15s;
+        }
+        .scan-viewfinder:hover { border-color: rgba(56, 189, 248, 0.4); }
+
+        .scan-laser-line {
+            position: absolute;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #38BDF8, #818CF8, transparent);
+            box-shadow: 0 0 12px #38BDF8;
+            top: 0;
+            display: none;
+            animation: laserScan 1.8s infinite ease-in-out;
+        }
+        @keyframes laserScan {
+            0% { top: 0%; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Responsive Layout Overrides */
+        @media (max-width: 380px) {
+            .brand h1 { font-size: 17px; }
+            .btn-header-action { padding: 5px 9px; font-size: 11px; }
+            .card-rings { flex-direction: column; align-items: center; }
+            .macros-info { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
     <!-- Sticky Glass Header -->
     <header>
-        <div class="header-top">
-            <div class="brand">
+        <div class="header-container">
+            <div class="brand" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
                 <span class="logo-badge">NP</span>
                 <h1>NutriPulse</h1>
             </div>
             
             <div class="header-actions">
-                <button class="btn-scan-badge" onclick="triggerFoodPhotoUpload()" title="Scan Food Photo with AI">
-                    📷 Scan
+                <button class="btn-header-action btn-header-scan" onclick="triggerFoodPhotoUpload()" title="Scan Food Photo with AI">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </span>
+                    <span>Scan</span>
                 </button>
-                <button class="btn-sync-badge" onclick="openSyncModal()" title="Sync with MyFitnessPal">
-                    🔄 MFP Sync <span id="unsyncedBadge" style="display:none; background:#ef4444; color:#fff; border-radius:10px; font-size:10px; padding:1px 5px;">0</span>
+
+                <button class="btn-header-action btn-header-sync" onclick="openSyncModal()" title="Sync with MyFitnessPal">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+                        </svg>
+                    </span>
+                    <span>MFP</span>
+                    <span id="unsyncedBadge" class="badge-counter" style="display:none;">0</span>
                 </button>
-                <button class="icon-btn" onclick="openProfileModal()" title="Profile &amp; Target">⚙️</button>
+
+                <button class="icon-btn-circle" onclick="openProfileModal()" title="Profile &amp; Calorie Goal">
+                    <span class="svg-icon" style="width:18px; height:18px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
         </div>
     </header>
@@ -768,33 +1300,55 @@
     <main>
         <!-- Date Navigator Strip -->
         <div class="date-strip">
-            <button class="date-nav-btn" onclick="changeDate(-1)" title="Previous Day">‹</button>
+            <button class="date-nav-btn" onclick="changeDate(-1)" title="Previous Day">
+                <span class="svg-icon" style="width:18px; height:18px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </span>
+            </button>
             <div class="date-center" onclick="resetToToday()">
                 <div class="date-label" id="dateLabel">Today</div>
-                <div class="date-sub" id="dateSub">Tap to return to today</div>
+                <div class="date-sub" id="dateSub">
+                    <span class="svg-icon" style="width:10px; height:10px;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
+                    <span>Current Day</span>
+                </div>
             </div>
-            <button class="date-nav-btn" onclick="changeDate(1)" title="Next Day">›</button>
+            <button class="date-nav-btn" onclick="changeDate(1)" title="Next Day">
+                <span class="svg-icon" style="width:18px; height:18px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </span>
+            </button>
         </div>
 
-        <!-- Apple Health Rings Card -->
+        <!-- Apple Health / Fitness Activity Rings Card -->
         <div class="card-rings">
             <div class="rings-box">
-                <svg class="rings-svg" viewBox="0 0 120 120">
-                    <!-- Calorie Outer Ring -->
-                    <circle class="ring-bg" cx="60" cy="60" r="48" stroke-width="9"/>
-                    <circle class="ring-fg" id="ringCal" cx="60" cy="60" r="48" stroke-width="9" stroke="var(--calorie)" stroke-dasharray="301.6" stroke-dashoffset="301.6"/>
+                <svg class="rings-svg" viewBox="0 0 130 130">
+                    <!-- Calorie Outer Ring (radius 50) -->
+                    <circle class="ring-bg" cx="65" cy="65" r="50" stroke-width="9.5" stroke="var(--calorie-track)"/>
+                    <circle class="ring-fg ring-cal-fg" id="ringCal" cx="65" cy="65" r="50" stroke-width="9.5" stroke-dasharray="314.16" stroke-dashoffset="314.16"/>
                     
-                    <!-- Protein Middle Ring -->
-                    <circle class="ring-bg" cx="60" cy="60" r="36" stroke-width="8"/>
-                    <circle class="ring-fg" id="ringProt" cx="60" cy="60" r="36" stroke-width="8" stroke="var(--protein)" stroke-dasharray="226.2" stroke-dashoffset="226.2"/>
+                    <!-- Protein Middle Ring (radius 38) -->
+                    <circle class="ring-bg" cx="65" cy="65" r="38" stroke-width="8.5" stroke="var(--protein-track)"/>
+                    <circle class="ring-fg ring-prot-fg" id="ringProt" cx="65" cy="65" r="38" stroke-width="8.5" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
 
-                    <!-- Carbs Inner Ring -->
-                    <circle class="ring-bg" cx="60" cy="60" r="25" stroke-width="7"/>
-                    <circle class="ring-fg" id="ringCarb" cx="60" cy="60" r="25" stroke-width="7" stroke="var(--carbs)" stroke-dasharray="157.1" stroke-dashoffset="157.1"/>
+                    <!-- Carbs Inner Ring (radius 27) -->
+                    <circle class="ring-bg" cx="65" cy="65" r="27" stroke-width="7.5" stroke="var(--carbs-track)"/>
+                    <circle class="ring-fg ring-carb-fg" id="ringCarb" cx="65" cy="65" r="27" stroke-width="7.5" stroke-dasharray="169.65" stroke-dashoffset="169.65"/>
                 </svg>
                 <div class="rings-center">
                     <div class="rings-center-val" id="dispRemCal">--</div>
-                    <div class="rings-center-lbl">KCAL LEFT</div>
+                    <div class="rings-center-lbl" id="dispRemLbl">
+                        <span class="svg-icon" style="width:10px; height:10px; color:var(--calorie);">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/>
+                            </svg>
+                        </span>
+                        <span id="dispRemText">KCAL LEFT</span>
+                    </div>
                 </div>
             </div>
 
@@ -802,44 +1356,76 @@
                 <!-- Calorie Summary -->
                 <div class="macro-bar-row">
                     <div class="macro-header">
-                        <span style="color:var(--calorie)">🔥 Calories</span>
-                        <span id="calFraction">0 / 2000 kcal</span>
+                        <div class="macro-title-group" style="color:var(--calorie)">
+                            <span class="svg-icon" style="width:13px; height:13px;">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg>
+                            </span>
+                            <span>Calories</span>
+                        </div>
+                        <div class="macro-val-group">
+                            <span class="macro-fraction" id="calFraction">0 / 2,000 kcal</span>
+                            <span class="macro-pct-pill" id="calPctPill" style="background:rgba(250,17,79,0.18); color:var(--calorie);">0%</span>
+                        </div>
                     </div>
-                    <div class="macro-track">
-                        <div class="macro-fill" id="barCal" style="width: 0%; background: var(--calorie);"></div>
+                    <div class="macro-track" style="background:var(--calorie-track);">
+                        <div class="macro-fill" id="barCal" style="width: 0%; background: var(--calorie); box-shadow: 0 0 8px var(--calorie-glow);"></div>
                     </div>
                 </div>
 
                 <!-- Protein -->
                 <div class="macro-bar-row">
                     <div class="macro-header">
-                        <span style="color:var(--protein)">🥩 Protein</span>
-                        <span id="protFraction">0 / 140g</span>
+                        <div class="macro-title-group" style="color:var(--protein)">
+                            <span class="svg-icon" style="width:13px; height:13px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4M6 12h12"/></svg>
+                            </span>
+                            <span>Protein</span>
+                        </div>
+                        <div class="macro-val-group">
+                            <span class="macro-fraction" id="protFraction">0 / 140g</span>
+                            <span class="macro-pct-pill" id="protPctPill" style="background:rgba(48,209,88,0.18); color:var(--protein);">0%</span>
+                        </div>
                     </div>
-                    <div class="macro-track">
-                        <div class="macro-fill" id="barProt" style="width: 0%; background: var(--protein);"></div>
+                    <div class="macro-track" style="background:var(--protein-track);">
+                        <div class="macro-fill" id="barProt" style="width: 0%; background: var(--protein); box-shadow: 0 0 8px var(--protein-glow);"></div>
                     </div>
                 </div>
 
                 <!-- Carbs -->
                 <div class="macro-bar-row">
                     <div class="macro-header">
-                        <span style="color:var(--carbs)">🌾 Carbs</span>
-                        <span id="carbFraction">0 / 220g</span>
+                        <div class="macro-title-group" style="color:var(--carbs)">
+                            <span class="svg-icon" style="width:13px; height:13px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22 12 12M7 17l4 4M9 10l5 5M11 3l10 10M17 2l4 4"/></svg>
+                            </span>
+                            <span>Carbs</span>
+                        </div>
+                        <div class="macro-val-group">
+                            <span class="macro-fraction" id="carbFraction">0 / 220g</span>
+                            <span class="macro-pct-pill" id="carbPctPill" style="background:rgba(10,132,255,0.18); color:var(--carbs);">0%</span>
+                        </div>
                     </div>
-                    <div class="macro-track">
-                        <div class="macro-fill" id="barCarb" style="width: 0%; background: var(--carbs);"></div>
+                    <div class="macro-track" style="background:var(--carbs-track);">
+                        <div class="macro-fill" id="barCarb" style="width: 0%; background: var(--carbs); box-shadow: 0 0 8px var(--carbs-glow);"></div>
                     </div>
                 </div>
 
                 <!-- Fat -->
                 <div class="macro-bar-row">
                     <div class="macro-header">
-                        <span style="color:var(--fat)">🥑 Fat</span>
-                        <span id="fatFraction">0 / 60g</span>
+                        <div class="macro-title-group" style="color:var(--fat)">
+                            <span class="svg-icon" style="width:13px; height:13px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                            </span>
+                            <span>Fat</span>
+                        </div>
+                        <div class="macro-val-group">
+                            <span class="macro-fraction" id="fatFraction">0 / 60g</span>
+                            <span class="macro-pct-pill" id="fatPctPill" style="background:rgba(255,159,10,0.18); color:var(--fat);">0%</span>
+                        </div>
                     </div>
-                    <div class="macro-track">
-                        <div class="macro-fill" id="barFat" style="width: 0%; background: var(--fat);"></div>
+                    <div class="macro-track" style="background:var(--fat-track);">
+                        <div class="macro-fill" id="barFat" style="width: 0%; background: var(--fat); box-shadow: 0 0 8px var(--fat-glow);"></div>
                     </div>
                 </div>
             </div>
@@ -849,27 +1435,54 @@
         <div class="water-card">
             <div class="water-header">
                 <div class="water-title">
-                    <span>💧</span>
+                    <span class="svg-icon" style="width:18px; height:18px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                        </svg>
+                    </span>
                     <span>Water Hydration</span>
                 </div>
-                <span class="water-val" id="waterDisplay">0 / 2,500 ml</span>
+                <div class="water-val-wrap">
+                    <span class="water-val" id="waterDisplay">0 / 2,500 ml</span>
+                    <span class="water-pct-badge" id="waterPctBadge">0%</span>
+                </div>
             </div>
             <div class="water-track">
                 <div class="water-fill" id="waterFill" style="width: 0%;"></div>
             </div>
             <div class="water-actions">
-                <button class="btn-water" onclick="addWater(250)">+250ml 🥛</button>
-                <button class="btn-water" onclick="addWater(500)">+500ml 🍶</button>
-                <button class="btn-water" onclick="addWater(-250)">-250ml</button>
-                <button class="btn-water-reset" onclick="resetWater()" title="Reset Water">↺</button>
+                <button class="btn-water" onclick="addWater(250)">
+                    <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                    <span>250ml Glass</span>
+                </button>
+                <button class="btn-water" onclick="addWater(500)">
+                    <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                    <span>500ml Bottle</span>
+                </button>
+                <button class="btn-water" onclick="addWater(-250)">
+                    <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                    <span>-250ml</span>
+                </button>
+                <button class="btn-water-reset" onclick="resetWater()" title="Reset Water">
+                    <span class="svg-icon" style="width:15px; height:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
+                </button>
             </div>
         </div>
 
         <!-- AI Nutrition Coach Live Insight -->
         <div class="ai-coach-card" onclick="openChatDrawer()">
-            <div class="ai-avatar">🤖</div>
+            <div class="ai-avatar">
+                <span class="svg-icon" style="width:20px; height:20px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                    </svg>
+                </span>
+            </div>
             <div class="ai-text-box">
-                <h4>AI Coach Guide <span style="font-size:10px; background:rgba(6,182,212,0.25); padding:2px 6px; border-radius:6px;">LIVE ADVICE</span></h4>
+                <h4>
+                    <span>AI Nutrition Coach</span>
+                    <span class="ai-live-badge"><span class="ai-live-dot"></span> LIVE GUIDE</span>
+                </h4>
                 <p id="aiCoachQuickTip">Khana log gardai janu, ma timilai aba k khada target pugcha guide garchu!</p>
             </div>
         </div>
@@ -880,14 +1493,25 @@
         <div class="meal-section">
             <div class="meal-header">
                 <div class="meal-title-wrap">
-                    <span class="meal-icon">🌅</span>
-                    <span class="meal-title">Breakfast</span>
-                    <span class="meal-cal-total" id="mealCal-0">0 kcal</span>
+                    <div class="meal-icon-box meal-icon-0">
+                        <span class="svg-icon" style="width:18px; height:18px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v6M4.93 10.93l4.24-4.24M2 18h2M20 18h2M19.07 10.93l-4.24-4.24M22 22H2M8 18a4 4 0 0 1 8 0"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="meal-title-group">
+                        <span class="meal-title">Breakfast</span>
+                        <span class="meal-cal-total" id="mealCal-0">0 kcal</span>
+                    </div>
                 </div>
-                <button class="btn-add-food" onclick="openAddFoodModal(0)">+ Add Food</button>
+                <button class="btn-add-food-pill" onclick="openAddFoodModal(0)">
+                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                    <span>Add Food</span>
+                </button>
             </div>
             <div class="meal-items-list" id="mealItems-0">
-                <div class="empty-meal-hint">Kehi khana log bhayeko chaina</div>
+                <div class="empty-meal-hint" onclick="openAddFoodModal(0)">+ Tap to log Breakfast</div>
             </div>
         </div>
 
@@ -895,14 +1519,25 @@
         <div class="meal-section">
             <div class="meal-header">
                 <div class="meal-title-wrap">
-                    <span class="meal-icon">☀️</span>
-                    <span class="meal-title">Lunch</span>
-                    <span class="meal-cal-total" id="mealCal-1">0 kcal</span>
+                    <div class="meal-icon-box meal-icon-1">
+                        <span class="svg-icon" style="width:18px; height:18px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="meal-title-group">
+                        <span class="meal-title">Lunch</span>
+                        <span class="meal-cal-total" id="mealCal-1">0 kcal</span>
+                    </div>
                 </div>
-                <button class="btn-add-food" onclick="openAddFoodModal(1)">+ Add Food</button>
+                <button class="btn-add-food-pill" onclick="openAddFoodModal(1)">
+                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                    <span>Add Food</span>
+                </button>
             </div>
             <div class="meal-items-list" id="mealItems-1">
-                <div class="empty-meal-hint">Kehi khana log bhayeko chaina</div>
+                <div class="empty-meal-hint" onclick="openAddFoodModal(1)">+ Tap to log Lunch</div>
             </div>
         </div>
 
@@ -910,14 +1545,25 @@
         <div class="meal-section">
             <div class="meal-header">
                 <div class="meal-title-wrap">
-                    <span class="meal-icon">🌙</span>
-                    <span class="meal-title">Dinner</span>
-                    <span class="meal-cal-total" id="mealCal-2">0 kcal</span>
+                    <div class="meal-icon-box meal-icon-2">
+                        <span class="svg-icon" style="width:18px; height:18px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="meal-title-group">
+                        <span class="meal-title">Dinner</span>
+                        <span class="meal-cal-total" id="mealCal-2">0 kcal</span>
+                    </div>
                 </div>
-                <button class="btn-add-food" onclick="openAddFoodModal(2)">+ Add Food</button>
+                <button class="btn-add-food-pill" onclick="openAddFoodModal(2)">
+                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                    <span>Add Food</span>
+                </button>
             </div>
             <div class="meal-items-list" id="mealItems-2">
-                <div class="empty-meal-hint">Kehi khana log bhayeko chaina</div>
+                <div class="empty-meal-hint" onclick="openAddFoodModal(2)">+ Tap to log Dinner</div>
             </div>
         </div>
 
@@ -925,62 +1571,112 @@
         <div class="meal-section">
             <div class="meal-header">
                 <div class="meal-title-wrap">
-                    <span class="meal-icon">🍎</span>
-                    <span class="meal-title">Snacks</span>
-                    <span class="meal-cal-total" id="mealCal-3">0 kcal</span>
+                    <div class="meal-icon-box meal-icon-3">
+                        <span class="svg-icon" style="width:18px; height:18px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="meal-title-group">
+                        <span class="meal-title">Snacks</span>
+                        <span class="meal-cal-total" id="mealCal-3">0 kcal</span>
+                    </div>
                 </div>
-                <button class="btn-add-food" onclick="openAddFoodModal(3)">+ Add Food</button>
+                <button class="btn-add-food-pill" onclick="openAddFoodModal(3)">
+                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                    <span>Add Food</span>
+                </button>
             </div>
             <div class="meal-items-list" id="mealItems-3">
-                <div class="empty-meal-hint">Kehi khana log bhayeko chaina</div>
+                <div class="empty-meal-hint" onclick="openAddFoodModal(3)">+ Tap to log Snacks</div>
             </div>
         </div>
     </main>
 
     <!-- Floating Bottom Navigation -->
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchNav('diary')">
-            <span class="nav-icon">📖</span>
-            <span>Diary</span>
-        </div>
-        <div class="nav-item" onclick="switchNav('add')">
-            <span class="nav-icon">➕</span>
-            <span>Add Food</span>
-        </div>
-        <div class="nav-item" onclick="switchNav('coach')">
-            <span class="nav-icon">💬</span>
-            <span>AI Coach</span>
-        </div>
-        <div class="nav-item" onclick="switchNav('sync')">
-            <span class="nav-icon">🔄</span>
-            <span>Sync</span>
+    <div class="bottom-nav-wrapper">
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="switchNav('diary')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                </div>
+                <span>Diary</span>
+            </div>
+            <div class="nav-item" onclick="switchNav('add')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                </div>
+                <span>Add Food</span>
+            </div>
+            <div class="nav-item" onclick="switchNav('coach')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                    </svg>
+                </div>
+                <span>AI Coach</span>
+            </div>
+            <div class="nav-item" onclick="switchNav('sync')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+                    </svg>
+                </div>
+                <span>MFP Sync</span>
+            </div>
         </div>
     </div>
 
     <!-- Modal: Add Food / Database -->
     <div class="modal" id="addFoodModal">
         <div class="modal-content">
+            <div class="sheet-handle"></div>
             <div class="modal-header">
                 <h3 id="addFoodModalTitle">Add Food to Lunch</h3>
-                <button class="icon-btn" onclick="closeModal('addFoodModal')">✕</button>
+                <button class="btn-close-modal" onclick="closeModal('addFoodModal')">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
 
             <div class="search-input-box">
-                <input type="text" id="foodSearchInput" placeholder="Khana khojnuhos (Dal Bhat, Momo, Anda, Chicken...)" oninput="filterFoodList()">
+                <div class="search-input-wrap">
+                    <span class="search-icon svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                        </svg>
+                    </span>
+                    <input type="text" id="foodSearchInput" placeholder="Khana khojnuhos (Dal Bhat, Momo, Anda, Chicken...)" oninput="filterFoodList()">
+                    <button class="search-clear-btn" id="searchClearBtn" onclick="clearFoodSearch()">✕</button>
+                </div>
             </div>
 
-            <button class="btn-scan-large" onclick="triggerFoodPhotoUpload()">
-                📷 Snap or Upload Food Photo (AI Analyzer)
+            <button class="btn-scan-banner" onclick="triggerFoodPhotoUpload()">
+                <span class="svg-icon" style="width:18px; height:18px;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+                </span>
+                <span>Snap or Upload Food Photo (AI Analyzer)</span>
             </button>
 
             <input type="file" id="foodPhotoInput" accept="image/*" capture="environment" onchange="handleFoodPhoto(event)" style="display:none;">
 
             <div class="tab-scroll">
                 <button class="tab-pill active" onclick="setFoodCategory('all', this)">Sabai</button>
-                <button class="tab-pill" onclick="setFoodCategory('nepali', this)">🇳🇵 Nepali Khana</button>
-                <button class="tab-pill" onclick="setFoodCategory('fitness', this)">🏋️ High Protein</button>
-                <button class="tab-pill" onclick="setFoodCategory('quick', this)">⚡ Quick Add</button>
-                <button class="tab-pill" onclick="setFoodCategory('custom', this)">✏️ My Custom Foods</button>
+                <button class="tab-pill" onclick="setFoodCategory('nepali', this)">Nepali Khana</button>
+                <button class="tab-pill" onclick="setFoodCategory('fitness', this)">High Protein</button>
+                <button class="tab-pill" onclick="setFoodCategory('quick', this)">Quick Add</button>
+                <button class="tab-pill" onclick="setFoodCategory('custom', this)">My Custom Foods</button>
             </div>
 
             <div class="food-library-list" id="foodLibraryContainer">
@@ -992,39 +1688,46 @@
     <!-- Modal: Create Custom Food -->
     <div class="modal" id="customFoodModal">
         <div class="modal-content">
+            <div class="sheet-handle"></div>
             <div class="modal-header">
-                <h3>✏️ Create Custom Food</h3>
-                <button class="icon-btn" onclick="closeModal('customFoodModal')">✕</button>
+                <h3>Create Custom Food</h3>
+                <button class="btn-close-modal" onclick="closeModal('customFoodModal')">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
-            <div style="padding: 18px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;">
+            <div style="padding: 18px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto;">
                 <div>
                     <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Food / Dish Name</label>
-                    <input type="text" id="custFoodName" placeholder="e.g. Chicken Sekuwa, Aalu Paratha" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    <input type="text" id="custFoodName" placeholder="e.g. Chicken Sekuwa, Aalu Paratha" style="width: 100%; background: #090B0F; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                 </div>
                 <div>
                     <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Serving / Portion</label>
-                    <input type="text" id="custFoodUnit" placeholder="e.g. 1 plate, 150g, 2 pcs" value="1 plate" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    <input type="text" id="custFoodUnit" placeholder="e.g. 1 plate, 150g, 2 pcs" value="1 plate" style="width: 100%; background: #090B0F; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
                         <label style="font-size: 12px; font-weight: 700; color: var(--calorie);">Calories (kcal)</label>
-                        <input type="number" id="custFoodCal" placeholder="350" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <input type="number" id="custFoodCal" placeholder="350" style="width: 100%; background: #090B0F; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                     <div>
                         <label style="font-size: 12px; font-weight: 700; color: var(--protein);">Protein (g)</label>
-                        <input type="number" id="custFoodP" placeholder="25" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <input type="number" id="custFoodP" placeholder="25" style="width: 100%; background: #090B0F; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                     <div>
                         <label style="font-size: 12px; font-weight: 700; color: var(--carbs);">Carbs (g)</label>
-                        <input type="number" id="custFoodC" placeholder="30" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <input type="number" id="custFoodC" placeholder="30" style="width: 100%; background: #090B0F; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                     <div>
                         <label style="font-size: 12px; font-weight: 700; color: var(--fat);">Fat (g)</label>
-                        <input type="number" id="custFoodF" placeholder="10" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <input type="number" id="custFoodF" placeholder="10" style="width: 100%; background: #090B0F; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                 </div>
-                <button onclick="saveAndAddCustomFood()" style="background: var(--accent); color: #090d16; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 6px;">
-                    💾 Save to My Library &amp; Log
+                <button onclick="saveAndAddCustomFood()" style="background: var(--accent); color: #000000; border: none; padding: 13px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 6px; transition:transform 0.15s;">
+                    Save to My Library &amp; Log
                 </button>
             </div>
         </div>
@@ -1033,29 +1736,49 @@
     <!-- Modal: AI Coach Chat Drawer -->
     <div class="modal" id="chatModal">
         <div class="modal-content" style="max-height: 85vh;">
+            <div class="sheet-handle"></div>
             <div class="modal-header">
-                <h3>🤖 AI Nutrition Coach</h3>
-                <button class="icon-btn" onclick="closeModal('chatModal')">✕</button>
+                <h3>
+                    <span class="svg-icon" style="width:20px; height:20px; color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                        </svg>
+                    </span>
+                    <span>AI Nutrition Coach</span>
+                </h3>
+                <button class="btn-close-modal" onclick="closeModal('chatModal')">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
 
             <div class="chat-msgs-box" id="chatMessages">
                 <div class="chat-bubble bubble-ai">
 Namaste bro! Ma timro NutriPulse AI Nutrition Coach hu.
 Aja k khayau ya aba k khaney bhana, ma pura guide garchu!
-Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pani ma diary ma log gardinchu! 🥗✨
+Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pani ma diary ma log gardinchu!
                 </div>
             </div>
 
             <div class="chat-quick-chips">
-                <button class="chat-chip" onclick="askQuickPrompt('Aja dinner ma k kham?')">🍲 Dinner ma k kham?</button>
-                <button class="chat-chip" onclick="askQuickPrompt('Protein kasari pura garne?')">🥩 Protein kasari pugcha?</button>
-                <button class="chat-chip" onclick="askQuickPrompt('Log 2 boiled eggs to breakfast')">🥚 Log 2 Boiled Eggs</button>
-                <button class="chat-chip" onclick="askQuickPrompt('Mero daily status k cha?')">📊 Daily Status</button>
+                <button class="chat-chip" onclick="askQuickPrompt('Aja dinner ma k kham?')">Dinner ma k kham?</button>
+                <button class="chat-chip" onclick="askQuickPrompt('Protein kasari pura garne?')">Protein kasari pugcha?</button>
+                <button class="chat-chip" onclick="askQuickPrompt('Log 2 boiled eggs to breakfast')">+ Log 2 Boiled Eggs</button>
+                <button class="chat-chip" onclick="askQuickPrompt('Mero daily status k cha?')">Daily Status</button>
             </div>
 
             <div class="chat-input-bar">
                 <input type="text" id="chatInput" placeholder="Kura garnus (e.g. 'Aja dinner ma k kham?')" onkeydown="if(event.key==='Enter') sendChatMessage()">
-                <button class="btn-send-chat" onclick="sendChatMessage()">Send</button>
+                <button class="btn-send-chat" onclick="sendChatMessage()" title="Send">
+                    <span class="svg-icon" style="width:18px; height:18px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
         </div>
     </div>
@@ -1063,28 +1786,45 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
     <!-- Modal: MyFitnessPal Sync Drawer -->
     <div class="modal" id="syncModal">
         <div class="modal-content">
+            <div class="sheet-handle"></div>
             <div class="modal-header">
-                <h3>🔄 MyFitnessPal Sync Engine</h3>
-                <button class="icon-btn" onclick="closeModal('syncModal')">✕</button>
+                <h3>
+                    <span class="svg-icon" style="width:20px; height:20px; color:var(--mfp-blue);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+                        </svg>
+                    </span>
+                    <span>MyFitnessPal Sync Engine</span>
+                </h3>
+                <button class="btn-close-modal" onclick="closeModal('syncModal')">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
             <div style="padding: 18px; overflow-y: auto;">
-                <div style="background: rgba(0,102,238,0.1); border: 1px solid rgba(0,102,238,0.3); border-radius: 14px; padding: 14px; margin-bottom: 16px;">
-                    <div style="font-weight: 800; font-size: 14px; color: #60a5fa; margin-bottom: 4px;">⚡ No-Premium Direct Sync</div>
-                    <p style="font-size: 12px; line-height: 1.45; color: var(--text-secondary);">
+                <div style="background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.3); border-radius: 14px; padding: 14px; margin-bottom: 16px;">
+                    <div style="font-weight: 800; font-size: 13.5px; color: #60A5FA; margin-bottom: 4px; display:flex; align-items:center; gap:6px;">
+                        <span>⚡ Direct Zen Browser Bridge Sync</span>
+                    </div>
+                    <p style="font-size: 12px; line-height: 1.5; color: var(--text-secondary);">
                         Timro laptop ko Zen browser cookies use garera MyFitnessPal diary ma free ma entries push hunchha.
                     </p>
                 </div>
 
                 <div style="margin-bottom: 16px;">
-                    <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Aja Log Bhayeko Khana (<span id="syncPendingCount">0</span> items):</div>
+                    <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">Aja Log Bhayeko Khana (<span id="syncPendingCount" style="color:var(--accent);">0</span> items):</div>
                     <div id="syncQueueList" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;"></div>
                 </div>
 
-                <button id="btnRunSync" onclick="triggerMyFitnessPalSync()" style="width: 100%; background: #0066ee; color: #fff; border: none; padding: 13px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer;">
-                    🚀 Sync All to MyFitnessPal Now
+                <button id="btnRunSync" onclick="triggerMyFitnessPalSync()" style="width: 100%; background: #0066EE; color: #fff; border: none; padding: 14px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition:transform 0.15s; display:flex; align-items:center; justify-content:center; gap:8px;">
+                    <span class="svg-icon" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg></span>
+                    <span>Sync All to MyFitnessPal Now</span>
                 </button>
                 
-                <div id="syncStatusMsg" style="margin-top: 10px; font-size: 12px; text-align: center; color: var(--text-secondary);"></div>
+                <div id="syncStatusMsg" style="margin-top: 12px; font-size: 12px; text-align: center; color: var(--text-secondary);"></div>
             </div>
         </div>
     </div>
@@ -1092,14 +1832,28 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
     <!-- Modal: Profile & Target Calculator -->
     <div class="modal" id="profileModal">
         <div class="modal-content">
+            <div class="sheet-handle"></div>
             <div class="modal-header">
-                <h3>⚙️ Profile &amp; Calorie Goal</h3>
-                <button class="icon-btn" onclick="closeModal('profileModal')">✕</button>
+                <h3>
+                    <span class="svg-icon" style="width:20px; height:20px; color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </span>
+                    <span>Profile &amp; Calorie Goal</span>
+                </h3>
+                <button class="btn-close-modal" onclick="closeModal('profileModal')">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
             <div style="padding: 18px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto;">
                 <div>
-                    <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Goal</label>
-                    <select id="profGoal" onchange="updateProfileCalcPreview()" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Goal Direction</label>
+                    <select id="profGoal" onchange="updateProfileCalcPreview()" style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:13.5px; font-weight:600;">
                         <option value="cut">Fat Loss / Cutting (-500 kcal)</option>
                         <option value="maintain" selected>Maintain Weight (0 kcal)</option>
                         <option value="bulk">Muscle Gain / Bulking (+300 kcal)</option>
@@ -1109,28 +1863,28 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 <div style="display: flex; gap: 10px;">
                     <div style="flex: 1;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Weight (kg)</label>
-                        <input type="number" id="profWeight" value="70" oninput="updateProfileCalcPreview()" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <input type="number" id="profWeight" value="70" oninput="updateProfileCalcPreview()" style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                     <div style="flex: 1;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Height (cm)</label>
-                        <input type="number" id="profHeight" value="175" oninput="updateProfileCalcPreview()" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <input type="number" id="profHeight" value="175" oninput="updateProfileCalcPreview()" style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                 </div>
 
                 <div style="display: flex; gap: 10px;">
                     <div style="flex: 1;">
-                        <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Age</label>
-                        <input type="number" id="profAge" value="24" oninput="updateProfileCalcPreview()" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Age (years)</label>
+                        <input type="number" id="profAge" value="24" oninput="updateProfileCalcPreview()" style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                     <div style="flex: 1;">
                         <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Water Goal (ml)</label>
-                        <input type="number" id="profWaterGoal" value="2500" step="100" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                        <input type="number" id="profWaterGoal" value="2500" step="100" style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:14px;">
                     </div>
                 </div>
 
                 <div>
                     <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Activity Level</label>
-                    <select id="profActivity" onchange="updateProfileCalcPreview()" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    <select id="profActivity" onchange="updateProfileCalcPreview()" style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:13.5px; font-weight:600;">
                         <option value="1.2">Sedentary (Little or no exercise, 1.2x)</option>
                         <option value="1.375">Lightly Active (Exercise 1-3 days/wk, 1.375x)</option>
                         <option value="1.55" selected>Moderately Active (Gym 3-5 days/wk, 1.55x)</option>
@@ -1139,8 +1893,10 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 </div>
 
                 <!-- Live TDEE & Formula Breakdown -->
-                <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; font-size: 11px; line-height: 1.6;">
-                    <div style="font-weight: 800; color: var(--calorie); margin-bottom: 6px; font-size: 12px;">📐 Calorie Target Calculation (Mifflin-St Jeor)</div>
+                <div style="background: #090B0F; border: 1px solid var(--border); border-radius: 14px; padding: 14px; font-size: 11.5px; line-height: 1.7;">
+                    <div style="font-weight: 800; color: var(--calorie); margin-bottom: 6px; font-size: 12px; display:flex; align-items:center; gap:5px;">
+                        <span>Target Calculation (Mifflin-St Jeor)</span>
+                    </div>
                     <div style="display: flex; justify-content: space-between; color: var(--text-secondary);">
                         <span>1. Body BMR (Resting burn):</span>
                         <strong id="prevBmrVal" style="color:#fff;">1,679 kcal</strong>
@@ -1153,7 +1909,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                         <span>3. Goal Adjustment (<span id="prevGoalLabel">Maintain</span>):</span>
                         <strong id="prevGoalVal" style="color:#fff;">0 kcal</strong>
                     </div>
-                    <div style="border-top: 1px solid var(--border); margin-top: 6px; padding-top: 6px; display: flex; justify-content: space-between; font-weight: 800; color: var(--accent); font-size: 13px;">
+                    <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px; display: flex; justify-content: space-between; font-weight: 800; color: var(--accent); font-size: 13.5px;">
                         <span>= Total Daily Target:</span>
                         <span id="prevTotalTdee">2,602 kcal</span>
                     </div>
@@ -1161,15 +1917,27 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
                 <div>
                     <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Gemini AI Key (Optional for cloud Vision &amp; Coach)</label>
-                    <input type="password" id="profGeminiKey" placeholder="AIzaSy..." style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    <input type="password" id="profGeminiKey" placeholder="AIzaSy..." style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 11px 14px; border-radius: 12px; margin-top: 5px; outline:none; font-size:13.5px;">
                 </div>
 
-                <button onclick="saveProfile()" style="background: var(--accent); color: #090d16; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 6px;">
+                <button onclick="saveProfile()" style="background: var(--accent); color: #000000; border: none; padding: 13px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 4px; transition:transform 0.15s;">
                     Save &amp; Recalculate Target
                 </button>
 
-                <button type="button" onclick="forceUpdateAndClearCache()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--accent); padding: 11px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    🔄 Force Refresh &amp; Update App (v4)
+                <!-- Data Backup & Restore -->
+                <div style="display:flex; gap:10px; margin-top:4px;">
+                    <button type="button" onclick="exportDataBackup()" style="flex:1; background: #0B0D12; border: 1px solid var(--border); color: var(--text-secondary); padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer;">
+                        📥 Backup JSON
+                    </button>
+                    <button type="button" onclick="document.getElementById('importFileInput').click()" style="flex:1; background: #0B0D12; border: 1px solid var(--border); color: var(--text-secondary); padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer;">
+                        📤 Restore JSON
+                    </button>
+                    <input type="file" id="importFileInput" accept=".json" onchange="importDataBackup(event)" style="display:none;">
+                </div>
+
+                <button type="button" onclick="forceUpdateAndClearCache()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--accent); padding: 12px; border-radius: 14px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span class="svg-icon" style="width:16px; height:16px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
+                    <span>Force Refresh &amp; Update App (v5)</span>
                 </button>
             </div>
         </div>
@@ -1178,105 +1946,154 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
     <!-- Modal: AI Food Photo Scanner -->
     <div class="modal" id="photoScanModal">
         <div class="modal-content" style="max-height: 90vh;">
+            <div class="sheet-handle"></div>
             <div class="modal-header">
-                <h3>📷 AI Food Photo Scanner</h3>
-                <button class="icon-btn" onclick="closeModal('photoScanModal')">✕</button>
+                <h3>
+                    <span class="svg-icon" style="width:20px; height:20px; color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </span>
+                    <span>AI Food Photo Scanner</span>
+                </h3>
+                <button class="btn-close-modal" onclick="closeModal('photoScanModal')">
+                    <span class="svg-icon" style="width:16px; height:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </span>
+                </button>
             </div>
             <div style="padding: 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto;">
                 
-                <!-- Upload / Camera Dropzone -->
-                <div id="scanUploadArea" onclick="document.getElementById('foodPhotoInput').click()" style="border: 2px dashed rgba(56, 189, 248, 0.45); border-radius: 18px; padding: 26px 16px; text-align: center; cursor: pointer; background: rgba(56, 189, 248, 0.04);">
-                    <div style="font-size: 40px; margin-bottom: 6px;">📸</div>
-                    <div style="font-weight: 800; font-size: 14px; color: var(--accent);">Take Photo or Upload Food Image</div>
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Dal Bhat, Momo, Curry, Oats, Eggs - AI estimates portion &amp; macros</div>
-                    <button type="button" style="margin-top: 12px; background: var(--accent); color: #090d16; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 800; font-size: 12px; cursor: pointer;">
-                        Choose Camera / Gallery
+                <!-- Upload / Camera Dropzone Viewfinder -->
+                <div id="scanUploadArea" class="scan-viewfinder" onclick="document.getElementById('foodPhotoInput').click()">
+                    <div style="width:56px; height:56px; border-radius:16px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); display:flex; align-items:center; justify-content:center; margin:0 auto 12px; color:var(--accent);">
+                        <span class="svg-icon" style="width:28px; height:28px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                <circle cx="12" cy="13" r="4"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div style="font-weight: 800; font-size: 15px; color: #FFFFFF; letter-spacing:-0.2px;">Take Photo or Upload Food Image</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Dal Bhat, Momo, Curry, Oats, Eggs - AI estimates portion &amp; macros</div>
+                    
+                    <button type="button" style="margin-top: 14px; background: var(--accent); color: #000000; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 800; font-size: 12px; cursor: pointer; display:inline-flex; align-items:center; gap:6px;">
+                        <span>Choose Camera or Gallery</span>
                     </button>
                 </div>
 
-                <!-- Analyzing Loading State -->
-                <div id="scanLoadingArea" style="display: none; text-align: center; padding: 35px 20px;">
-                    <div style="font-size: 42px; display: inline-block;">🤖</div>
-                    <div style="font-weight: 800; font-size: 15px; margin-top: 12px; color: var(--accent);">Analyzing Food Image with AI...</div>
+                <!-- Analyzing Loading State with Animated Laser -->
+                <div id="scanLoadingArea" style="display: none; text-align: center; padding: 35px 20px; position:relative; background:#0B0D12; border-radius:18px; border:1px solid var(--border);">
+                    <div class="scan-laser-line" id="scanLaserLine" style="display:block;"></div>
+                    <div style="width:50px; height:50px; border-radius:15px; background:rgba(56,189,248,0.15); display:inline-flex; align-items:center; justify-content:center; color:var(--accent);">
+                        <span class="svg-icon" style="width:26px; height:26px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div style="font-weight: 800; font-size: 15px; margin-top: 14px; color: #FFFFFF;">Analyzing Food Image with AI...</div>
                     <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Detecting dishes, estimating portion size &amp; calculating macros</div>
                 </div>
 
                 <!-- Analysis Result Card -->
-                <div id="scanResultArea" style="display: none; flex-direction: column; gap: 12px;">
-                    <div style="display: flex; gap: 12px; align-items: center; background: var(--bg); padding: 10px; border-radius: 14px; border: 1px solid var(--border);">
-                        <img id="scanPreviewImg" src="" style="width: 72px; height: 72px; object-fit: cover; border-radius: 10px; flex-shrink: 0;">
-                        <div style="flex: 1;">
-                            <input type="text" id="scanResultName" style="background: transparent; border: none; font-weight: 800; font-size: 15px; color: #fff; width: 100%; outline: none;" placeholder="Food Name">
-                            <div id="scanResultPortion" style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">Estimated: ~1 standard plate</div>
+                <div id="scanResultArea" style="display: none; flex-direction: column; gap: 14px;">
+                    <div style="display: flex; gap: 12px; align-items: center; background: #0B0D12; padding: 12px; border-radius: 14px; border: 1px solid var(--border);">
+                        <img id="scanPreviewImg" src="" style="width: 72px; height: 72px; object-fit: cover; border-radius: 10px; flex-shrink: 0; background:#181C26;">
+                        <div style="flex: 1; min-width:0;">
+                            <input type="text" id="scanResultName" style="background: transparent; border: 1px solid transparent; border-bottom-color: var(--border); font-weight: 800; font-size: 15px; color: #fff; width: 100%; outline: none; padding: 4px 0;" placeholder="Food Name">
+                            <div id="scanResultPortion" style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Estimated: ~1 standard plate</div>
                         </div>
                     </div>
 
                     <!-- Macro Breakdown Grid -->
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center;">
-                        <div style="background: var(--bg); padding: 8px 4px; border-radius: 10px; border: 1px solid var(--border);">
-                            <div style="font-size: 10px; color: var(--calorie); font-weight: 700;">Calories</div>
-                            <input type="number" id="scanResultCal" style="width: 100%; background: transparent; border: none; text-align: center; font-size: 14px; font-weight: 800; color: #fff;">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center;">
+                        <div style="background: #0B0D12; padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border);">
+                            <div style="font-size: 10px; color: var(--calorie); font-weight: 800; text-transform:uppercase;">Calories</div>
+                            <div style="display:flex; align-items:center; justify-content:center; gap:2px; margin-top:2px;">
+                                <input type="number" id="scanResultCal" style="width: 48px; background: transparent; border: none; text-align: center; font-size: 15px; font-weight: 800; color: #fff; outline:none;">
+                                <span style="font-size:10px; color:var(--text-muted);">kcal</span>
+                            </div>
                         </div>
-                        <div style="background: var(--bg); padding: 8px 4px; border-radius: 10px; border: 1px solid var(--border);">
-                            <div style="font-size: 10px; color: var(--protein); font-weight: 700;">Protein</div>
-                            <input type="number" id="scanResultP" style="width: 100%; background: transparent; border: none; text-align: center; font-size: 14px; font-weight: 800; color: #fff;">
+                        <div style="background: #0B0D12; padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border);">
+                            <div style="font-size: 10px; color: var(--protein); font-weight: 800; text-transform:uppercase;">Protein</div>
+                            <div style="display:flex; align-items:center; justify-content:center; gap:2px; margin-top:2px;">
+                                <input type="number" id="scanResultP" style="width: 42px; background: transparent; border: none; text-align: center; font-size: 15px; font-weight: 800; color: #fff; outline:none;">
+                                <span style="font-size:10px; color:var(--text-muted);">g</span>
+                            </div>
                         </div>
-                        <div style="background: var(--bg); padding: 8px 4px; border-radius: 10px; border: 1px solid var(--border);">
-                            <div style="font-size: 10px; color: var(--carbs); font-weight: 700;">Carbs</div>
-                            <input type="number" id="scanResultC" style="width: 100%; background: transparent; border: none; text-align: center; font-size: 14px; font-weight: 800; color: #fff;">
+                        <div style="background: #0B0D12; padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border);">
+                            <div style="font-size: 10px; color: var(--carbs); font-weight: 800; text-transform:uppercase;">Carbs</div>
+                            <div style="display:flex; align-items:center; justify-content:center; gap:2px; margin-top:2px;">
+                                <input type="number" id="scanResultC" style="width: 42px; background: transparent; border: none; text-align: center; font-size: 15px; font-weight: 800; color: #fff; outline:none;">
+                                <span style="font-size:10px; color:var(--text-muted);">g</span>
+                            </div>
                         </div>
-                        <div style="background: var(--bg); padding: 8px 4px; border-radius: 10px; border: 1px solid var(--border);">
-                            <div style="font-size: 10px; color: var(--fat); font-weight: 700;">Fat</div>
-                            <input type="number" id="scanResultF" style="width: 100%; background: transparent; border: none; text-align: center; font-size: 14px; font-weight: 800; color: #fff;">
+                        <div style="background: #0B0D12; padding: 10px 4px; border-radius: 12px; border: 1px solid var(--border);">
+                            <div style="font-size: 10px; color: var(--fat); font-weight: 800; text-transform:uppercase;">Fat</div>
+                            <div style="display:flex; align-items:center; justify-content:center; gap:2px; margin-top:2px;">
+                                <input type="number" id="scanResultF" style="width: 42px; background: transparent; border: none; text-align: center; font-size: 15px; font-weight: 800; color: #fff; outline:none;">
+                                <span style="font-size:10px; color:var(--text-muted);">g</span>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Detected Items Breakdown List -->
-                    <div id="scanBreakdownList" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.55;">
+                    <div id="scanBreakdownList" style="background: #0B0D12; border: 1px solid var(--border); border-radius: 12px; padding: 11px 14px; font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
                     </div>
 
                     <!-- Select Target Meal Slot -->
                     <div>
-                        <label style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">Log to Meal:</label>
-                        <select id="scanTargetMeal" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 8px 12px; border-radius: 10px; margin-top: 4px; font-weight: 700;">
-                            <option value="0">🌅 Breakfast</option>
-                            <option value="1" selected>☀️ Lunch</option>
-                            <option value="2">🌙 Dinner</option>
-                            <option value="3">🍎 Snacks</option>
+                        <label style="font-size: 11.5px; font-weight: 700; color: var(--text-secondary);">Log to Meal Slot:</label>
+                        <select id="scanTargetMeal" style="width: 100%; background: #0B0D12; border: 1px solid var(--border); color: #fff; padding: 10px 14px; border-radius: 12px; margin-top: 5px; font-weight: 700; font-size:13.5px; outline:none;">
+                            <option value="0">Breakfast</option>
+                            <option value="1" selected>Lunch</option>
+                            <option value="2">Dinner</option>
+                            <option value="3">Snacks</option>
                         </select>
                     </div>
 
-                    <div style="display: flex; gap: 8px;">
-                        <button onclick="confirmScanLog()" style="flex: 2; background: var(--accent); color: #090d16; border: none; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer;">
-                            ✅ Confirm &amp; Log to Diary
+                    <div style="display: flex; gap: 10px;">
+                        <button onclick="confirmScanLog()" style="flex: 2; background: var(--accent); color: #000000; border: none; padding: 13px; border-radius: 14px; font-weight: 800; font-size: 14px; cursor: pointer; transition:transform 0.15s;">
+                            Confirm &amp; Log to Diary
                         </button>
-                        <button onclick="retakePhoto()" style="flex: 1; background: var(--bg); border: 1px solid var(--border); color: var(--text-secondary); padding: 12px; border-radius: 12px; font-weight: 700; font-size: 12px; cursor: pointer;">
-                            🔄 Retake
+                        <button onclick="retakePhoto()" style="flex: 1; background: #0B0D12; border: 1px solid var(--border); color: var(--text-secondary); padding: 13px; border-radius: 14px; font-weight: 700; font-size: 13px; cursor: pointer;">
+                            Retake
                         </button>
                     </div>
                 </div>
 
                 <!-- API Key Hint / Demo Trigger -->
-                <div id="scanKeyHint" style="background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.3); border-radius: 12px; padding: 10px 12px; font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
-                    💡 <strong>Smart AI Vision</strong>: Uses Google Gemini Vision (100% free API).<br>
-                    <a href="javascript:void(0)" onclick="openProfileModal(); closeModal('photoScanModal');" style="color: var(--accent); font-weight: 700;">Settings ⚙️ ma free Gemini Key halnus</a> ya tala test garnus:
-                    <button onclick="runDemoPhotoScan()" style="display: block; width: 100%; margin-top: 8px; background: rgba(56,189,248,0.15); border: 1px solid var(--accent); color: #38bdf8; padding: 7px; border-radius: 8px; font-weight: 700; font-size: 11px; cursor: pointer;">
-                        ⚡ Test with Sample Nepali Dal Bhat + Masu
+                <div id="scanKeyHint" style="background: rgba(10,132,255,0.08); border: 1px solid rgba(10,132,255,0.25); border-radius: 14px; padding: 12px 14px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.5;">
+                    <div style="color:#60A5FA; font-weight:700; margin-bottom:4px;">Smart AI Vision (Google Gemini)</div>
+                    <a href="javascript:void(0)" onclick="openProfileModal(); closeModal('photoScanModal');" style="color: var(--accent); font-weight: 700; text-decoration:none;">Settings ma free Gemini Key halnus</a> ya tala sample plate bata test garnus:
+                    <button onclick="runDemoPhotoScan()" style="display: block; width: 100%; margin-top: 8px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38BDF8; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 11.5px; cursor: pointer;">
+                        ⚡ Test with Sample Nepali Dal Bhat + Masu Plate
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="toast">Khana log bhayo!</div>
+    <!-- Dynamic Island / Top Toast Notification Pill -->
+    <div id="toast" class="toast">
+        <span class="svg-icon" style="width:16px; height:16px; color:#30D158;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+        </span>
+        <span id="toastMsg">Khana log bhayo!</span>
+    </div>
 
     <script>
         // ==========================================
         // 1. EXTENSIVE NEPALI & FITNESS FOOD DATABASE (45+ STAPLES)
         // ==========================================
         const BASE_FOOD_DATABASE = [
-            // 🇳🇵 Authentic Nepali Staples
+            // Authentic Nepali Staples
             { id: 'dalbhat', name: 'Dal Bhat Tarkari (Standard Plate)', category: 'nepali', cal: 550, p: 14, c: 95, f: 12, unit: '1 plate' },
             { id: 'dalbhat_masu', name: 'Dal Bhat + Chicken Curry', category: 'nepali', cal: 680, p: 34, c: 96, f: 18, unit: '1 plate' },
             { id: 'chicken_curry', name: 'Nepali Chicken Curry (Masu)', category: 'nepali', cal: 260, p: 28, c: 6, f: 14, unit: '1 bowl / 150g' },
@@ -1305,7 +2122,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             { id: 'khichdi', name: 'Moong Dal Khichdi', category: 'nepali', cal: 320, p: 12, c: 52, f: 7, unit: '1 plate' },
             { id: 'aalu_dum', name: 'Nepali Aalu Dum', category: 'nepali', cal: 180, p: 4, c: 28, f: 6, unit: '1 bowl' },
 
-            // 🏋️ Fitness Staples & High Protein
+            // Fitness Staples & High Protein
             { id: 'egg_boiled', name: 'Boiled Egg (Large)', category: 'fitness', cal: 78, p: 6.3, c: 0.6, f: 5.3, unit: '1 egg' },
             { id: 'egg_boiled_2', name: '2 Boiled Eggs', category: 'fitness', cal: 156, p: 12.6, c: 1.2, f: 10.6, unit: '2 eggs' },
             { id: 'egg_omelette', name: 'Egg Omelette (1 egg + oil)', category: 'fitness', cal: 115, p: 6.5, c: 1, f: 9.5, unit: '1 egg' },
@@ -1377,7 +2194,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             }
             if (!appState.selectedDate) appState.selectedDate = getTodayDateStr();
 
-            // Migration: ensure past meals have a date field
+            // Migration: ensure past meals have proper fields
             appState.meals.forEach(m => {
                 if (!m.date) m.date = getTodayDateStr();
                 if (!m.calories) m.calories = m.cal;
@@ -1452,10 +2269,12 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
             if (appState.selectedDate === todayStr) {
                 dateLabelEl.innerText = `Today, ${formatted}`;
-                dateSubEl.innerText = '● Current Day';
+                dateSubEl.innerHTML = `<span class="svg-icon" style="width:8px; height:8px;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span><span>Current Day</span>`;
+                dateSubEl.style.color = 'var(--accent)';
             } else {
                 dateLabelEl.innerText = formatted;
-                dateSubEl.innerText = 'Tap to return to today';
+                dateSubEl.innerHTML = `<span>Tap to return to today</span>`;
+                dateSubEl.style.color = '#F59E0B';
             }
         }
 
@@ -1475,6 +2294,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             appState.water[appState.selectedDate] = 0;
             saveState();
             renderWaterWidget();
+            showToast('Water counter reset!');
         }
 
         function renderWaterWidget() {
@@ -1482,12 +2302,13 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             const goal = appState.profile.waterGoal || 2500;
             const pct = Math.min(100, Math.round((current / goal) * 100));
 
-            document.getElementById('waterDisplay').innerText = `${current.toLocaleString()} / ${goal.toLocaleString()} ml (${pct}%)`;
+            document.getElementById('waterDisplay').innerText = `${current.toLocaleString()} / ${goal.toLocaleString()} ml`;
+            document.getElementById('waterPctBadge').innerText = `${pct}%`;
             document.getElementById('waterFill').style.width = `${pct}%`;
         }
 
         // ==========================================
-        // 5. DASHBOARD RENDERING & MACRO RINGS
+        // 5. DASHBOARD RENDERING & APPLE FITNESS RINGS
         // ==========================================
         function renderDashboard() {
             renderWaterWidget();
@@ -1513,50 +2334,86 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 row.innerHTML = `
                     <div class="food-details">
                         <div class="food-name">${m.name}</div>
-                        <div class="food-macros-line">🥩 ${m.p}g P • 🌾 ${m.c}g C • 🥑 ${m.f}g F ${m.synced ? '• <span style="color:#22c55e">✓ MFP</span>' : ''}</div>
+                        <div class="macro-tag-row">
+                            <span class="macro-tag tag-prot">${m.p}g P</span>
+                            <span class="macro-tag tag-carb">${m.c}g C</span>
+                            <span class="macro-tag tag-fat">${m.f}g F</span>
+                            ${m.synced ? '<span class="macro-tag tag-mfp">✓ MFP</span>' : ''}
+                        </div>
                     </div>
                     <div class="food-right">
-                        <span class="food-cal-badge">${m.cal} kcal</span>
-                        <button class="btn-del-food" onclick="deleteMealItemById('${m.id}')" title="Delete">✕</button>
+                        <span class="food-cal-badge">${m.cal.toLocaleString()} kcal</span>
+                        <button class="btn-del-food" onclick="deleteMealItemById('${m.id}')" title="Delete Food Item">
+                            <span class="svg-icon" style="width:14px; height:14px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                            </span>
+                        </button>
                     </div>
                 `;
                 mealContainers[m.meal_id].appendChild(row);
             });
 
             // Empty meal hints
+            const mealLabels = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
             [0, 1, 2, 3].forEach(i => {
-                document.getElementById(`mealCal-${i}`).innerText = `${mealTotals[i]} kcal`;
+                document.getElementById(`mealCal-${i}`).innerText = `${mealTotals[i].toLocaleString()} kcal`;
                 if (!mealContainers[i].children.length) {
-                    mealContainers[i].innerHTML = '<div class="empty-meal-hint">Kehi khana log bhayeko chaina</div>';
+                    mealContainers[i].innerHTML = `<div class="empty-meal-hint" onclick="openAddFoodModal(${i})">+ Tap to log ${mealLabels[i]}</div>`;
                 }
             });
 
-            // Target fractions
+            // Target fractions & Percentages
             const { targetCal, targetProt, targetCarb, targetFat } = appState.profile;
             const remCal = targetCal - totalCal;
-            document.getElementById('dispRemCal').innerText = remCal >= 0 ? remCal : `+${Math.abs(remCal)}`;
-            document.getElementById('calFraction').innerText = `${totalCal} / ${targetCal} kcal`;
+            const remEl = document.getElementById('dispRemCal');
+            const remTextEl = document.getElementById('dispRemText');
+
+            if (remCal >= 0) {
+                remEl.innerText = remCal.toLocaleString();
+                remEl.style.color = '#FFFFFF';
+                remTextEl.innerText = 'KCAL LEFT';
+            } else {
+                remEl.innerText = `+${Math.abs(remCal).toLocaleString()}`;
+                remEl.style.color = 'var(--calorie)';
+                remTextEl.innerText = 'OVER GOAL';
+            }
+
+            document.getElementById('calFraction').innerText = `${totalCal.toLocaleString()} / ${targetCal.toLocaleString()} kcal`;
             document.getElementById('protFraction').innerText = `${Math.round(totalP)} / ${targetProt}g`;
             document.getElementById('carbFraction').innerText = `${Math.round(totalC)} / ${targetCarb}g`;
             document.getElementById('fatFraction').innerText = `${Math.round(totalF)} / ${targetFat}g`;
 
-            // Progress Bars
-            document.getElementById('barCal').style.width = Math.min(100, (totalCal / targetCal) * 100) + '%';
-            document.getElementById('barProt').style.width = Math.min(100, (totalP / targetProt) * 100) + '%';
-            document.getElementById('barCarb').style.width = Math.min(100, (totalC / targetCarb) * 100) + '%';
-            document.getElementById('barFat').style.width = Math.min(100, (totalF / targetFat) * 100) + '%';
+            // Percentage Badges
+            const calPct = Math.round((totalCal / targetCal) * 100);
+            const protPct = Math.round((totalP / targetProt) * 100);
+            const carbPct = Math.round((totalC / targetCarb) * 100);
+            const fatPct = Math.round((totalF / targetFat) * 100);
 
-            // SVG Animated Concentric Rings
-            setRingProgress('ringCal', 301.6, totalCal / targetCal);
-            setRingProgress('ringProt', 226.2, totalP / targetProt);
-            setRingProgress('ringCarb', 157.1, totalC / targetCarb);
+            document.getElementById('calPctPill').innerText = `${calPct}%`;
+            document.getElementById('protPctPill').innerText = `${protPct}%`;
+            document.getElementById('carbPctPill').innerText = `${carbPct}%`;
+            document.getElementById('fatPctPill').innerText = `${fatPct}%`;
+
+            // Progress Bars Fill
+            document.getElementById('barCal').style.width = Math.min(100, calPct) + '%';
+            document.getElementById('barProt').style.width = Math.min(100, protPct) + '%';
+            document.getElementById('barCarb').style.width = Math.min(100, carbPct) + '%';
+            document.getElementById('barFat').style.width = Math.min(100, fatPct) + '%';
+
+            // Apple Activity Concentric Rings
+            // Circumferences: Outer Calorie = 314.16, Middle Protein = 238.76, Inner Carbs = 169.65
+            setRingProgress('ringCal', 314.16, totalCal / targetCal);
+            setRingProgress('ringProt', 238.76, totalP / targetProt);
+            setRingProgress('ringCarb', 169.65, totalC / targetCarb);
 
             // Unsynced badge
             const unsyncedCount = appState.meals.filter(m => !m.synced).length;
             const badge = document.getElementById('unsyncedBadge');
             if (unsyncedCount > 0) {
-                badge.style.display = 'inline-block';
-                badge.innerText = unsyncedCount;
+                badge.style.display = 'flex';
+                badge.innerText = unsyncedCount > 9 ? '9+' : unsyncedCount;
             } else {
                 badge.style.display = 'none';
             }
@@ -1589,9 +2446,9 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             } else if (remCal > 0 && remP <= 10) {
                 tipEl.innerText = `Great job bro! Protein lagbhag pura bhayo. Baki ${remCal} kcal ma roti ya fruit lina milcha.`;
             } else if (remCal <= 0) {
-                tipEl.innerText = `Aja ko calorie target pura bhaisakyo! Aba paani dherai piunuhos ra rest garnus.`;
+                tipEl.innerText = `Aja ko calorie target pura bhaisakyo! Aba paani piunuhos ra proper rest garnus.`;
             } else {
-                tipEl.innerText = `Target ramrari chaliracha: ${remCal} kcal baki cha (${remP}g protein). Healthy khanu!`;
+                tipEl.innerText = `Target ramrari chaliracha: ${remCal} kcal baki cha (${remP}g protein). Keep going!`;
             }
         }
 
@@ -1603,7 +2460,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             const mealNames = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
             document.getElementById('addFoodModalTitle').innerText = `Add Food to ${mealNames[mealId]}`;
             renderFoodLibrary();
-            document.getElementById('addFoodModal').classList.add('open');
+            openModal('addFoodModal');
         }
 
         function renderFoodLibrary() {
@@ -1611,34 +2468,41 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             const searchVal = (document.getElementById('foodSearchInput').value || '').toLowerCase().trim();
             const fullDB = getFullFoodDatabase();
 
+            const clearBtn = document.getElementById('searchClearBtn');
+            if (clearBtn) clearBtn.style.display = searchVal ? 'flex' : 'none';
+
             // Quick Add Tab view
             if (appState.selectedCategory === 'quick') {
                 container.innerHTML = `
                     <div class="quick-entry-box">
-                        <div style="font-size:12px; font-weight:800; color:var(--accent);">⚡ Direct Quick Calorie &amp; Macro Add</div>
-                        <input type="text" id="quickName" placeholder="Khana ko name (e.g. Hotel Lunch, Fruit)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
+                        <div style="font-size:12px; font-weight:800; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px;">Direct Quick Entry</div>
+                        <input type="text" id="quickName" placeholder="Khana ko name (e.g. Hotel Lunch, Fruit)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                            <input type="number" id="quickCal" placeholder="Calories (kcal)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
-                            <input type="number" id="quickP" placeholder="Protein (g)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
-                            <input type="number" id="quickC" placeholder="Carbs (g)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
-                            <input type="number" id="quickF" placeholder="Fat (g)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
+                            <input type="number" id="quickCal" placeholder="Calories (kcal)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
+                            <input type="number" id="quickP" placeholder="Protein (g)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
+                            <input type="number" id="quickC" placeholder="Carbs (g)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
+                            <input type="number" id="quickF" placeholder="Fat (g)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
                         </div>
-                        <button onclick="submitDirectQuickAdd()" style="background:var(--accent); color:#090d16; border:none; padding:10px; border-radius:10px; font-weight:800; font-size:13px; cursor:pointer;">
+                        <button onclick="submitDirectQuickAdd()" style="background:var(--accent); color:#000000; border:none; padding:12px; border-radius:12px; font-weight:800; font-size:13.5px; cursor:pointer; margin-top:2px; transition:transform 0.12s;">
                             + Add to Meal Now
                         </button>
                     </div>
-                    <div style="font-size:12px; font-weight:800; color:var(--text-secondary); margin:6px 0;">⚡ Fast 1-Tap Staples:</div>
+                    <div style="font-size:11.5px; font-weight:800; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px; margin:8px 0 4px;">Fast 1-Tap Staples:</div>
                     <div style="display:flex; flex-direction:column; gap:8px;">
                         ${['egg_boiled_2', 'whey_protein', 'chiya_milk', 'banana', 'roti', 'chicken_breast_100'].map(fid => {
                             const f = fullDB.find(item => item.id === fid);
                             if (!f) return '';
                             return `
                                 <div class="lib-food-card" onclick="addFoodItem('${f.id}')">
-                                    <div>
-                                        <div style="font-weight:700; font-size:13px;">${f.name}</div>
-                                        <div style="font-size:11px; color:var(--text-secondary);">🥩 ${f.p}g P • 🌾 ${f.c}g C • 🥑 ${f.f}g F</div>
+                                    <div class="lib-food-left">
+                                        <div class="lib-food-title">${f.name}</div>
+                                        <div class="lib-food-sub">
+                                            <span class="macro-tag tag-prot">${f.p}g P</span>
+                                            <span class="macro-tag tag-carb">${f.c}g C</span>
+                                            <span class="macro-tag tag-fat">${f.f}g F</span>
+                                        </div>
                                     </div>
-                                    <div style="font-weight:800; color:var(--calorie); font-size:13px;">+${f.cal} kcal</div>
+                                    <div class="lib-food-cal">+${f.cal} kcal</div>
                                 </div>
                             `;
                         }).join('')}
@@ -1650,13 +2514,13 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             // Custom Foods Tab view
             if (appState.selectedCategory === 'custom') {
                 container.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                        <span style="font-size:12px; font-weight:700; color:var(--text-secondary);">My Saved Custom Dishes</span>
-                        <button onclick="openCustomFoodForm()" style="background:var(--accent); color:#090d16; border:none; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:800; cursor:pointer;">+ Create New</button>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <span style="font-size:12px; font-weight:800; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.5px;">My Saved Custom Dishes</span>
+                        <button onclick="openCustomFoodForm()" style="background:var(--accent); color:#000000; border:none; padding:6px 14px; border-radius:12px; font-size:12px; font-weight:800; cursor:pointer;">+ Create New</button>
                     </div>
                 `;
                 if (appState.customFoods.length === 0) {
-                    container.innerHTML += `<div style="text-align:center; padding:30px; color:var(--text-secondary); font-size:12px;">Kunai custom food banayeko chaina.<br>'+ Create New' thichera naya dish thapnus!</div>`;
+                    container.innerHTML += `<div style="text-align:center; padding:35px 20px; color:var(--text-secondary); font-size:12.5px; line-height:1.5;">Kunai custom food banayeko chaina.<br>'+ Create New' thichera naya dish thapnus!</div>`;
                     return;
                 }
             }
@@ -1674,10 +2538,10 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
             if (filtered.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align:center; padding:30px; color:var(--text-secondary); font-size:13px;">
+                    <div style="text-align:center; padding:35px 20px; color:var(--text-secondary); font-size:13px;">
                         Khana bhetiyena.<br>
-                        <button onclick="openCustomFoodForm()" style="background:var(--surface); border:1px solid var(--border); color:var(--accent); padding:8px 14px; border-radius:12px; margin-top:10px; font-weight:700; cursor:pointer;">
-                            ✏️ Custom Food Banau
+                        <button onclick="openCustomFoodForm()" style="background:var(--surface); border:1px solid var(--border); color:var(--accent); padding:9px 16px; border-radius:12px; margin-top:12px; font-weight:700; cursor:pointer;">
+                            + Create Custom Dish
                         </button>
                     </div>
                 `;
@@ -1686,11 +2550,16 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
             const listHTML = filtered.map(f => `
                 <div class="lib-food-card" onclick="addFoodItem('${f.id}')">
-                    <div>
-                        <div style="font-weight:700; font-size:13px; margin-bottom:2px;">${f.name}</div>
-                        <div style="font-size:11px; color:var(--text-secondary);">🥩 ${f.p}g P • 🌾 ${f.c}g C • 🥑 ${f.f}g F • <span style="color:var(--text-primary)">${f.unit || '1 serving'}</span></div>
+                    <div class="lib-food-left">
+                        <div class="lib-food-title">${f.name}</div>
+                        <div class="lib-food-sub">
+                            <span class="macro-tag tag-prot">${f.p}g P</span>
+                            <span class="macro-tag tag-carb">${f.c}g C</span>
+                            <span class="macro-tag tag-fat">${f.f}g F</span>
+                            <span style="color:var(--text-muted); font-size:10.5px;">• ${f.unit || '1 serving'}</span>
+                        </div>
                     </div>
-                    <div style="font-size:13px; font-weight:800; color:var(--calorie);">
+                    <div class="lib-food-cal">
                         +${f.cal} kcal
                     </div>
                 </div>
@@ -1705,6 +2574,15 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
         function filterFoodList() {
             renderFoodLibrary();
+        }
+
+        function clearFoodSearch() {
+            const input = document.getElementById('foodSearchInput');
+            if (input) {
+                input.value = '';
+                filterFoodList();
+                input.focus();
+            }
         }
 
         function setFoodCategory(cat, btn) {
@@ -1739,7 +2617,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             renderDashboard();
             updateAICoachTip();
             closeModal('addFoodModal');
-            showToast(`✅ ${food.name} (${food.cal} kcal) add bhayo!`);
+            showToast(`${food.name} (+${food.cal} kcal) logged!`);
         }
 
         function submitDirectQuickAdd() {
@@ -1775,7 +2653,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             renderDashboard();
             updateAICoachTip();
             closeModal('addFoodModal');
-            showToast(`✅ ${name} (${cal} kcal) log bhayo!`);
+            showToast(`${name} (+${cal} kcal) logged!`);
         }
 
         function openCustomFoodForm() {
@@ -1785,7 +2663,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             document.getElementById('custFoodP').value = '';
             document.getElementById('custFoodC').value = '';
             document.getElementById('custFoodF').value = '';
-            document.getElementById('customFoodModal').classList.add('open');
+            openModal('customFoodModal');
         }
 
         function saveAndAddCustomFood() {
@@ -1840,16 +2718,24 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             renderDashboard();
             updateAICoachTip();
             closeModal('customFoodModal');
-            showToast(`🌟 ${name} saved & logged!`);
+            showToast(`${name} saved & logged!`);
         }
 
         function deleteMealItemById(mealId) {
             const idx = appState.meals.findIndex(m => m.id === mealId);
             if (idx !== -1) {
-                appState.meals.splice(idx, 1);
+                const removed = appState.meals.splice(idx, 1)[0];
                 saveState();
                 renderDashboard();
                 updateAICoachTip();
+                showToast(`Removed ${removed.name}`);
+            }
+        }
+
+        function openModal(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.add('open');
             }
         }
 
@@ -1861,6 +2747,20 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
         function closeAllModals() {
             document.querySelectorAll('.modal').forEach(m => m.classList.remove('open'));
         }
+
+        // Tap backdrop to dismiss bottom sheet modal
+        document.querySelectorAll('.modal').forEach(modalEl => {
+            modalEl.addEventListener('click', (e) => {
+                if (e.target === modalEl) {
+                    closeModal(modalEl.id);
+                }
+            });
+        });
+
+        // Escape key to dismiss modals
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAllModals();
+        });
 
         function switchNav(tab) {
             document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
@@ -1896,15 +2796,17 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 queueContainer.innerHTML = '<div style="color:var(--text-secondary); font-size:12px; text-align:center; padding:15px;">Aja kunai khana log bhayeko chaina.</div>';
             } else {
                 queueContainer.innerHTML = daysMeals.map(m => `
-                    <div style="background:var(--bg); border:1px solid var(--border); padding:8px 12px; border-radius:10px; display:flex; justify-content:space-between; font-size:12px;">
-                        <span>${m.name}</span>
-                        <span style="font-weight:700; color:${m.synced ? '#22c55e' : 'var(--calorie)'};">${m.cal} kcal ${m.synced ? '✓ synced' : '● pending'}</span>
+                    <div style="background:#090B0F; border:1px solid var(--border); padding:9px 12px; border-radius:10px; display:flex; justify-content:space-between; align-items:center; font-size:12.5px;">
+                        <span style="font-weight:600; color:#fff;">${m.name}</span>
+                        <span style="font-weight:700; color:${m.synced ? 'var(--protein)' : 'var(--calorie)'}; font-variant-numeric:tabular-nums;">
+                            ${m.cal} kcal ${m.synced ? '✓ synced' : '● pending'}
+                        </span>
                     </div>
                 `).join('');
             }
 
             document.getElementById('syncStatusMsg').innerText = '';
-            document.getElementById('syncModal').classList.add('open');
+            openModal('syncModal');
         }
 
         async function triggerMyFitnessPalSync() {
@@ -1918,7 +2820,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             if (daysMeals.length === 0) {
                 msg.innerText = 'Sync garna kunai khana chaina.';
                 btn.disabled = false;
-                btn.innerText = '🚀 Sync All to MyFitnessPal Now';
+                btn.innerText = 'Sync All to MyFitnessPal Now';
                 return;
             }
 
@@ -1940,8 +2842,8 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                     daysMeals.forEach(m => m.synced = true);
                     saveState();
                     renderDashboard();
-                    msg.innerHTML = `<span style="color:#22c55e">🎉 ${data.synced_count} items MyFitnessPal ma sync bhayo! (${data.total_calories} kcal)</span>`;
-                    showToast('MyFitnessPal ma sync bhayo! 🚀');
+                    msg.innerHTML = `<span style="color:var(--protein); font-weight:700;">🎉 ${data.synced_count} items MyFitnessPal ma sync bhayo! (${data.total_calories} kcal)</span>`;
+                    showToast('MyFitnessPal sync complete! 🚀');
                 } else {
                     throw new Error('Bridge returned non-200');
                 }
@@ -1951,15 +2853,15 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 saveState();
                 renderDashboard();
                 msg.innerHTML = `
-                    <div style="color:#f59e0b; margin-top:8px;">
+                    <div style="color:#F59E0B; margin-top:8px; line-height:1.5;">
                         Laptop bridge offline cha bhane terminal ma yo chalau:<br>
-                        <code style="background:#1e293b; padding:4px 8px; border-radius:6px; display:inline-block; margin-top:4px;">python3 /home/samrat/nutripulse/mfp_sync.py --server</code>
+                        <code style="background:#090B0F; border:1px solid var(--border); padding:5px 10px; border-radius:8px; display:inline-block; margin-top:6px; font-size:11px;">python3 /home/samrat/nutripulse/mfp_sync.py --server</code>
                     </div>
                 `;
                 showToast('Diary marked ready for sync!');
             } finally {
                 btn.disabled = false;
-                btn.innerText = '🚀 Sync All to MyFitnessPal Now';
+                btn.innerText = 'Sync All to MyFitnessPal Now';
             }
         }
 
@@ -1967,11 +2869,11 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
         // 9. AI COACH CHAT DRAWER & NATURAL LANGUAGE LOGGING
         // ==========================================
         function openChatDrawer() {
-            document.getElementById('chatModal').classList.add('open');
+            openModal('chatModal');
             setTimeout(() => {
                 const input = document.getElementById('chatInput');
                 if (input) input.focus();
-            }, 200);
+            }, 250);
         }
 
         function askQuickPrompt(text) {
@@ -1990,7 +2892,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             // 1. Natural Language Food Logging Check
             const loggedItem = tryNaturalLanguageLogging(text);
             if (loggedItem) {
-                appendChatBubble(`Done bro! ${loggedItem.name} (${loggedItem.cal} kcal, ${loggedItem.p}g Protein) ${loggedItem.mealName} ma add garisake! 🥚🔥\nDashboard rings update bhaisakyo.`, 'ai');
+                appendChatBubble(`Done bro! ${loggedItem.name} (${loggedItem.cal} kcal, ${loggedItem.p}g Protein) ${loggedItem.mealName} ma add garisake!\nDashboard rings update bhaisakyo.`, 'ai');
                 return;
             }
 
@@ -2125,7 +3027,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
                 return `Protein pura garna best Nepali sources:\n• Boiled eggs (6g/egg)\n• Chicken Masu (28g/bowl)\n• Dahi (8g)\n• Bhatmas Sadeko (14g)\n• Paneer (18g/100g)\n• Whey Protein (24g/scoop)\nTimilai ahile ${remP}g protein chahincha!`;
             }
             if (q.includes('target') || q.includes('status') || q.includes('calorie')) {
-                return `📊 Timro daily target: ${targetCal} kcal (${targetProt}g Protein).\nAhile samma ${totalCal} kcal khayeu (${Math.round(totalP)}g P).\nBaki cha: ${remCal} kcal & ${remP}g Protein!`;
+                return `Daily target: ${targetCal} kcal (${targetProt}g Protein).\nAhile samma ${totalCal} kcal khayeu (${Math.round(totalP)}g P).\nBaki cha: ${remCal} kcal & ${remP}g Protein!`;
             }
             if (q.includes('weight') || q.includes('cut') || q.includes('ghatauna')) {
                 return `Weight ghatuna (cutting) ma daily 500 kcal deficit ma basnu parcha, tara protein high (140g+) rakhnu parcha jasle muscle bachauncha. Dal Bhat alikati thorai garne, anda ra chicken badaune!`;
@@ -2146,7 +3048,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             document.getElementById('profGoal').value = appState.profile.goal;
             document.getElementById('profGeminiKey').value = appState.profile.geminiKey || '';
             updateProfileCalcPreview();
-            document.getElementById('profileModal').classList.add('open');
+            openModal('profileModal');
         }
 
         function updateProfileCalcPreview() {
@@ -2174,12 +3076,12 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             const goalLbl = document.getElementById('prevGoalLabel');
             const totalEl = document.getElementById('prevTotalTdee');
 
-            if (bmrEl) bmrEl.innerText = `${bmr} kcal`;
-            if (actEl) actEl.innerText = `+${actBurn} kcal`;
+            if (bmrEl) bmrEl.innerText = `${bmr.toLocaleString()} kcal`;
+            if (actEl) actEl.innerText = `+${actBurn.toLocaleString()} kcal`;
             if (actLbl) actLbl.innerText = `${act}x`;
             if (goalEl) goalEl.innerText = goalOffset >= 0 ? `+${goalOffset} kcal` : `${goalOffset} kcal`;
             if (goalLbl) goalLbl.innerText = goal === 'cut' ? 'Fat Loss (-500)' : goal === 'bulk' ? 'Bulking (+300)' : 'Maintain';
-            if (totalEl) totalEl.innerText = `${finalTdee} kcal`;
+            if (totalEl) totalEl.innerText = `${finalTdee.toLocaleString()} kcal`;
         }
 
         function saveProfile() {
@@ -2196,7 +3098,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             renderDashboard();
             updateAICoachTip();
             closeModal('profileModal');
-            showToast('Profile & Targets update bhayo! 🎯');
+            showToast('Profile & Targets updated! 🎯');
         }
 
         // ==========================================
@@ -2205,7 +3107,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
         let currentScannedFood = null;
 
         function triggerFoodPhotoUpload() {
-            document.getElementById('photoScanModal').classList.add('open');
+            openModal('photoScanModal');
             document.getElementById('scanUploadArea').style.display = 'block';
             document.getElementById('scanLoadingArea').style.display = 'none';
             document.getElementById('scanResultArea').style.display = 'none';
@@ -2237,7 +3139,6 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
 
             const img = new Image();
             img.onload = function() {
-                // Resize to max 700px on canvas to keep upload lightweight
                 const maxDim = 700;
                 let w = img.width, h = img.height;
                 if (w > h && w > maxDim) {
@@ -2319,7 +3220,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
 
             const breakdownEl = document.getElementById('scanBreakdownList');
             if (data.breakdown && Array.isArray(data.breakdown) && data.breakdown.length > 0) {
-                breakdownEl.innerHTML = `<strong>Detected Breakdown:</strong><br>` + data.breakdown.map(item => `• ${item}`).join('<br>');
+                breakdownEl.innerHTML = `<strong style="color:#FFFFFF; font-size:12px;">Detected Breakdown:</strong><br>` + data.breakdown.map(item => `• ${item}`).join('<br>');
                 breakdownEl.style.display = 'block';
             } else {
                 breakdownEl.style.display = 'none';
@@ -2380,25 +3281,65 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             renderDashboard();
             updateAICoachTip();
             closeModal('photoScanModal');
-            showToast(`✅ ${name} (${cal} kcal) logged from Photo! 📸`);
+            showToast(`${name} (${cal} kcal) logged from Photo!`);
+        }
+
+        // ==========================================
+        // 12. DATA BACKUP & RESTORE
+        // ==========================================
+        function exportDataBackup() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", `nutripulse_backup_${getTodayDateStr()}.json`);
+            dlAnchor.click();
+            showToast('Backup JSON downloaded! 📥');
+        }
+
+        function importDataBackup(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (parsed.profile && Array.isArray(parsed.meals)) {
+                        appState = parsed;
+                        saveState();
+                        recalculateTargets();
+                        renderDashboard();
+                        updateAICoachTip();
+                        closeModal('profileModal');
+                        showToast('Data restored successfully! 📤');
+                    } else {
+                        throw new Error('Invalid schema');
+                    }
+                } catch(err) {
+                    showToast('Error: Invalid JSON backup file!');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
         }
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
-            toast.innerText = msg;
+            const msgEl = document.getElementById('toastMsg');
+            msgEl.innerText = msg;
             toast.classList.add('show');
             setTimeout(() => { toast.classList.remove('show'); }, 2600);
         }
 
         // Service Worker Auto-Update & Cache Management
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js?v=4').then((reg) => {
+            navigator.serviceWorker.register('./sw.js?v=5').then((reg) => {
                 reg.update();
                 reg.addEventListener('updatefound', () => {
                     const newWorker = reg.installing;
                     newWorker.addEventListener('statechange', () => {
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            showToast('🔄 Naya Update ready cha! Reloading...');
+                            showToast('Naya Update ready cha! Reloading...');
                             setTimeout(() => { window.location.reload(); }, 1200);
                         }
                     });
@@ -2407,7 +3348,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
         }
 
         async function forceUpdateAndClearCache() {
-            showToast('🔄 Clearing Cache & Updating...');
+            showToast('Clearing Cache & Updating...');
             try {
                 if ('caches' in window) {
                     const keys = await caches.keys();
