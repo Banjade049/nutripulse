@@ -90,10 +90,19 @@ def log_meal_to_mfp(session, access_token, csrf_token, user_id, meal_item, targe
 
     meal_id = meal_item.get('meal_id', 1) # 0=Breakfast, 1=Lunch, 2=Dinner, 3=Snacks
     name = meal_item.get('name', 'Quick Food')
-    calories = meal_item.get('calories', 0)
-    protein = meal_item.get('protein', 0)
-    carbs = meal_item.get('carbs', 0)
-    fat = meal_item.get('fat', 0)
+    calories = meal_item.get('calories') if meal_item.get('calories') is not None else meal_item.get('cal', 0)
+    protein = meal_item.get('protein') if meal_item.get('protein') is not None else meal_item.get('p', 0)
+    carbs = meal_item.get('carbs') if meal_item.get('carbs') is not None else meal_item.get('c', 0)
+    fat = meal_item.get('fat') if meal_item.get('fat') is not None else meal_item.get('f', 0)
+
+    normalized_item = {
+        "name": name,
+        "meal_id": meal_id,
+        "calories": calories,
+        "protein": protein,
+        "carbs": carbs,
+        "fat": fat
+    }
 
     # 1. First attempt: Quick Calorie Add endpoint
     quick_url = 'https://www.myfitnesspal.com/food/quick_add'
@@ -115,12 +124,13 @@ def log_meal_to_mfp(session, access_token, csrf_token, user_id, meal_item, targe
     try:
         r = session.post(quick_url, headers=headers, data=data, timeout=8)
         if r.status_code in [200, 204, 302]:
+            record_local_sync(normalized_item, target_date)
             return True, f"Logged {name} ({calories} kcal) via Quick Add"
     except Exception as e:
         pass
 
     # 2. Record locally in synced_diary.json as verified fallback
-    record_local_sync(meal_item, target_date)
+    record_local_sync(normalized_item, target_date)
     return True, f"Logged {name} ({calories} kcal) to NutriPulse Diary"
 
 def record_local_sync(meal_item, target_date):
@@ -211,7 +221,8 @@ class NutriPulseBridgeHandler(BaseHTTPRequestHandler):
                     success, msg = log_meal_to_mfp(session, access_token, csrf_token, user_id, m, target_date)
                     if success:
                         synced_count += 1
-                        total_cal += m.get('calories', 0)
+                        cal_val = m.get('calories') if m.get('calories') is not None else m.get('cal', 0)
+                        total_cal += cal_val
                         results.append(msg)
 
                 self._set_cors_headers(200)

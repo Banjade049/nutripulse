@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nutripulse-v1';
+const CACHE_NAME = 'nutripulse-v2';
 const STATIC_ASSETS = [
     './',
     './index.html',

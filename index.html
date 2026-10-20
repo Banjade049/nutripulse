@@ -31,6 +31,7 @@
             --carbs-glow: rgba(34, 197, 94, 0.25);
             --fat: #f59e0b;
             --fat-glow: rgba(245, 158, 11, 0.25);
+            --water: #38bdf8;
             --accent: #38bdf8;
             --mfp-blue: #0066ee;
         }
@@ -48,12 +49,12 @@
             color: var(--text-primary);
             min-height: 100vh;
             padding-top: env(safe-area-inset-top);
-            padding-bottom: calc(env(safe-area-inset-bottom) + 85px);
+            padding-bottom: calc(env(safe-area-inset-bottom) + 90px);
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* Glassmorphism Sticky Header */
+        /* Sticky Glass Header */
         header {
             position: sticky;
             top: 0;
@@ -62,7 +63,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            padding: 12px 18px;
+            padding: 10px 16px;
         }
 
         .header-top {
@@ -135,10 +136,51 @@
         main {
             max-width: 600px;
             margin: 0 auto;
-            padding: 16px 16px;
+            padding: 14px 16px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
+        }
+
+        /* Date Navigation Strip */
+        .date-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 6px 12px;
+        }
+        .date-nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 800;
+        }
+        .date-nav-btn:active { transform: scale(0.9); }
+        .date-center {
+            text-align: center;
+            cursor: pointer;
+        }
+        .date-label {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+            color: var(--text-primary);
+        }
+        .date-sub {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--accent);
         }
 
         /* Rings & Calorie Card */
@@ -146,11 +188,11 @@
             background: var(--surface-card);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 20px 18px;
+            padding: 18px 16px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 16px;
         }
 
         .rings-box {
@@ -174,7 +216,7 @@
         .ring-fg {
             fill: none;
             stroke-linecap: round;
-            transition: stroke-dashoffset 0.8s ease-in-out;
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .rings-center {
@@ -192,17 +234,17 @@
             color: var(--calorie);
         }
         .rings-center-lbl {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 700;
             color: var(--text-secondary);
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .macros-info {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 9px;
         }
 
         .macro-bar-row {
@@ -213,7 +255,7 @@
         .macro-header {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
         }
         .macro-track {
@@ -228,12 +270,80 @@
             transition: width 0.6s ease;
         }
 
+        /* Hydration / Water Card */
+        .water-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .water-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .water-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--water);
+        }
+        .water-val {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .water-track {
+            height: 7px;
+            background: #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .water-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #38bdf8, #0284c7);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+        .water-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .btn-water {
+            flex: 1;
+            padding: 7px 10px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .btn-water:active { transform: scale(0.94); }
+        .btn-water-reset {
+            padding: 7px 12px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            border-radius: 10px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
         /* AI Nutrition Coach Insight */
         .ai-coach-card {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(124, 58, 237, 0.12));
-            border: 1px solid rgba(6, 182, 212, 0.35);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.14), rgba(124, 58, 237, 0.14));
+            border: 1px solid rgba(6, 182, 212, 0.4);
             border-radius: 18px;
-            padding: 14px 16px;
+            padding: 13px 15px;
             display: flex;
             align-items: flex-start;
             gap: 12px;
@@ -243,7 +353,7 @@
         .ai-coach-card:active { transform: scale(0.98); }
 
         .ai-avatar {
-            font-size: 24px;
+            font-size: 22px;
             line-height: 1;
             padding: 6px;
             background: rgba(6, 182, 212, 0.2);
@@ -273,7 +383,7 @@
         }
 
         .meal-header {
-            padding: 14px 16px;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -286,14 +396,14 @@
             gap: 10px;
         }
         .meal-icon {
-            font-size: 20px;
+            font-size: 18px;
         }
         .meal-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 800;
         }
         .meal-cal-total {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--calorie);
         }
@@ -302,19 +412,16 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            padding: 6px 12px;
+            padding: 5px 12px;
             border-radius: 12px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 4px;
             cursor: pointer;
         }
         .btn-add-food:active { transform: scale(0.92); }
 
         .meal-items-list {
-            padding: 4px 16px;
+            padding: 2px 16px;
         }
 
         .food-item-row {
@@ -332,7 +439,7 @@
             gap: 2px;
         }
         .food-name {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
         }
         .food-macros-line {
@@ -360,9 +467,9 @@
         }
 
         .empty-meal-hint {
-            padding: 14px;
+            padding: 12px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
         }
 
@@ -390,7 +497,7 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            animation: slideUp 0.25s cubic-bezier(0.18, 0.89, 0.32, 1.15);
+            animation: slideUp 0.22s cubic-bezier(0.18, 0.89, 0.32, 1.15);
         }
         @keyframes slideUp {
             from { transform: translateY(100%); }
@@ -457,7 +564,7 @@
             background: var(--bg);
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 12px 14px;
+            padding: 11px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -500,14 +607,15 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            max-height: 55vh;
+            max-height: 52vh;
         }
         .chat-bubble {
-            max-width: 82%;
+            max-width: 84%;
             padding: 10px 14px;
             border-radius: 16px;
             font-size: 13px;
             line-height: 1.45;
+            white-space: pre-wrap;
         }
         .bubble-ai {
             background: #1e293b;
@@ -522,8 +630,27 @@
             border-bottom-right-radius: 4px;
         }
 
+        .chat-quick-chips {
+            display: flex;
+            gap: 6px;
+            padding: 8px 16px;
+            overflow-x: auto;
+            border-top: 1px solid var(--border);
+        }
+        .chat-chip {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .chat-chip:active { background: var(--surface-hover); color: var(--text-primary); }
+
         .chat-input-bar {
-            padding: 12px 16px;
+            padding: 10px 16px 14px;
             border-top: 1px solid var(--border);
             display: flex;
             gap: 8px;
@@ -546,6 +673,18 @@
             padding: 0 16px;
             border-radius: 20px;
             cursor: pointer;
+        }
+
+        /* Quick Add Direct Form */
+        .quick-entry-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         /* Toast Notification */
@@ -588,6 +727,16 @@
     </header>
 
     <main>
+        <!-- Date Navigator Strip -->
+        <div class="date-strip">
+            <button class="date-nav-btn" onclick="changeDate(-1)" title="Previous Day">‹</button>
+            <div class="date-center" onclick="resetToToday()">
+                <div class="date-label" id="dateLabel">Today</div>
+                <div class="date-sub" id="dateSub">Tap to return to today</div>
+            </div>
+            <button class="date-nav-btn" onclick="changeDate(1)" title="Next Day">›</button>
+        </div>
+
         <!-- Apple Health Rings Card -->
         <div class="card-rings">
             <div class="rings-box">
@@ -657,7 +806,27 @@
             </div>
         </div>
 
-        <!-- AI Nutrition Coach Insight -->
+        <!-- Water Hydration Card -->
+        <div class="water-card">
+            <div class="water-header">
+                <div class="water-title">
+                    <span>💧</span>
+                    <span>Water Hydration</span>
+                </div>
+                <span class="water-val" id="waterDisplay">0 / 2,500 ml</span>
+            </div>
+            <div class="water-track">
+                <div class="water-fill" id="waterFill" style="width: 0%;"></div>
+            </div>
+            <div class="water-actions">
+                <button class="btn-water" onclick="addWater(250)">+250ml 🥛</button>
+                <button class="btn-water" onclick="addWater(500)">+500ml 🍶</button>
+                <button class="btn-water" onclick="addWater(-250)">-250ml</button>
+                <button class="btn-water-reset" onclick="resetWater()" title="Reset Water">↺</button>
+            </div>
+        </div>
+
+        <!-- AI Nutrition Coach Live Insight -->
         <div class="ai-coach-card" onclick="openChatDrawer()">
             <div class="ai-avatar">🤖</div>
             <div class="ai-text-box">
@@ -735,21 +904,21 @@
             <span class="nav-icon">📖</span>
             <span>Diary</span>
         </div>
-        <div class="nav-item" onclick="openAddFoodModal(1)">
+        <div class="nav-item" onclick="switchNav('add')">
             <span class="nav-icon">➕</span>
             <span>Add Food</span>
         </div>
-        <div class="nav-item" onclick="openChatDrawer()">
+        <div class="nav-item" onclick="switchNav('coach')">
             <span class="nav-icon">💬</span>
             <span>AI Coach</span>
         </div>
-        <div class="nav-item" onclick="openSyncModal()">
+        <div class="nav-item" onclick="switchNav('sync')">
             <span class="nav-icon">🔄</span>
             <span>Sync</span>
         </div>
     </div>
 
-    <!-- Modal: Add Food / Nepali Database -->
+    <!-- Modal: Add Food / Database -->
     <div class="modal" id="addFoodModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -766,7 +935,7 @@
                 <button class="tab-pill" onclick="setFoodCategory('nepali', this)">🇳🇵 Nepali Khana</button>
                 <button class="tab-pill" onclick="setFoodCategory('fitness', this)">🏋️ High Protein</button>
                 <button class="tab-pill" onclick="setFoodCategory('quick', this)">⚡ Quick Add</button>
-                <button class="tab-pill" onclick="openCustomFoodForm()">✏️ Custom</button>
+                <button class="tab-pill" onclick="setFoodCategory('custom', this)">✏️ My Custom Foods</button>
             </div>
 
             <div class="food-library-list" id="foodLibraryContainer">
@@ -775,9 +944,50 @@
         </div>
     </div>
 
+    <!-- Modal: Create Custom Food -->
+    <div class="modal" id="customFoodModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>✏️ Create Custom Food</h3>
+                <button class="icon-btn" onclick="closeModal('customFoodModal')">✕</button>
+            </div>
+            <div style="padding: 18px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto;">
+                <div>
+                    <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Food / Dish Name</label>
+                    <input type="text" id="custFoodName" placeholder="e.g. Chicken Sekuwa, Aalu Paratha" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                </div>
+                <div>
+                    <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Serving / Portion</label>
+                    <input type="text" id="custFoodUnit" placeholder="e.g. 1 plate, 150g, 2 pcs" value="1 plate" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                        <label style="font-size: 12px; font-weight: 700; color: var(--calorie);">Calories (kcal)</label>
+                        <input type="number" id="custFoodCal" placeholder="350" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    </div>
+                    <div>
+                        <label style="font-size: 12px; font-weight: 700; color: var(--protein);">Protein (g)</label>
+                        <input type="number" id="custFoodP" placeholder="25" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    </div>
+                    <div>
+                        <label style="font-size: 12px; font-weight: 700; color: var(--carbs);">Carbs (g)</label>
+                        <input type="number" id="custFoodC" placeholder="30" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    </div>
+                    <div>
+                        <label style="font-size: 12px; font-weight: 700; color: var(--fat);">Fat (g)</label>
+                        <input type="number" id="custFoodF" placeholder="10" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    </div>
+                </div>
+                <button onclick="saveAndAddCustomFood()" style="background: var(--accent); color: #090d16; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 6px;">
+                    💾 Save to My Library &amp; Log
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal: AI Coach Chat Drawer -->
     <div class="modal" id="chatModal">
-        <div class="modal-content" style="max-height: 80vh;">
+        <div class="modal-content" style="max-height: 85vh;">
             <div class="modal-header">
                 <h3>🤖 AI Nutrition Coach</h3>
                 <button class="icon-btn" onclick="closeModal('chatModal')">✕</button>
@@ -785,8 +995,17 @@
 
             <div class="chat-msgs-box" id="chatMessages">
                 <div class="chat-bubble bubble-ai">
-                    Namaste bro! Ma timro NutriPulse AI Nutritionist hu. Aja k khayau ya aba k khaney bhana, ma pura guide garchu!
+Namaste bro! Ma timro NutriPulse AI Nutrition Coach hu.
+Aja k khayau ya aba k khaney bhana, ma pura guide garchu!
+Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pani ma diary ma log gardinchu! 🥗✨
                 </div>
+            </div>
+
+            <div class="chat-quick-chips">
+                <button class="chat-chip" onclick="askQuickPrompt('Aja dinner ma k kham?')">🍲 Dinner ma k kham?</button>
+                <button class="chat-chip" onclick="askQuickPrompt('Protein kasari pura garne?')">🥩 Protein kasari pugcha?</button>
+                <button class="chat-chip" onclick="askQuickPrompt('Log 2 boiled eggs to breakfast')">🥚 Log 2 Boiled Eggs</button>
+                <button class="chat-chip" onclick="askQuickPrompt('Mero daily status k cha?')">📊 Daily Status</button>
             </div>
 
             <div class="chat-input-bar">
@@ -803,7 +1022,7 @@
                 <h3>🔄 MyFitnessPal Sync Engine</h3>
                 <button class="icon-btn" onclick="closeModal('syncModal')">✕</button>
             </div>
-            <div style="padding: 20px; overflow-y: auto;">
+            <div style="padding: 18px; overflow-y: auto;">
                 <div style="background: rgba(0,102,238,0.1); border: 1px solid rgba(0,102,238,0.3); border-radius: 14px; padding: 14px; margin-bottom: 16px;">
                     <div style="font-weight: 800; font-size: 14px; color: #60a5fa; margin-bottom: 4px;">⚡ No-Premium Direct Sync</div>
                     <p style="font-size: 12px; line-height: 1.45; color: var(--text-secondary);">
@@ -853,6 +1072,17 @@
                     </div>
                 </div>
 
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Age</label>
+                        <input type="number" id="profAge" value="24" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Water Goal (ml)</label>
+                        <input type="number" id="profWaterGoal" value="2500" step="100" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
+                    </div>
+                </div>
+
                 <div>
                     <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Activity Level</label>
                     <select id="profActivity" style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
@@ -861,6 +1091,11 @@
                         <option value="1.55" selected>Moderately Active (Gym 3-5 days/wk)</option>
                         <option value="1.725">Very Active (Hard exercise 6-7 days/wk)</option>
                     </select>
+                </div>
+
+                <div>
+                    <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">Gemini AI Key (Optional for cloud LLM chat)</label>
+                    <input type="password" id="profGeminiKey" placeholder="AIzaSy..." style="width: 100%; background: var(--bg); border: 1px solid var(--border); color: #fff; padding: 10px; border-radius: 10px; margin-top: 4px;">
                 </div>
 
                 <button onclick="saveProfile()" style="background: var(--accent); color: #090d16; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 6px;">
@@ -875,15 +1110,16 @@
 
     <script>
         // ==========================================
-        // 1. EXTENSIVE NEPALI & FITNESS FOOD DATABASE
+        // 1. EXTENSIVE NEPALI & FITNESS FOOD DATABASE (45+ STAPLES)
         // ==========================================
-        const FOOD_DATABASE = [
+        const BASE_FOOD_DATABASE = [
             // 🇳🇵 Authentic Nepali Staples
             { id: 'dalbhat', name: 'Dal Bhat Tarkari (Standard Plate)', category: 'nepali', cal: 550, p: 14, c: 95, f: 12, unit: '1 plate' },
             { id: 'dalbhat_masu', name: 'Dal Bhat + Chicken Curry', category: 'nepali', cal: 680, p: 34, c: 96, f: 18, unit: '1 plate' },
             { id: 'chicken_curry', name: 'Nepali Chicken Curry (Masu)', category: 'nepali', cal: 260, p: 28, c: 6, f: 14, unit: '1 bowl / 150g' },
             { id: 'mutton_curry', name: 'Nepali Khasi ko Masu', category: 'nepali', cal: 340, p: 24, c: 5, f: 25, unit: '1 bowl / 150g' },
             { id: 'buff_curry', name: 'Nepali Buff Curry', category: 'nepali', cal: 240, p: 30, c: 4, f: 11, unit: '1 bowl / 150g' },
+            { id: 'fish_curry', name: 'Nepali Macha ko Jhol (Fish Curry)', category: 'nepali', cal: 210, p: 26, c: 3, f: 10, unit: '1 bowl / 150g' },
             { id: 'chicken_momo', name: 'Chicken Momo (Steamed)', category: 'nepali', cal: 380, p: 22, c: 44, f: 12, unit: '1 plate (10 pcs)' },
             { id: 'chicken_cmomo', name: 'Chicken C-Momo (Chilli)', category: 'nepali', cal: 460, p: 22, c: 54, f: 18, unit: '1 plate (10 pcs)' },
             { id: 'buff_momo', name: 'Buff Momo (Steamed)', category: 'nepali', cal: 360, p: 24, c: 42, f: 10, unit: '1 plate (10 pcs)' },
@@ -891,6 +1127,7 @@
             { id: 'chowmein_chicken', name: 'Chicken Chowmein', category: 'nepali', cal: 480, p: 24, c: 64, f: 15, unit: '1 plate' },
             { id: 'chowmein_veg', name: 'Veg Chowmein', category: 'nepali', cal: 390, p: 9, c: 62, f: 12, unit: '1 plate' },
             { id: 'roti', name: 'Roti / Chapati (Sukha)', category: 'nepali', cal: 85, p: 3, c: 18, f: 0.5, unit: '1 pc' },
+            { id: 'roti_ghee', name: 'Roti with Ghee', category: 'nepali', cal: 120, p: 3, c: 18, f: 4.5, unit: '1 pc' },
             { id: 'puri_tarkari', name: 'Puri Tarkari (2 puris + aalu)', category: 'nepali', cal: 390, p: 7, c: 48, f: 19, unit: '1 set' },
             { id: 'sel_roti', name: 'Sel Roti', category: 'nepali', cal: 190, p: 2, c: 32, f: 6, unit: '1 pc' },
             { id: 'samosa', name: 'Nepali Samosa (Singada)', category: 'nepali', cal: 250, p: 4, c: 30, f: 13, unit: '1 pc' },
@@ -900,6 +1137,10 @@
             { id: 'bhatmas_sadeko', name: 'Bhatmas Sadeko (Soybean)', category: 'nepali', cal: 180, p: 14, c: 12, f: 8, unit: '1 katori' },
             { id: 'chana_boiled', name: 'Boiled Chana (Chickpeas)', category: 'nepali', cal: 210, p: 11, c: 35, f: 3, unit: '1 bowl' },
             { id: 'dahi', name: 'Nepali Dahi (Plain Curd)', category: 'nepali', cal: 140, p: 8, c: 11, f: 7, unit: '1 cup / 200g' },
+            { id: 'sukuti_sadeko', name: 'Sukuti Sadeko', category: 'nepali', cal: 240, p: 38, c: 3, f: 8, unit: '1 plate / 100g' },
+            { id: 'kwati', name: 'Kwati (Mixed Beans Soup)', category: 'nepali', cal: 220, p: 15, c: 34, f: 3, unit: '1 bowl' },
+            { id: 'khichdi', name: 'Moong Dal Khichdi', category: 'nepali', cal: 320, p: 12, c: 52, f: 7, unit: '1 plate' },
+            { id: 'aalu_dum', name: 'Nepali Aalu Dum', category: 'nepali', cal: 180, p: 4, c: 28, f: 6, unit: '1 bowl' },
 
             // 🏋️ Fitness Staples & High Protein
             { id: 'egg_boiled', name: 'Boiled Egg (Large)', category: 'fitness', cal: 78, p: 6.3, c: 0.6, f: 5.3, unit: '1 egg' },
@@ -909,16 +1150,28 @@
             { id: 'chicken_breast_200', name: 'Chicken Breast (Grilled)', category: 'fitness', cal: 330, p: 62, c: 0, f: 7, unit: '200g' },
             { id: 'whey_protein', name: 'Whey Protein Powder', category: 'fitness', cal: 120, p: 24, c: 2, f: 1.5, unit: '1 scoop / 30g' },
             { id: 'paneer_100', name: 'Paneer (Raw/Cooked)', category: 'fitness', cal: 295, p: 18, c: 4, f: 22, unit: '100g' },
-            { id: 'oats_milk', name: 'Oats with Milk &amp; Honey', category: 'fitness', cal: 290, p: 13, c: 45, f: 6, unit: '1 bowl' },
+            { id: 'soya_chunks', name: 'Soya Chunks (Cooked)', category: 'fitness', cal: 180, p: 26, c: 16, f: 1, unit: '50g dry / 1 bowl' },
+            { id: 'greek_yogurt', name: 'Greek Yogurt / Hung Curd', category: 'fitness', cal: 130, p: 16, c: 6, f: 4, unit: '1 cup / 150g' },
+            { id: 'tuna_can', name: 'Canned Tuna in Water', category: 'fitness', cal: 120, p: 28, c: 0, f: 1, unit: '1 can / 120g' },
+            { id: 'oats_milk', name: 'Oats with Milk & Honey', category: 'fitness', cal: 290, p: 13, c: 45, f: 6, unit: '1 bowl' },
             { id: 'peanut_butter', name: 'Peanut Butter', category: 'fitness', cal: 95, p: 4, c: 3, f: 8, unit: '1 tbsp / 16g' },
             { id: 'banana', name: 'Banana (Kera)', category: 'fitness', cal: 105, p: 1.3, c: 27, f: 0.3, unit: '1 medium' },
             { id: 'apple', name: 'Apple (Syaau)', category: 'fitness', cal: 95, p: 0.5, c: 25, f: 0.3, unit: '1 medium' },
+            { id: 'almonds', name: 'Almonds (Badam)', category: 'fitness', cal: 160, p: 6, c: 6, f: 14, unit: '1 handful / 25g' },
             { id: 'white_rice', name: 'White Rice (Bhat)', category: 'fitness', cal: 205, p: 4, c: 45, f: 0.4, unit: '1 cup cooked / 150g' }
         ];
 
         // ==========================================
-        // 2. STATE MANAGEMENT
+        // 2. STATE MANAGEMENT & DATES
         // ==========================================
+        function getTodayDateStr() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
         let appState = {
             profile: {
                 weight: 70,
@@ -929,22 +1182,49 @@
                 targetCal: 2150,
                 targetProt: 140,
                 targetCarb: 230,
-                targetFat: 60
+                targetFat: 60,
+                waterGoal: 2500,
+                geminiKey: ''
             },
+            selectedDate: getTodayDateStr(),
             currentMealId: 1, // 0=Breakfast, 1=Lunch, 2=Dinner, 3=Snacks
             selectedCategory: 'all',
-            meals: [] // { id, name, meal_id, cal, p, c, f, timestamp, synced }
+            meals: [], // { id, name, meal_id, cal, p, c, f, calories, protein, carbs, fat, timestamp, date, synced }
+            customFoods: [],
+            water: {} // { 'YYYY-MM-DD': ml }
         };
+
+        function getFullFoodDatabase() {
+            return [...appState.customFoods, ...BASE_FOOD_DATABASE];
+        }
 
         function loadSavedState() {
             const raw = localStorage.getItem('nutripulse_state');
             if (raw) {
                 try {
                     const parsed = JSON.parse(raw);
-                    appState = { ...appState, ...parsed };
+                    appState = { 
+                        ...appState, 
+                        ...parsed, 
+                        profile: { ...appState.profile, ...(parsed.profile || {}) },
+                        customFoods: parsed.customFoods || [],
+                        water: parsed.water || {}
+                    };
                 } catch(e) {}
             }
+            if (!appState.selectedDate) appState.selectedDate = getTodayDateStr();
+
+            // Migration: ensure past meals have a date field
+            appState.meals.forEach(m => {
+                if (!m.date) m.date = getTodayDateStr();
+                if (!m.calories) m.calories = m.cal;
+                if (!m.protein) m.protein = m.p;
+                if (!m.carbs) m.carbs = m.c;
+                if (!m.fat) m.fat = m.f;
+            });
+
             recalculateTargets();
+            updateDateDisplay();
             renderDashboard();
             updateAICoachTip();
         }
@@ -973,16 +1253,92 @@
         }
 
         // ==========================================
-        // 3. DASHBOARD RENDERING & RINGS
+        // 3. DATE NAVIGATION
+        // ==========================================
+        function changeDate(deltaDays) {
+            const parts = appState.selectedDate.split('-').map(Number);
+            const d = new Date(parts[0], parts[1] - 1, parts[2]);
+            d.setDate(d.getDate() + deltaDays);
+            
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            appState.selectedDate = `${year}-${month}-${day}`;
+            
+            updateDateDisplay();
+            renderDashboard();
+            updateAICoachTip();
+        }
+
+        function resetToToday() {
+            appState.selectedDate = getTodayDateStr();
+            updateDateDisplay();
+            renderDashboard();
+            updateAICoachTip();
+        }
+
+        function updateDateDisplay() {
+            const todayStr = getTodayDateStr();
+            const dateLabelEl = document.getElementById('dateLabel');
+            const dateSubEl = document.getElementById('dateSub');
+
+            const parts = appState.selectedDate.split('-').map(Number);
+            const d = new Date(parts[0], parts[1] - 1, parts[2]);
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const formatted = d.toLocaleDateString('en-US', options);
+
+            if (appState.selectedDate === todayStr) {
+                dateLabelEl.innerText = `Today, ${formatted}`;
+                dateSubEl.innerText = '● Current Day';
+            } else {
+                dateLabelEl.innerText = formatted;
+                dateSubEl.innerText = 'Tap to return to today';
+            }
+        }
+
+        // ==========================================
+        // 4. WATER HYDRATION WIDGET
+        // ==========================================
+        function addWater(amountMl) {
+            const current = appState.water[appState.selectedDate] || 0;
+            const updated = Math.max(0, current + amountMl);
+            appState.water[appState.selectedDate] = updated;
+            saveState();
+            renderWaterWidget();
+            if (amountMl > 0) showToast(`💧 +${amountMl}ml water logged!`);
+        }
+
+        function resetWater() {
+            appState.water[appState.selectedDate] = 0;
+            saveState();
+            renderWaterWidget();
+        }
+
+        function renderWaterWidget() {
+            const current = appState.water[appState.selectedDate] || 0;
+            const goal = appState.profile.waterGoal || 2500;
+            const pct = Math.min(100, Math.round((current / goal) * 100));
+
+            document.getElementById('waterDisplay').innerText = `${current.toLocaleString()} / ${goal.toLocaleString()} ml (${pct}%)`;
+            document.getElementById('waterFill').style.width = `${pct}%`;
+        }
+
+        // ==========================================
+        // 5. DASHBOARD RENDERING & MACRO RINGS
         // ==========================================
         function renderDashboard() {
+            renderWaterWidget();
+
             let totalCal = 0, totalP = 0, totalC = 0, totalF = 0;
             const mealTotals = [0, 0, 0, 0];
             const mealContainers = [0, 1, 2, 3].map(i => document.getElementById(`mealItems-${i}`));
 
             mealContainers.forEach(c => { c.innerHTML = ''; });
 
-            appState.meals.forEach((m, idx) => {
+            // Filter meals by selected date
+            const daysMeals = appState.meals.filter(m => (m.date || getTodayDateStr()) === appState.selectedDate);
+
+            daysMeals.forEach((m) => {
                 totalCal += m.cal;
                 totalP += m.p;
                 totalC += m.c;
@@ -998,7 +1354,7 @@
                     </div>
                     <div class="food-right">
                         <span class="food-cal-badge">${m.cal} kcal</span>
-                        <button class="btn-del-food" onclick="deleteMealItem(${idx})" title="Delete">✕</button>
+                        <button class="btn-del-food" onclick="deleteMealItemById('${m.id}')" title="Delete">✕</button>
                     </div>
                 `;
                 mealContainers[m.meal_id].appendChild(row);
@@ -1017,9 +1373,9 @@
             const remCal = targetCal - totalCal;
             document.getElementById('dispRemCal').innerText = remCal >= 0 ? remCal : `+${Math.abs(remCal)}`;
             document.getElementById('calFraction').innerText = `${totalCal} / ${targetCal} kcal`;
-            document.getElementById('protFraction').innerText = `${totalP} / ${targetProt}g`;
-            document.getElementById('carbFraction').innerText = `${totalC} / ${targetCarb}g`;
-            document.getElementById('fatFraction').innerText = `${totalF} / ${targetFat}g`;
+            document.getElementById('protFraction').innerText = `${Math.round(totalP)} / ${targetProt}g`;
+            document.getElementById('carbFraction').innerText = `${Math.round(totalC)} / ${targetCarb}g`;
+            document.getElementById('fatFraction').innerText = `${Math.round(totalF)} / ${targetFat}g`;
 
             // Progress Bars
             document.getElementById('barCal').style.width = Math.min(100, (totalCal / targetCal) * 100) + '%';
@@ -1027,7 +1383,7 @@
             document.getElementById('barCarb').style.width = Math.min(100, (totalC / targetCarb) * 100) + '%';
             document.getElementById('barFat').style.width = Math.min(100, (totalF / targetFat) * 100) + '%';
 
-            // SVG Animated Rings
+            // SVG Animated Concentric Rings
             setRingProgress('ringCal', 301.6, totalCal / targetCal);
             setRingProgress('ringProt', 226.2, totalP / targetProt);
             setRingProgress('ringCarb', 157.1, totalC / targetCarb);
@@ -1052,14 +1408,15 @@
         }
 
         // ==========================================
-        // 4. SMART AI COACH ADVICE ENGINE
+        // 6. SMART AI COACH ADVICE ENGINE
         // ==========================================
         function updateAICoachTip() {
             let totalCal = 0, totalP = 0;
-            appState.meals.forEach(m => { totalCal += m.cal; totalP += m.p; });
+            const daysMeals = appState.meals.filter(m => (m.date || getTodayDateStr()) === appState.selectedDate);
+            daysMeals.forEach(m => { totalCal += m.cal; totalP += m.p; });
             const { targetCal, targetProt } = appState.profile;
             const remCal = targetCal - totalCal;
-            const remP = targetProt - totalP;
+            const remP = Math.round(targetProt - totalP);
             const tipEl = document.getElementById('aiCoachQuickTip');
 
             if (totalCal === 0) {
@@ -1071,12 +1428,12 @@
             } else if (remCal <= 0) {
                 tipEl.innerText = `Aja ko calorie target pura bhaisakyo! Aba paani dherai piunuhos ra rest garnus.`;
             } else {
-                tipEl.innerText = `Target ramrari chaliracha: ${remCal} kcal baki cha. Healthy khana khanu!`;
+                tipEl.innerText = `Target ramrari chaliracha: ${remCal} kcal baki cha (${remP}g protein). Healthy khanu!`;
             }
         }
 
         // ==========================================
-        // 5. FOOD LOGGING & MODALS
+        // 7. FOOD LOGGING & MODALS
         // ==========================================
         function openAddFoodModal(mealId) {
             appState.currentMealId = mealId;
@@ -1089,10 +1446,63 @@
         function renderFoodLibrary() {
             const container = document.getElementById('foodLibraryContainer');
             const searchVal = (document.getElementById('foodSearchInput').value || '').toLowerCase().trim();
-            
-            let filtered = FOOD_DATABASE;
-            if (appState.selectedCategory !== 'all') {
+            const fullDB = getFullFoodDatabase();
+
+            // Quick Add Tab view
+            if (appState.selectedCategory === 'quick') {
+                container.innerHTML = `
+                    <div class="quick-entry-box">
+                        <div style="font-size:12px; font-weight:800; color:var(--accent);">⚡ Direct Quick Calorie &amp; Macro Add</div>
+                        <input type="text" id="quickName" placeholder="Khana ko name (e.g. Hotel Lunch, Fruit)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <input type="number" id="quickCal" placeholder="Calories (kcal)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
+                            <input type="number" id="quickP" placeholder="Protein (g)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
+                            <input type="number" id="quickC" placeholder="Carbs (g)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
+                            <input type="number" id="quickF" placeholder="Fat (g)" style="background:var(--surface); border:1px solid var(--border); color:#fff; padding:8px 12px; border-radius:8px; font-size:13px;">
+                        </div>
+                        <button onclick="submitDirectQuickAdd()" style="background:var(--accent); color:#090d16; border:none; padding:10px; border-radius:10px; font-weight:800; font-size:13px; cursor:pointer;">
+                            + Add to Meal Now
+                        </button>
+                    </div>
+                    <div style="font-size:12px; font-weight:800; color:var(--text-secondary); margin:6px 0;">⚡ Fast 1-Tap Staples:</div>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        ${['egg_boiled_2', 'whey_protein', 'chiya_milk', 'banana', 'roti', 'chicken_breast_100'].map(fid => {
+                            const f = fullDB.find(item => item.id === fid);
+                            if (!f) return '';
+                            return `
+                                <div class="lib-food-card" onclick="addFoodItem('${f.id}')">
+                                    <div>
+                                        <div style="font-weight:700; font-size:13px;">${f.name}</div>
+                                        <div style="font-size:11px; color:var(--text-secondary);">🥩 ${f.p}g P • 🌾 ${f.c}g C • 🥑 ${f.f}g F</div>
+                                    </div>
+                                    <div style="font-weight:800; color:var(--calorie); font-size:13px;">+${f.cal} kcal</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                return;
+            }
+
+            // Custom Foods Tab view
+            if (appState.selectedCategory === 'custom') {
+                container.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="font-size:12px; font-weight:700; color:var(--text-secondary);">My Saved Custom Dishes</span>
+                        <button onclick="openCustomFoodForm()" style="background:var(--accent); color:#090d16; border:none; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:800; cursor:pointer;">+ Create New</button>
+                    </div>
+                `;
+                if (appState.customFoods.length === 0) {
+                    container.innerHTML += `<div style="text-align:center; padding:30px; color:var(--text-secondary); font-size:12px;">Kunai custom food banayeko chaina.<br>'+ Create New' thichera naya dish thapnus!</div>`;
+                    return;
+                }
+            }
+
+            let filtered = fullDB;
+            if (appState.selectedCategory === 'nepali' || appState.selectedCategory === 'fitness') {
                 filtered = filtered.filter(f => f.category === appState.selectedCategory);
+            } else if (appState.selectedCategory === 'custom') {
+                filtered = appState.customFoods;
             }
 
             if (searchVal) {
@@ -1100,21 +1510,34 @@
             }
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-secondary);">Khana bhetiyena. Custom Food add garnus!</div>`;
+                container.innerHTML = `
+                    <div style="text-align:center; padding:30px; color:var(--text-secondary); font-size:13px;">
+                        Khana bhetiyena.<br>
+                        <button onclick="openCustomFoodForm()" style="background:var(--surface); border:1px solid var(--border); color:var(--accent); padding:8px 14px; border-radius:12px; margin-top:10px; font-weight:700; cursor:pointer;">
+                            ✏️ Custom Food Banau
+                        </button>
+                    </div>
+                `;
                 return;
             }
 
-            container.innerHTML = filtered.map(f => `
+            const listHTML = filtered.map(f => `
                 <div class="lib-food-card" onclick="addFoodItem('${f.id}')">
                     <div>
-                        <div style="font-weight:700; font-size:14px; margin-bottom:2px;">${f.name}</div>
-                        <div style="font-size:11px; color:var(--text-secondary);">🥩 ${f.p}g P • 🌾 ${f.c}g C • 🥑 ${f.f}g F • <span style="color:var(--text-primary)">${f.unit}</span></div>
+                        <div style="font-weight:700; font-size:13px; margin-bottom:2px;">${f.name}</div>
+                        <div style="font-size:11px; color:var(--text-secondary);">🥩 ${f.p}g P • 🌾 ${f.c}g C • 🥑 ${f.f}g F • <span style="color:var(--text-primary)">${f.unit || '1 serving'}</span></div>
                     </div>
-                    <div style="font-size:14px; font-weight:800; color:var(--calorie);">
+                    <div style="font-size:13px; font-weight:800; color:var(--calorie);">
                         +${f.cal} kcal
                     </div>
                 </div>
             `).join('');
+
+            if (appState.selectedCategory === 'custom') {
+                container.innerHTML += listHTML;
+            } else {
+                container.innerHTML = listHTML;
+            }
         }
 
         function filterFoodList() {
@@ -1129,18 +1552,23 @@
         }
 
         function addFoodItem(foodId) {
-            const food = FOOD_DATABASE.find(f => f.id === foodId);
+            const food = getFullFoodDatabase().find(f => f.id === foodId);
             if (!food) return;
 
             appState.meals.push({
-                id: 'm_' + Date.now(),
+                id: 'm_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
                 name: food.name,
                 meal_id: appState.currentMealId,
                 cal: food.cal,
+                calories: food.cal,
                 p: food.p,
+                protein: food.p,
                 c: food.c,
+                carbs: food.c,
                 f: food.f,
+                fat: food.f,
                 timestamp: Date.now(),
+                date: appState.selectedDate,
                 synced: false
             });
 
@@ -1151,31 +1579,163 @@
             showToast(`✅ ${food.name} (${food.cal} kcal) add bhayo!`);
         }
 
-        function deleteMealItem(index) {
-            appState.meals.splice(index, 1);
+        function submitDirectQuickAdd() {
+            const name = (document.getElementById('quickName').value || 'Quick Food').trim();
+            const cal = parseFloat(document.getElementById('quickCal').value) || 0;
+            const p = parseFloat(document.getElementById('quickP').value) || 0;
+            const c = parseFloat(document.getElementById('quickC').value) || 0;
+            const f = parseFloat(document.getElementById('quickF').value) || 0;
+
+            if (cal === 0 && p === 0) {
+                showToast('Calorie ya Protein halnus!');
+                return;
+            }
+
+            appState.meals.push({
+                id: 'm_' + Date.now(),
+                name: name,
+                meal_id: appState.currentMealId,
+                cal: cal,
+                calories: cal,
+                p: p,
+                protein: p,
+                c: c,
+                carbs: c,
+                f: f,
+                fat: f,
+                timestamp: Date.now(),
+                date: appState.selectedDate,
+                synced: false
+            });
+
             saveState();
             renderDashboard();
             updateAICoachTip();
+            closeModal('addFoodModal');
+            showToast(`✅ ${name} (${cal} kcal) log bhayo!`);
+        }
+
+        function openCustomFoodForm() {
+            closeModal('addFoodModal');
+            document.getElementById('custFoodName').value = '';
+            document.getElementById('custFoodCal').value = '';
+            document.getElementById('custFoodP').value = '';
+            document.getElementById('custFoodC').value = '';
+            document.getElementById('custFoodF').value = '';
+            document.getElementById('customFoodModal').classList.add('open');
+        }
+
+        function saveAndAddCustomFood() {
+            const name = (document.getElementById('custFoodName').value || '').trim();
+            const unit = (document.getElementById('custFoodUnit').value || '1 plate').trim();
+            const cal = parseFloat(document.getElementById('custFoodCal').value) || 0;
+            const p = parseFloat(document.getElementById('custFoodP').value) || 0;
+            const c = parseFloat(document.getElementById('custFoodC').value) || 0;
+            const f = parseFloat(document.getElementById('custFoodF').value) || 0;
+
+            if (!name) {
+                showToast('Khana ko name halnuhos!');
+                return;
+            }
+
+            const newFood = {
+                id: 'custom_' + Date.now(),
+                name: name,
+                category: 'custom',
+                cal: cal,
+                calories: cal,
+                p: p,
+                protein: p,
+                c: c,
+                carbs: c,
+                f: f,
+                fat: f,
+                unit: unit
+            };
+
+            appState.customFoods.push(newFood);
+
+            // Log to current meal
+            appState.meals.push({
+                id: 'm_' + Date.now(),
+                name: newFood.name,
+                meal_id: appState.currentMealId,
+                cal: newFood.cal,
+                calories: newFood.cal,
+                p: newFood.p,
+                protein: newFood.p,
+                c: newFood.c,
+                carbs: newFood.c,
+                f: newFood.f,
+                fat: newFood.f,
+                timestamp: Date.now(),
+                date: appState.selectedDate,
+                synced: false
+            });
+
+            saveState();
+            renderDashboard();
+            updateAICoachTip();
+            closeModal('customFoodModal');
+            showToast(`🌟 ${name} saved & logged!`);
+        }
+
+        function deleteMealItemById(mealId) {
+            const idx = appState.meals.findIndex(m => m.id === mealId);
+            if (idx !== -1) {
+                appState.meals.splice(idx, 1);
+                saveState();
+                renderDashboard();
+                updateAICoachTip();
+            }
         }
 
         function closeModal(id) {
-            document.getElementById(id).classList.remove('open');
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('open');
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(m => m.classList.remove('open'));
+        }
+
+        function switchNav(tab) {
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+            if (tab === 'diary') {
+                const el = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+                if (el) el.classList.add('active');
+                closeAllModals();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (tab === 'add') {
+                const el = document.querySelector('.bottom-nav .nav-item:nth-child(2)');
+                if (el) el.classList.add('active');
+                openAddFoodModal(appState.currentMealId || 1);
+            } else if (tab === 'coach') {
+                const el = document.querySelector('.bottom-nav .nav-item:nth-child(3)');
+                if (el) el.classList.add('active');
+                openChatDrawer();
+            } else if (tab === 'sync') {
+                const el = document.querySelector('.bottom-nav .nav-item:nth-child(4)');
+                if (el) el.classList.add('active');
+                openSyncModal();
+            }
         }
 
         // ==========================================
-        // 6. MYFITNESSPAL SYNC ENGINE
+        // 8. MYFITNESSPAL SYNC ENGINE
         // ==========================================
         function openSyncModal() {
             const queueContainer = document.getElementById('syncQueueList');
-            document.getElementById('syncPendingCount').innerText = appState.meals.length;
+            const daysMeals = appState.meals.filter(m => (m.date || getTodayDateStr()) === appState.selectedDate);
+            document.getElementById('syncPendingCount').innerText = daysMeals.length;
 
-            if (appState.meals.length === 0) {
+            if (daysMeals.length === 0) {
                 queueContainer.innerHTML = '<div style="color:var(--text-secondary); font-size:12px; text-align:center; padding:15px;">Aja kunai khana log bhayeko chaina.</div>';
             } else {
-                queueContainer.innerHTML = appState.meals.map(m => `
+                queueContainer.innerHTML = daysMeals.map(m => `
                     <div style="background:var(--bg); border:1px solid var(--border); padding:8px 12px; border-radius:10px; display:flex; justify-content:space-between; font-size:12px;">
                         <span>${m.name}</span>
-                        <span style="font-weight:700; color:${m.synced ? '#22c55e' : 'var(--calorie)'};">${m.cal} kcal ${m.synced ? '✓' : '● pending'}</span>
+                        <span style="font-weight:700; color:${m.synced ? '#22c55e' : 'var(--calorie)'};">${m.cal} kcal ${m.synced ? '✓ synced' : '● pending'}</span>
                     </div>
                 `).join('');
             }
@@ -1188,11 +1748,20 @@
             const btn = document.getElementById('btnRunSync');
             const msg = document.getElementById('syncStatusMsg');
             btn.disabled = true;
-            btn.innerText = 'Syncing... ⏳';
+            btn.innerText = 'Syncing to MyFitnessPal... ⏳';
+
+            const daysMeals = appState.meals.filter(m => (m.date || getTodayDateStr()) === appState.selectedDate);
+
+            if (daysMeals.length === 0) {
+                msg.innerText = 'Sync garna kunai khana chaina.';
+                btn.disabled = false;
+                btn.innerText = '🚀 Sync All to MyFitnessPal Now';
+                return;
+            }
 
             const payload = {
-                date: new Date().toISOString().split('T')[0],
-                meals: appState.meals
+                date: appState.selectedDate,
+                meals: daysMeals
             };
 
             // Attempt bridge sync on port 5052 (running on laptop)
@@ -1205,17 +1774,17 @@
 
                 if (res.ok) {
                     const data = await res.json();
-                    appState.meals.forEach(m => m.synced = true);
+                    daysMeals.forEach(m => m.synced = true);
                     saveState();
                     renderDashboard();
                     msg.innerHTML = `<span style="color:#22c55e">🎉 ${data.synced_count} items MyFitnessPal ma sync bhayo! (${data.total_calories} kcal)</span>`;
                     showToast('MyFitnessPal ma sync bhayo! 🚀');
                 } else {
-                    throw new Error('Bridge unreachable');
+                    throw new Error('Bridge returned non-200');
                 }
             } catch (err) {
-                // If local bridge not running, save to local verified queue & provide copy command
-                appState.meals.forEach(m => m.synced = true);
+                // Bridge fallback
+                daysMeals.forEach(m => m.synced = true);
                 saveState();
                 renderDashboard();
                 msg.innerHTML = `
@@ -1224,7 +1793,7 @@
                         <code style="background:#1e293b; padding:4px 8px; border-radius:6px; display:inline-block; margin-top:4px;">python3 /home/samrat/nutripulse/mfp_sync.py --server</code>
                     </div>
                 `;
-                showToast('Diary queue ready for sync!');
+                showToast('Diary marked ready for sync!');
             } finally {
                 btn.disabled = false;
                 btn.innerText = '🚀 Sync All to MyFitnessPal Now';
@@ -1232,14 +1801,22 @@
         }
 
         // ==========================================
-        // 7. AI COACH CHAT DRAWER
+        // 9. AI COACH CHAT DRAWER & NATURAL LANGUAGE LOGGING
         // ==========================================
         function openChatDrawer() {
             document.getElementById('chatModal').classList.add('open');
-            document.getElementById('chatInput').focus();
+            setTimeout(() => {
+                const input = document.getElementById('chatInput');
+                if (input) input.focus();
+            }, 200);
         }
 
-        function sendChatMessage() {
+        function askQuickPrompt(text) {
+            document.getElementById('chatInput').value = text;
+            sendChatMessage();
+        }
+
+        async function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
             if (!text) return;
@@ -1247,11 +1824,116 @@
             appendChatBubble(text, 'user');
             input.value = '';
 
-            // AI reasoning engine
+            // 1. Natural Language Food Logging Check
+            const loggedItem = tryNaturalLanguageLogging(text);
+            if (loggedItem) {
+                appendChatBubble(`Done bro! ${loggedItem.name} (${loggedItem.cal} kcal, ${loggedItem.p}g Protein) ${loggedItem.mealName} ma add garisake! 🥚🔥\nDashboard rings update bhaisakyo.`, 'ai');
+                return;
+            }
+
+            // 2. Optional Gemini Cloud AI
+            if (appState.profile.geminiKey) {
+                const aiThinking = appendChatBubble('Thinking... 🤖', 'ai');
+                try {
+                    const prompt = `You are NutriPulse AI Coach, an expert fitness & nutrition coach in Nepal speaking friendly Nepali-English mix (Romanized Nepali).
+User stats: ${appState.profile.weight}kg, Goal: ${appState.profile.goal}.
+Daily target: ${appState.profile.targetCal} kcal, ${appState.profile.targetProt}g protein.
+User asks: "${text}".
+Provide concise, energetic, practical advice with Nepali food options like Dal Bhat, Eggs, Chicken, Dahi, Bhatmas. Keep it under 4 sentences.`;
+
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${appState.profile.geminiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                    });
+                    const d = await res.json();
+                    const reply = d?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (reply) {
+                        aiThinking.innerText = reply;
+                        return;
+                    }
+                } catch(e) {
+                    // Fall back to offline reasoning
+                }
+            }
+
+            // 3. Offline Intelligent Nutrition Brain
             setTimeout(() => {
                 const reply = processAICoachQuery(text);
                 appendChatBubble(reply, 'ai');
-            }, 400);
+            }, 300);
+        }
+
+        function tryNaturalLanguageLogging(query) {
+            const q = query.toLowerCase();
+            const isLogIntent = q.startsWith('add ') || q.startsWith('log ') || q.includes(' add gara') || q.includes(' log gara') || q.includes(' thap');
+            if (!isLogIntent) return null;
+
+            // Detect target meal slot
+            let mealId = appState.currentMealId;
+            let mealName = 'Diary';
+            if (q.includes('breakfast') || q.includes('bihana')) { mealId = 0; mealName = 'Breakfast'; }
+            else if (q.includes('lunch') || q.includes('diuso')) { mealId = 1; mealName = 'Lunch'; }
+            else if (q.includes('dinner') || q.includes('rati') || q.includes('beluka')) { mealId = 2; mealName = 'Dinner'; }
+            else if (q.includes('snack') || q.includes('khaja')) { mealId = 3; mealName = 'Snacks'; }
+
+            const fullDB = getFullFoodDatabase();
+            let matchedFood = null;
+
+            // Direct food name match
+            if (q.includes('boiled egg') || q.includes('anda')) {
+                matchedFood = q.includes('2') ? fullDB.find(f => f.id === 'egg_boiled_2') : fullDB.find(f => f.id === 'egg_boiled');
+            } else if (q.includes('momo')) {
+                matchedFood = fullDB.find(f => f.id === 'chicken_momo');
+            } else if (q.includes('dal bhat')) {
+                matchedFood = q.includes('masu') || q.includes('chicken') ? fullDB.find(f => f.id === 'dalbhat_masu') : fullDB.find(f => f.id === 'dalbhat');
+            } else if (q.includes('whey') || q.includes('protein powder')) {
+                matchedFood = fullDB.find(f => f.id === 'whey_protein');
+            } else if (q.includes('chicken breast')) {
+                matchedFood = fullDB.find(f => f.id === 'chicken_breast_100');
+            } else if (q.includes('chiya') || q.includes('tea')) {
+                matchedFood = q.includes('black') || q.includes('kalo') ? fullDB.find(f => f.id === 'chiya_black') : fullDB.find(f => f.id === 'chiya_milk');
+            } else if (q.includes('banana') || q.includes('kera')) {
+                matchedFood = fullDB.find(f => f.id === 'banana');
+            } else if (q.includes('roti')) {
+                matchedFood = fullDB.find(f => f.id === 'roti');
+            }
+
+            if (!matchedFood) {
+                // Search DB by keyword
+                for (let f of fullDB) {
+                    const firstWord = f.name.toLowerCase().split(' ')[0];
+                    if (firstWord.length > 3 && q.includes(firstWord)) {
+                        matchedFood = f;
+                        break;
+                    }
+                }
+            }
+
+            if (matchedFood) {
+                appState.meals.push({
+                    id: 'm_' + Date.now(),
+                    name: matchedFood.name,
+                    meal_id: mealId,
+                    cal: matchedFood.cal,
+                    calories: matchedFood.cal,
+                    p: matchedFood.p,
+                    protein: matchedFood.p,
+                    c: matchedFood.c,
+                    carbs: matchedFood.c,
+                    f: matchedFood.f,
+                    fat: matchedFood.f,
+                    timestamp: Date.now(),
+                    date: appState.selectedDate,
+                    synced: false
+                });
+                saveState();
+                renderDashboard();
+                updateAICoachTip();
+                return { name: matchedFood.name, cal: matchedFood.cal, p: matchedFood.p, mealName: mealName };
+            }
+
+            return null;
         }
 
         function appendChatBubble(text, sender) {
@@ -1261,53 +1943,63 @@
             b.innerText = text;
             box.appendChild(b);
             box.scrollTop = box.scrollHeight;
+            return b;
         }
 
         function processAICoachQuery(query) {
             const q = query.toLowerCase();
             let totalCal = 0, totalP = 0;
-            appState.meals.forEach(m => { totalCal += m.cal; totalP += m.p; });
+            const daysMeals = appState.meals.filter(m => (m.date || getTodayDateStr()) === appState.selectedDate);
+            daysMeals.forEach(m => { totalCal += m.cal; totalP += m.p; });
             const { targetCal, targetProt } = appState.profile;
             const remCal = targetCal - totalCal;
-            const remP = targetProt - totalP;
+            const remP = Math.round(targetProt - totalP);
 
-            // Direct question matches
             if (q.includes('dinner') || q.includes('khana') || q.includes('k kham')) {
                 return `Aja timro ${remCal} kcal ra ${remP}g protein baki cha. Mero recommendation:\n1. 150g Grilled Chicken Breast + 2 Roti (~380 kcal, 40g Protein)\n2. Ya 3 Boiled Eggs + 1 bowl Chana (~350 kcal, 25g Protein)!`;
             }
             if (q.includes('protein')) {
-                return `Protein pura garna best Nepali sources: Boiled eggs (6g/egg), Chicken Masu (28g/bowl), Dahi (8g), Bhatmas (14g), ra Paneer (18g/100g) hun. Timlai ahile ${remP}g chahincha!`;
+                return `Protein pura garna best Nepali sources:\n• Boiled eggs (6g/egg)\n• Chicken Masu (28g/bowl)\n• Dahi (8g)\n• Bhatmas Sadeko (14g)\n• Paneer (18g/100g)\n• Whey Protein (24g/scoop)\nTimilai ahile ${remP}g protein chahincha!`;
             }
-            if (q.includes('target') || q.includes('calorie')) {
-                return `Timro daily target: ${targetCal} kcal. Ahile samma ${totalCal} kcal khayeu, ${remCal} kcal baki cha!`;
+            if (q.includes('target') || q.includes('status') || q.includes('calorie')) {
+                return `📊 Timro daily target: ${targetCal} kcal (${targetProt}g Protein).\nAhile samma ${totalCal} kcal khayeu (${Math.round(totalP)}g P).\nBaki cha: ${remCal} kcal & ${remP}g Protein!`;
+            }
+            if (q.includes('weight') || q.includes('cut') || q.includes('ghatauna')) {
+                return `Weight ghatuna (cutting) ma daily 500 kcal deficit ma basnu parcha, tara protein high (140g+) rakhnu parcha jasle muscle bachauncha. Dal Bhat alikati thorai garne, anda ra chicken badaune!`;
             }
 
-            return `Bro, timro baki calorie: ${remCal} kcal, protein: ${remP}g. Target pugna protein-rich khana chhanera khanu hai! Kehi log garnu cha bhane 'Add 2 boiled eggs' bhana!`;
+            return `Bro, timro baki calorie: ${remCal} kcal, protein: ${remP}g. Target pugna protein-rich khana chhanera khanu hai!\nKunai khana sidhai log garnu cha bhane 'Add 2 boiled eggs' ya 'Log chicken momo' type gara!`;
         }
 
         // ==========================================
-        // 8. PROFILE SETTINGS
+        // 10. PROFILE SETTINGS
         // ==========================================
         function openProfileModal() {
             document.getElementById('profWeight').value = appState.profile.weight;
             document.getElementById('profHeight').value = appState.profile.height;
+            document.getElementById('profAge').value = appState.profile.age || 24;
+            document.getElementById('profWaterGoal').value = appState.profile.waterGoal || 2500;
             document.getElementById('profActivity').value = appState.profile.activity;
             document.getElementById('profGoal').value = appState.profile.goal;
+            document.getElementById('profGeminiKey').value = appState.profile.geminiKey || '';
             document.getElementById('profileModal').classList.add('open');
         }
 
         function saveProfile() {
             appState.profile.weight = parseFloat(document.getElementById('profWeight').value) || 70;
             appState.profile.height = parseFloat(document.getElementById('profHeight').value) || 175;
+            appState.profile.age = parseFloat(document.getElementById('profAge').value) || 24;
+            appState.profile.waterGoal = parseFloat(document.getElementById('profWaterGoal').value) || 2500;
             appState.profile.activity = parseFloat(document.getElementById('profActivity').value) || 1.55;
             appState.profile.goal = document.getElementById('profGoal').value;
+            appState.profile.geminiKey = (document.getElementById('profGeminiKey').value || '').trim();
 
             recalculateTargets();
             saveState();
             renderDashboard();
             updateAICoachTip();
             closeModal('profileModal');
-            showToast('Profile & Target update bhayo!');
+            showToast('Profile & Targets update bhayo! 🎯');
         }
 
         function showToast(msg) {
