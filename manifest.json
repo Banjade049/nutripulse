@@ -1,0 +1,22 @@
+{
+  "name": "NutriPulse — AI Nutrition & Calorie Tracker",
+  "short_name": "NutriPulse",
+  "description": "Smart Calorie, Macro, and Nepali Food Nutrition Tracker with AI Coach and MyFitnessPal sync.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
