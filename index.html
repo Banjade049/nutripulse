@@ -33,24 +33,24 @@
 
             /* Apple Activity Rings & Macro Accents */
             --calorie: #FA114F;
-            --calorie-glow: rgba(250, 17, 79, 0.35);
-            --calorie-track: #2D050F;
+            --calorie-glow: rgba(250, 17, 79, 0.40);
+            --calorie-track: rgba(250, 17, 79, 0.20);
 
             --protein: #30D158;
-            --protein-glow: rgba(48, 209, 88, 0.35);
-            --protein-track: #05260F;
+            --protein-glow: rgba(48, 209, 88, 0.40);
+            --protein-track: rgba(48, 209, 88, 0.20);
 
             --carbs: #0A84FF;
-            --carbs-glow: rgba(10, 132, 255, 0.35);
-            --carbs-track: #041B33;
+            --carbs-glow: rgba(10, 132, 255, 0.40);
+            --carbs-track: rgba(10, 132, 255, 0.20);
 
             --fat: #FF9F0A;
-            --fat-glow: rgba(255, 159, 10, 0.35);
-            --fat-track: #2D1A04;
+            --fat-glow: rgba(255, 159, 10, 0.40);
+            --fat-track: rgba(255, 159, 10, 0.20);
 
             --water: #64D2FF;
             --water-glow: rgba(100, 210, 255, 0.35);
-            --water-track: #072636;
+            --water-track: rgba(100, 210, 255, 0.18);
 
             --accent: #38BDF8;
             --mfp-blue: #0A84FF;
@@ -81,7 +81,7 @@
             background-color: var(--bg);
             color: var(--text-primary);
             min-height: 100vh;
-            padding-bottom: calc(env(safe-area-inset-bottom) + 90px);
+            padding-bottom: calc(env(safe-area-inset-bottom) + 110px);
             user-select: none;
             -webkit-user-select: none;
             overflow-x: hidden;
@@ -212,19 +212,21 @@
             background: var(--surface);
             border: 1px solid var(--border);
             color: var(--text-secondary);
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
+            min-width: 44px;
+            min-height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.15s, color 0.15s, border-color 0.15s;
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), color 0.15s, border-color 0.15s;
         }
         .icon-btn-circle:hover { color: #FFFFFF; border-color: var(--border-hover); }
         .icon-btn-circle:active { transform: scale(0.92); }
 
-        /* Main Container */
+        /* Main Container & Rail Layout */
         main {
             max-width: 540px;
             margin: 0 auto;
@@ -232,6 +234,11 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+        }
+
+        .dashboard-rail,
+        .dashboard-meals {
+            display: contents;
         }
 
         /* Date Navigation Strip */
@@ -249,14 +256,16 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
+            min-width: 44px;
+            min-height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.15s, background 0.15s;
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), background 0.15s;
         }
         .date-nav-btn:hover { background: rgba(255, 255, 255, 0.1); }
         .date-nav-btn:active { transform: scale(0.9); }
@@ -311,8 +320,8 @@
 
         .rings-box {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 126px;
+            height: 126px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -338,15 +347,19 @@
 
         .ring-cal-fg {
             stroke: var(--calorie);
-            filter: drop-shadow(0 0 5px var(--calorie-glow));
+            filter: drop-shadow(0 0 6px var(--calorie-glow));
         }
         .ring-prot-fg {
             stroke: var(--protein);
-            filter: drop-shadow(0 0 5px var(--protein-glow));
+            filter: drop-shadow(0 0 6px var(--protein-glow));
         }
         .ring-carb-fg {
             stroke: var(--carbs);
-            filter: drop-shadow(0 0 5px var(--carbs-glow));
+            filter: drop-shadow(0 0 6px var(--carbs-glow));
+        }
+        .ring-fat-fg {
+            stroke: var(--fat);
+            filter: drop-shadow(0 0 6px var(--fat-glow));
         }
 
         .rings-center {
@@ -356,24 +369,33 @@
             transform: translate(-50%, -50%);
             text-align: center;
             pointer-events: none;
+            width: 54px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .rings-center-val {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 900;
-            letter-spacing: -0.8px;
-            line-height: 1;
+            letter-spacing: -0.6px;
+            line-height: 1.05;
             color: #FFFFFF;
             font-variant-numeric: tabular-nums;
         }
         .rings-center-lbl {
-            font-size: 8.5px;
+            font-size: 7.5px;
             font-weight: 800;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             color: var(--text-secondary);
-            margin-top: 4px;
+            margin-top: 3px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 2px;
+            white-space: nowrap;
+        }
             justify-content: center;
             gap: 3px;
         }
@@ -750,6 +772,7 @@
         .tag-carb { background: rgba(10, 132, 255, 0.12); color: #0A84FF; border: 1px solid rgba(10, 132, 255, 0.25); }
         .tag-fat  { background: rgba(255, 159, 10, 0.12); color: #FF9F0A; border: 1px solid rgba(255, 159, 10, 0.25); }
         .tag-mfp  { background: rgba(0, 102, 238, 0.16); color: #60A5FA; border: 1px solid rgba(0, 102, 238, 0.35); font-weight: 800; }
+        .tag-scan { background: rgba(191, 90, 242, 0.14); color: #BF5AF2; border: 1px solid rgba(191, 90, 242, 0.32); font-weight: 700; }
 
         .food-right {
             display: flex;
@@ -765,20 +788,27 @@
             white-space: nowrap;
         }
         .btn-del-food {
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: #EF4444;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
             width: 34px;
             height: 34px;
-            border-radius: 9px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.12s, background 0.12s;
+            transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
         }
-        .btn-del-food:hover { background: rgba(239, 68, 68, 0.2); }
-        .btn-del-food:active { transform: scale(0.9); }
+        .btn-del-food:hover {
+            background: rgba(239, 68, 68, 0.18);
+            border-color: rgba(239, 68, 68, 0.35);
+            color: #EF4444;
+        }
+        .btn-del-food:active {
+            transform: scale(0.9);
+            background: rgba(239, 68, 68, 0.28);
+        }
 
         .empty-meal-hint {
             padding: 16px;
@@ -917,8 +947,10 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border);
             color: var(--text-secondary);
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
+            min-width: 44px;
+            min-height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1149,12 +1181,13 @@
         .chat-chip:active { background: var(--surface-hover); transform: scale(0.95); }
 
         .chat-input-bar {
-            padding: 10px 16px 14px;
+            padding: 10px 16px max(14px, env(safe-area-inset-bottom));
             border-top: 1px solid var(--border);
             display: flex;
             gap: 8px;
             align-items: center;
             flex-shrink: 0;
+            background: #12141C;
         }
         .chat-input-bar input {
             flex: 1;
@@ -1183,6 +1216,81 @@
             flex-shrink: 0;
         }
         .btn-send-chat:active { transform: scale(0.9); }
+
+        /* Quick Add Input Grid (No Overflow) */
+        .quick-inputs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+        .quick-inputs-grid input {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            background: #090B0F;
+            border: 1px solid var(--border);
+            color: #ffffff;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .quick-inputs-grid input:focus {
+            border-color: var(--accent);
+        }
+
+        /* Backup & Restore Action Buttons */
+        .btn-backup-item {
+            flex: 1;
+            background: #0B0D12;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 11px 14px;
+            border-radius: 12px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+            min-height: 42px;
+        }
+        .btn-backup-item:hover {
+            color: #FFFFFF;
+            border-color: var(--border-hover);
+            background: var(--surface-hover);
+        }
+        .btn-backup-item:active {
+            transform: scale(0.95);
+        }
+
+        .btn-demo-scan {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            width: 100%;
+            margin-top: 8px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: #38BDF8;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .btn-demo-scan:hover {
+            background: rgba(56, 189, 248, 0.22);
+        }
+        .btn-demo-scan:active {
+            transform: scale(0.96);
+        }
 
         /* Dynamic Island / Top Toast Notification Pill */
         .toast {
@@ -1246,12 +1354,87 @@
             100% { top: 100%; opacity: 0; }
         }
 
-        /* Responsive Layout Overrides */
+        /* Responsive Layout Overrides for Small Devices (375px/360px) */
         @media (max-width: 380px) {
             .brand h1 { font-size: 17px; }
-            .btn-header-action { padding: 5px 9px; font-size: 11px; }
-            .card-rings { flex-direction: column; align-items: center; }
-            .macros-info { width: 100%; }
+            .btn-header-action { padding: 5px 8px; font-size: 11px; }
+            .card-rings { padding: 12px 10px; gap: 10px; }
+            .rings-box { width: 110px; height: 110px; }
+            .rings-center-val { font-size: 16px; }
+            .rings-center-lbl { font-size: 7px; }
+            .macro-header { font-size: 10px; }
+            .macro-fraction { font-size: 9.5px; }
+            .macro-pct-pill { font-size: 8px; padding: 1px 3px; min-width: 22px; }
+            .btn-water { font-size: 11px; padding: 7px 6px; }
+        }
+
+        /* Tablet & Desktop Responsive Layout (>= 860px) */
+        @media (min-width: 860px) {
+            header {
+                padding: 16px 24px;
+            }
+            .header-container {
+                max-width: 1080px;
+            }
+            body {
+                padding-bottom: 50px;
+            }
+            main {
+                max-width: 1080px;
+                display: grid;
+                grid-template-columns: 380px 1fr;
+                gap: 24px;
+                padding: 24px 24px 100px;
+                align-items: start;
+            }
+            .dashboard-rail {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                position: sticky;
+                top: 76px;
+            }
+            .dashboard-meals {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+            .bottom-nav-wrapper {
+                position: fixed;
+                bottom: 24px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: auto;
+                min-width: 440px;
+                border-radius: 32px;
+                border: 1px solid var(--border-hover);
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(56, 189, 248, 0.15);
+                padding: 8px 24px;
+            }
+            .bottom-nav {
+                max-width: 100%;
+                gap: 24px;
+            }
+            .modal {
+                align-items: center;
+                padding: 24px;
+            }
+            .modal-content {
+                border-radius: 24px;
+                border-bottom: 1px solid var(--border-hover);
+                max-width: 520px;
+                max-height: 86vh;
+                animation: modalZoomIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+                padding-bottom: 24px;
+            }
+            .sheet-handle {
+                display: none;
+            }
+        }
+        @keyframes modalZoomIn {
+            from { transform: scale(0.94); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
@@ -1298,298 +1481,306 @@
     </header>
 
     <main>
-        <!-- Date Navigator Strip -->
-        <div class="date-strip">
-            <button class="date-nav-btn" onclick="changeDate(-1)" title="Previous Day">
-                <span class="svg-icon" style="width:18px; height:18px;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M15 18l-6-6 6-6"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="date-center" onclick="resetToToday()">
-                <div class="date-label" id="dateLabel">Today</div>
-                <div class="date-sub" id="dateSub">
-                    <span class="svg-icon" style="width:10px; height:10px;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
-                    <span>Current Day</span>
-                </div>
-            </div>
-            <button class="date-nav-btn" onclick="changeDate(1)" title="Next Day">
-                <span class="svg-icon" style="width:18px; height:18px;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 18l6-6-6-6"/>
-                    </svg>
-                </span>
-            </button>
-        </div>
-
-        <!-- Apple Health / Fitness Activity Rings Card -->
-        <div class="card-rings">
-            <div class="rings-box">
-                <svg class="rings-svg" viewBox="0 0 130 130">
-                    <!-- Calorie Outer Ring (radius 50) -->
-                    <circle class="ring-bg" cx="65" cy="65" r="50" stroke-width="9.5" stroke="var(--calorie-track)"/>
-                    <circle class="ring-fg ring-cal-fg" id="ringCal" cx="65" cy="65" r="50" stroke-width="9.5" stroke-dasharray="314.16" stroke-dashoffset="314.16"/>
-                    
-                    <!-- Protein Middle Ring (radius 38) -->
-                    <circle class="ring-bg" cx="65" cy="65" r="38" stroke-width="8.5" stroke="var(--protein-track)"/>
-                    <circle class="ring-fg ring-prot-fg" id="ringProt" cx="65" cy="65" r="38" stroke-width="8.5" stroke-dasharray="238.76" stroke-dashoffset="238.76"/>
-
-                    <!-- Carbs Inner Ring (radius 27) -->
-                    <circle class="ring-bg" cx="65" cy="65" r="27" stroke-width="7.5" stroke="var(--carbs-track)"/>
-                    <circle class="ring-fg ring-carb-fg" id="ringCarb" cx="65" cy="65" r="27" stroke-width="7.5" stroke-dasharray="169.65" stroke-dashoffset="169.65"/>
-                </svg>
-                <div class="rings-center">
-                    <div class="rings-center-val" id="dispRemCal">--</div>
-                    <div class="rings-center-lbl" id="dispRemLbl">
-                        <span class="svg-icon" style="width:10px; height:10px; color:var(--calorie);">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/>
-                            </svg>
-                        </span>
-                        <span id="dispRemText">KCAL LEFT</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="macros-info">
-                <!-- Calorie Summary -->
-                <div class="macro-bar-row">
-                    <div class="macro-header">
-                        <div class="macro-title-group" style="color:var(--calorie)">
-                            <span class="svg-icon" style="width:13px; height:13px;">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg>
-                            </span>
-                            <span>Calories</span>
-                        </div>
-                        <div class="macro-val-group">
-                            <span class="macro-fraction" id="calFraction">0 / 2,000 kcal</span>
-                            <span class="macro-pct-pill" id="calPctPill" style="background:rgba(250,17,79,0.18); color:var(--calorie);">0%</span>
-                        </div>
-                    </div>
-                    <div class="macro-track" style="background:var(--calorie-track);">
-                        <div class="macro-fill" id="barCal" style="width: 0%; background: var(--calorie); box-shadow: 0 0 8px var(--calorie-glow);"></div>
-                    </div>
-                </div>
-
-                <!-- Protein -->
-                <div class="macro-bar-row">
-                    <div class="macro-header">
-                        <div class="macro-title-group" style="color:var(--protein)">
-                            <span class="svg-icon" style="width:13px; height:13px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4M6 12h12"/></svg>
-                            </span>
-                            <span>Protein</span>
-                        </div>
-                        <div class="macro-val-group">
-                            <span class="macro-fraction" id="protFraction">0 / 140g</span>
-                            <span class="macro-pct-pill" id="protPctPill" style="background:rgba(48,209,88,0.18); color:var(--protein);">0%</span>
-                        </div>
-                    </div>
-                    <div class="macro-track" style="background:var(--protein-track);">
-                        <div class="macro-fill" id="barProt" style="width: 0%; background: var(--protein); box-shadow: 0 0 8px var(--protein-glow);"></div>
-                    </div>
-                </div>
-
-                <!-- Carbs -->
-                <div class="macro-bar-row">
-                    <div class="macro-header">
-                        <div class="macro-title-group" style="color:var(--carbs)">
-                            <span class="svg-icon" style="width:13px; height:13px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22 12 12M7 17l4 4M9 10l5 5M11 3l10 10M17 2l4 4"/></svg>
-                            </span>
-                            <span>Carbs</span>
-                        </div>
-                        <div class="macro-val-group">
-                            <span class="macro-fraction" id="carbFraction">0 / 220g</span>
-                            <span class="macro-pct-pill" id="carbPctPill" style="background:rgba(10,132,255,0.18); color:var(--carbs);">0%</span>
-                        </div>
-                    </div>
-                    <div class="macro-track" style="background:var(--carbs-track);">
-                        <div class="macro-fill" id="barCarb" style="width: 0%; background: var(--carbs); box-shadow: 0 0 8px var(--carbs-glow);"></div>
-                    </div>
-                </div>
-
-                <!-- Fat -->
-                <div class="macro-bar-row">
-                    <div class="macro-header">
-                        <div class="macro-title-group" style="color:var(--fat)">
-                            <span class="svg-icon" style="width:13px; height:13px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
-                            </span>
-                            <span>Fat</span>
-                        </div>
-                        <div class="macro-val-group">
-                            <span class="macro-fraction" id="fatFraction">0 / 60g</span>
-                            <span class="macro-pct-pill" id="fatPctPill" style="background:rgba(255,159,10,0.18); color:var(--fat);">0%</span>
-                        </div>
-                    </div>
-                    <div class="macro-track" style="background:var(--fat-track);">
-                        <div class="macro-fill" id="barFat" style="width: 0%; background: var(--fat); box-shadow: 0 0 8px var(--fat-glow);"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Water Hydration Card -->
-        <div class="water-card">
-            <div class="water-header">
-                <div class="water-title">
+        <!-- Left Column / Sticky Summary Rail on Desktop -->
+        <div class="dashboard-rail">
+            <!-- Date Navigator Strip -->
+            <div class="date-strip">
+                <button class="date-nav-btn" onclick="changeDate(-1)" title="Previous Day">
                     <span class="svg-icon" style="width:18px; height:18px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 18l-6-6 6-6"/>
                         </svg>
                     </span>
-                    <span>Water Hydration</span>
+                </button>
+                <div class="date-center" onclick="resetToToday()">
+                    <div class="date-label" id="dateLabel">Today</div>
+                    <div class="date-sub" id="dateSub">
+                        <span class="svg-icon" style="width:10px; height:10px;"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg></span>
+                        <span>Current Day</span>
+                    </div>
                 </div>
-                <div class="water-val-wrap">
-                    <span class="water-val" id="waterDisplay">0 / 2,500 ml</span>
-                    <span class="water-pct-badge" id="waterPctBadge">0%</span>
-                </div>
-            </div>
-            <div class="water-track">
-                <div class="water-fill" id="waterFill" style="width: 0%;"></div>
-            </div>
-            <div class="water-actions">
-                <button class="btn-water" onclick="addWater(250)">
-                    <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                    <span>250ml Glass</span>
-                </button>
-                <button class="btn-water" onclick="addWater(500)">
-                    <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                    <span>500ml Bottle</span>
-                </button>
-                <button class="btn-water" onclick="addWater(-250)">
-                    <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                    <span>-250ml</span>
-                </button>
-                <button class="btn-water-reset" onclick="resetWater()" title="Reset Water">
-                    <span class="svg-icon" style="width:15px; height:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
+                <button class="date-nav-btn" onclick="changeDate(1)" title="Next Day">
+                    <span class="svg-icon" style="width:18px; height:18px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </span>
                 </button>
             </div>
-        </div>
 
-        <!-- AI Nutrition Coach Live Insight -->
-        <div class="ai-coach-card" onclick="openChatDrawer()">
-            <div class="ai-avatar">
-                <span class="svg-icon" style="width:20px; height:20px;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            <!-- Apple Health / Fitness Concentric 4 Activity Rings Card -->
+            <div class="card-rings">
+                <div class="rings-box">
+                    <svg class="rings-svg" viewBox="0 0 140 140">
+                        <!-- Calorie Outer Ring (radius 60, stroke 6.2, C=376.99) -->
+                        <circle class="ring-bg" cx="70" cy="70" r="60" stroke-width="6.2" stroke="var(--calorie-track)"/>
+                        <circle class="ring-fg ring-cal-fg" id="ringCal" cx="70" cy="70" r="60" stroke-width="6.2" stroke-dasharray="376.99" stroke-dashoffset="376.99"/>
+                        
+                        <!-- Protein Second Ring (radius 49.5, stroke 6.2, C=311.02) -->
+                        <circle class="ring-bg" cx="70" cy="70" r="49.5" stroke-width="6.2" stroke="var(--protein-track)"/>
+                        <circle class="ring-fg ring-prot-fg" id="ringProt" cx="70" cy="70" r="49.5" stroke-width="6.2" stroke-dasharray="311.02" stroke-dashoffset="311.02"/>
+
+                        <!-- Carbs Third Ring (radius 39, stroke 6.2, C=245.04) -->
+                        <circle class="ring-bg" cx="70" cy="70" r="39" stroke-width="6.2" stroke="var(--carbs-track)"/>
+                        <circle class="ring-fg ring-carb-fg" id="ringCarb" cx="70" cy="70" r="39" stroke-width="6.2" stroke-dasharray="245.04" stroke-dashoffset="245.04"/>
+
+                        <!-- Fat Inner Ring (radius 28.5, stroke 6.2, C=179.07) -->
+                        <circle class="ring-bg" cx="70" cy="70" r="28.5" stroke-width="6.2" stroke="var(--fat-track)"/>
+                        <circle class="ring-fg ring-fat-fg" id="ringFat" cx="70" cy="70" r="28.5" stroke-width="6.2" stroke-dasharray="179.07" stroke-dashoffset="179.07"/>
                     </svg>
-                </span>
+                    <div class="rings-center">
+                        <div class="rings-center-val" id="dispRemCal">--</div>
+                        <div class="rings-center-lbl" id="dispRemLbl">
+                            <span class="svg-icon" style="width:9px; height:9px; color:var(--calorie);">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/>
+                                </svg>
+                            </span>
+                            <span id="dispRemText">KCAL LEFT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="macros-info">
+                    <!-- Calorie Summary -->
+                    <div class="macro-bar-row">
+                        <div class="macro-header">
+                            <div class="macro-title-group" style="color:var(--calorie)">
+                                <span class="svg-icon" style="width:13px; height:13px;">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"/></svg>
+                                </span>
+                                <span>Calories</span>
+                            </div>
+                            <div class="macro-val-group">
+                                <span class="macro-fraction" id="calFraction">0 / 2,000 kcal</span>
+                                <span class="macro-pct-pill" id="calPctPill" style="background:rgba(250,17,79,0.18); color:var(--calorie);">0%</span>
+                            </div>
+                        </div>
+                        <div class="macro-track" style="background:var(--calorie-track);">
+                            <div class="macro-fill" id="barCal" style="width: 0%; background: var(--calorie); box-shadow: 0 0 8px var(--calorie-glow);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Protein -->
+                    <div class="macro-bar-row">
+                        <div class="macro-header">
+                            <div class="macro-title-group" style="color:var(--protein)">
+                                <span class="svg-icon" style="width:13px; height:13px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4M6 12h12"/></svg>
+                                </span>
+                                <span>Protein</span>
+                            </div>
+                            <div class="macro-val-group">
+                                <span class="macro-fraction" id="protFraction">0 / 140g</span>
+                                <span class="macro-pct-pill" id="protPctPill" style="background:rgba(48,209,88,0.18); color:var(--protein);">0%</span>
+                            </div>
+                        </div>
+                        <div class="macro-track" style="background:var(--protein-track);">
+                            <div class="macro-fill" id="barProt" style="width: 0%; background: var(--protein); box-shadow: 0 0 8px var(--protein-glow);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Carbs -->
+                    <div class="macro-bar-row">
+                        <div class="macro-header">
+                            <div class="macro-title-group" style="color:var(--carbs)">
+                                <span class="svg-icon" style="width:13px; height:13px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22 12 12M7 17l4 4M9 10l5 5M11 3l10 10M17 2l4 4"/></svg>
+                                </span>
+                                <span>Carbs</span>
+                            </div>
+                            <div class="macro-val-group">
+                                <span class="macro-fraction" id="carbFraction">0 / 220g</span>
+                                <span class="macro-pct-pill" id="carbPctPill" style="background:rgba(10,132,255,0.18); color:var(--carbs);">0%</span>
+                            </div>
+                        </div>
+                        <div class="macro-track" style="background:var(--carbs-track);">
+                            <div class="macro-fill" id="barCarb" style="width: 0%; background: var(--carbs); box-shadow: 0 0 8px var(--carbs-glow);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Fat -->
+                    <div class="macro-bar-row">
+                        <div class="macro-header">
+                            <div class="macro-title-group" style="color:var(--fat)">
+                                <span class="svg-icon" style="width:13px; height:13px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+                                </span>
+                                <span>Fat</span>
+                            </div>
+                            <div class="macro-val-group">
+                                <span class="macro-fraction" id="fatFraction">0 / 60g</span>
+                                <span class="macro-pct-pill" id="fatPctPill" style="background:rgba(255,159,10,0.18); color:var(--fat);">0%</span>
+                            </div>
+                        </div>
+                        <div class="macro-track" style="background:var(--fat-track);">
+                            <div class="macro-fill" id="barFat" style="width: 0%; background: var(--fat); box-shadow: 0 0 8px var(--fat-glow);"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ai-text-box">
-                <h4>
-                    <span>AI Nutrition Coach</span>
-                    <span class="ai-live-badge"><span class="ai-live-dot"></span> LIVE GUIDE</span>
-                </h4>
-                <p id="aiCoachQuickTip">Khana log gardai janu, ma timilai aba k khada target pugcha guide garchu!</p>
+
+            <!-- Water Hydration Card -->
+            <div class="water-card">
+                <div class="water-header">
+                    <div class="water-title">
+                        <span class="svg-icon" style="width:18px; height:18px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                            </svg>
+                        </span>
+                        <span>Water Hydration</span>
+                    </div>
+                    <div class="water-val-wrap">
+                        <span class="water-val" id="waterDisplay">0 / 2,500 ml</span>
+                        <span class="water-pct-badge" id="waterPctBadge">0%</span>
+                    </div>
+                </div>
+                <div class="water-track">
+                    <div class="water-fill" id="waterFill" style="width: 0%;"></div>
+                </div>
+                <div class="water-actions">
+                    <button class="btn-water" onclick="addWater(250)">
+                        <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                        <span>250ml Glass</span>
+                    </button>
+                    <button class="btn-water" onclick="addWater(500)">
+                        <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                        <span>500ml Bottle</span>
+                    </button>
+                    <button class="btn-water" onclick="addWater(-250)" title="Subtract 250ml">
+                        <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                        <span>250ml</span>
+                    </button>
+                    <button class="btn-water-reset" onclick="resetWater()" title="Reset Water">
+                        <span class="svg-icon" style="width:15px; height:15px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Nutrition Coach Live Insight -->
+            <div class="ai-coach-card" onclick="openChatDrawer()">
+                <div class="ai-avatar">
+                    <span class="svg-icon" style="width:20px; height:20px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                        </svg>
+                    </span>
+                </div>
+                <div class="ai-text-box">
+                    <h4>
+                        <span>AI Nutrition Coach</span>
+                        <span class="ai-live-badge"><span class="ai-live-dot"></span> LIVE GUIDE</span>
+                    </h4>
+                    <p id="aiCoachQuickTip">Khana log gardai janu, ma timilai aba k khada target pugcha guide garchu!</p>
+                </div>
             </div>
         </div>
 
-        <!-- 4 Meal Slots (Matching MyFitnessPal) -->
-
-        <!-- 1. Breakfast -->
-        <div class="meal-section">
-            <div class="meal-header">
-                <div class="meal-title-wrap">
-                    <div class="meal-icon-box meal-icon-0">
-                        <span class="svg-icon" style="width:18px; height:18px;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2v6M4.93 10.93l4.24-4.24M2 18h2M20 18h2M19.07 10.93l-4.24-4.24M22 22H2M8 18a4 4 0 0 1 8 0"/>
-                            </svg>
-                        </span>
+        <!-- Right Column / Meals Diary on Desktop -->
+        <div class="dashboard-meals">
+            <!-- 1. Breakfast -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-title-wrap">
+                        <div class="meal-icon-box meal-icon-0">
+                            <span class="svg-icon" style="width:18px; height:18px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2v6M4.93 10.93l4.24-4.24M2 18h2M20 18h2M19.07 10.93l-4.24-4.24M22 22H2M8 18a4 4 0 0 1 8 0"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="meal-title-group">
+                            <span class="meal-title">Breakfast</span>
+                            <span class="meal-cal-total" id="mealCal-0">0 kcal</span>
+                        </div>
                     </div>
-                    <div class="meal-title-group">
-                        <span class="meal-title">Breakfast</span>
-                        <span class="meal-cal-total" id="mealCal-0">0 kcal</span>
-                    </div>
+                    <button class="btn-add-food-pill" onclick="openAddFoodModal(0)">
+                        <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                        <span>Add Food</span>
+                    </button>
                 </div>
-                <button class="btn-add-food-pill" onclick="openAddFoodModal(0)">
-                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                    <span>Add Food</span>
-                </button>
-            </div>
-            <div class="meal-items-list" id="mealItems-0">
-                <div class="empty-meal-hint" onclick="openAddFoodModal(0)">+ Tap to log Breakfast</div>
-            </div>
-        </div>
-
-        <!-- 2. Lunch -->
-        <div class="meal-section">
-            <div class="meal-header">
-                <div class="meal-title-wrap">
-                    <div class="meal-icon-box meal-icon-1">
-                        <span class="svg-icon" style="width:18px; height:18px;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="meal-title-group">
-                        <span class="meal-title">Lunch</span>
-                        <span class="meal-cal-total" id="mealCal-1">0 kcal</span>
-                    </div>
+                <div class="meal-items-list" id="mealItems-0">
+                    <div class="empty-meal-hint" onclick="openAddFoodModal(0)">+ Tap to log Breakfast</div>
                 </div>
-                <button class="btn-add-food-pill" onclick="openAddFoodModal(1)">
-                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                    <span>Add Food</span>
-                </button>
             </div>
-            <div class="meal-items-list" id="mealItems-1">
-                <div class="empty-meal-hint" onclick="openAddFoodModal(1)">+ Tap to log Lunch</div>
-            </div>
-        </div>
 
-        <!-- 3. Dinner -->
-        <div class="meal-section">
-            <div class="meal-header">
-                <div class="meal-title-wrap">
-                    <div class="meal-icon-box meal-icon-2">
-                        <span class="svg-icon" style="width:18px; height:18px;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-                            </svg>
-                        </span>
+            <!-- 2. Lunch -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-title-wrap">
+                        <div class="meal-icon-box meal-icon-1">
+                            <span class="svg-icon" style="width:18px; height:18px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="meal-title-group">
+                            <span class="meal-title">Lunch</span>
+                            <span class="meal-cal-total" id="mealCal-1">0 kcal</span>
+                        </div>
                     </div>
-                    <div class="meal-title-group">
-                        <span class="meal-title">Dinner</span>
-                        <span class="meal-cal-total" id="mealCal-2">0 kcal</span>
-                    </div>
+                    <button class="btn-add-food-pill" onclick="openAddFoodModal(1)">
+                        <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                        <span>Add Food</span>
+                    </button>
                 </div>
-                <button class="btn-add-food-pill" onclick="openAddFoodModal(2)">
-                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                    <span>Add Food</span>
-                </button>
+                <div class="meal-items-list" id="mealItems-1">
+                    <div class="empty-meal-hint" onclick="openAddFoodModal(1)">+ Tap to log Lunch</div>
+                </div>
             </div>
-            <div class="meal-items-list" id="mealItems-2">
-                <div class="empty-meal-hint" onclick="openAddFoodModal(2)">+ Tap to log Dinner</div>
-            </div>
-        </div>
 
-        <!-- 4. Snacks -->
-        <div class="meal-section">
-            <div class="meal-header">
-                <div class="meal-title-wrap">
-                    <div class="meal-icon-box meal-icon-3">
-                        <span class="svg-icon" style="width:18px; height:18px;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/>
-                            </svg>
-                        </span>
+            <!-- 3. Dinner -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-title-wrap">
+                        <div class="meal-icon-box meal-icon-2">
+                            <span class="svg-icon" style="width:18px; height:18px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="meal-title-group">
+                            <span class="meal-title">Dinner</span>
+                            <span class="meal-cal-total" id="mealCal-2">0 kcal</span>
+                        </div>
                     </div>
-                    <div class="meal-title-group">
-                        <span class="meal-title">Snacks</span>
-                        <span class="meal-cal-total" id="mealCal-3">0 kcal</span>
-                    </div>
+                    <button class="btn-add-food-pill" onclick="openAddFoodModal(2)">
+                        <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                        <span>Add Food</span>
+                    </button>
                 </div>
-                <button class="btn-add-food-pill" onclick="openAddFoodModal(3)">
-                    <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-                    <span>Add Food</span>
-                </button>
+                <div class="meal-items-list" id="mealItems-2">
+                    <div class="empty-meal-hint" onclick="openAddFoodModal(2)">+ Tap to log Dinner</div>
+                </div>
             </div>
-            <div class="meal-items-list" id="mealItems-3">
-                <div class="empty-meal-hint" onclick="openAddFoodModal(3)">+ Tap to log Snacks</div>
+
+            <!-- 4. Snacks -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-title-wrap">
+                        <div class="meal-icon-box meal-icon-3">
+                            <span class="svg-icon" style="width:18px; height:18px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="meal-title-group">
+                            <span class="meal-title">Snacks</span>
+                            <span class="meal-cal-total" id="mealCal-3">0 kcal</span>
+                        </div>
+                    </div>
+                    <button class="btn-add-food-pill" onclick="openAddFoodModal(3)">
+                        <span class="svg-icon" style="width:13px; height:13px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+                        <span>Add Food</span>
+                    </button>
+                </div>
+                <div class="meal-items-list" id="mealItems-3">
+                    <div class="empty-meal-hint" onclick="openAddFoodModal(3)">+ Tap to log Snacks</div>
+                </div>
             </div>
         </div>
     </main>
@@ -1655,7 +1846,13 @@
                         </svg>
                     </span>
                     <input type="text" id="foodSearchInput" placeholder="Khana khojnuhos (Dal Bhat, Momo, Anda, Chicken...)" oninput="filterFoodList()">
-                    <button class="search-clear-btn" id="searchClearBtn" onclick="clearFoodSearch()">✕</button>
+                    <button class="search-clear-btn" id="searchClearBtn" onclick="clearFoodSearch()" aria-label="Clear Search">
+                        <span class="svg-icon" style="width:12px; height:12px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </span>
+                    </button>
                 </div>
             </div>
 
@@ -1807,7 +2004,8 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             <div style="padding: 18px; overflow-y: auto;">
                 <div style="background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.3); border-radius: 14px; padding: 14px; margin-bottom: 16px;">
                     <div style="font-weight: 800; font-size: 13.5px; color: #60A5FA; margin-bottom: 4px; display:flex; align-items:center; gap:6px;">
-                        <span>⚡ Direct Zen Browser Bridge Sync</span>
+                        <span class="svg-icon" style="width:14px; height:14px; color:#60A5FA;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+                        <span>Direct Zen Browser Bridge Sync</span>
                     </div>
                     <p style="font-size: 12px; line-height: 1.5; color: var(--text-secondary);">
                         Timro laptop ko Zen browser cookies use garera MyFitnessPal diary ma free ma entries push hunchha.
@@ -1821,7 +2019,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
                 <button id="btnRunSync" onclick="triggerMyFitnessPalSync()" style="width: 100%; background: #0066EE; color: #fff; border: none; padding: 14px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition:transform 0.15s; display:flex; align-items:center; justify-content:center; gap:8px;">
                     <span class="svg-icon" style="width:18px; height:18px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg></span>
-                    <span>Sync All to MyFitnessPal Now</span>
+                    <span id="btnRunSyncText">Sync All to MyFitnessPal Now</span>
                 </button>
                 
                 <div id="syncStatusMsg" style="margin-top: 12px; font-size: 12px; text-align: center; color: var(--text-secondary);"></div>
@@ -1926,18 +2124,20 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
                 <!-- Data Backup & Restore -->
                 <div style="display:flex; gap:10px; margin-top:4px;">
-                    <button type="button" onclick="exportDataBackup()" style="flex:1; background: #0B0D12; border: 1px solid var(--border); color: var(--text-secondary); padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer;">
-                        📥 Backup JSON
+                    <button type="button" onclick="exportDataBackup()" class="btn-backup-item">
+                        <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+                        <span>Backup JSON</span>
                     </button>
-                    <button type="button" onclick="document.getElementById('importFileInput').click()" style="flex:1; background: #0B0D12; border: 1px solid var(--border); color: var(--text-secondary); padding: 10px; border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer;">
-                        📤 Restore JSON
+                    <button type="button" onclick="document.getElementById('importFileInput').click()" class="btn-backup-item">
+                        <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
+                        <span>Restore JSON</span>
                     </button>
                     <input type="file" id="importFileInput" accept=".json" onchange="importDataBackup(event)" style="display:none;">
                 </div>
 
                 <button type="button" onclick="forceUpdateAndClearCache()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--accent); padding: 12px; border-radius: 14px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <span class="svg-icon" style="width:16px; height:16px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
-                    <span>Force Refresh &amp; Update App (v5)</span>
+                    <span>Force Refresh &amp; Update App (v6)</span>
                 </button>
             </div>
         </div>
@@ -2069,9 +2269,9 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 <!-- API Key Hint / Demo Trigger -->
                 <div id="scanKeyHint" style="background: rgba(10,132,255,0.08); border: 1px solid rgba(10,132,255,0.25); border-radius: 14px; padding: 12px 14px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.5;">
                     <div style="color:#60A5FA; font-weight:700; margin-bottom:4px;">Smart AI Vision (Google Gemini)</div>
-                    <a href="javascript:void(0)" onclick="openProfileModal(); closeModal('photoScanModal');" style="color: var(--accent); font-weight: 700; text-decoration:none;">Settings ma free Gemini Key halnus</a> ya tala sample plate bata test garnus:
-                    <button onclick="runDemoPhotoScan()" style="display: block; width: 100%; margin-top: 8px; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38BDF8; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 11.5px; cursor: pointer;">
-                        ⚡ Test with Sample Nepali Dal Bhat + Masu Plate
+                    <button onclick="runDemoPhotoScan()" class="btn-demo-scan">
+                        <span class="svg-icon" style="width:14px; height:14px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+                        <span>Test with Sample Nepali Dal Bhat + Masu Plate</span>
                     </button>
                 </div>
             </div>
@@ -2287,7 +2487,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             appState.water[appState.selectedDate] = updated;
             saveState();
             renderWaterWidget();
-            if (amountMl > 0) showToast(`💧 +${amountMl}ml water logged!`);
+            if (amountMl > 0) showToast(`+${amountMl}ml water logged!`);
         }
 
         function resetWater() {
@@ -2329,16 +2529,20 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 totalF += m.f;
                 mealTotals[m.meal_id] = (mealTotals[m.meal_id] || 0) + m.cal;
 
+                const displayName = m.name ? m.name.replace(/^📷\s*/, '') : '';
+                const isScanned = m.scanned || (m.name && m.name.startsWith('📷'));
+
                 const row = document.createElement('div');
                 row.className = 'food-item-row';
                 row.innerHTML = `
                     <div class="food-details">
-                        <div class="food-name">${m.name}</div>
+                        <div class="food-name">${displayName}</div>
                         <div class="macro-tag-row">
                             <span class="macro-tag tag-prot">${m.p}g P</span>
                             <span class="macro-tag tag-carb">${m.c}g C</span>
                             <span class="macro-tag tag-fat">${m.f}g F</span>
                             ${m.synced ? '<span class="macro-tag tag-mfp">✓ MFP</span>' : ''}
+                            ${isScanned ? '<span class="macro-tag tag-scan">AI Scan</span>' : ''}
                         </div>
                     </div>
                     <div class="food-right">
@@ -2402,11 +2606,12 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             document.getElementById('barCarb').style.width = Math.min(100, carbPct) + '%';
             document.getElementById('barFat').style.width = Math.min(100, fatPct) + '%';
 
-            // Apple Activity Concentric Rings
-            // Circumferences: Outer Calorie = 314.16, Middle Protein = 238.76, Inner Carbs = 169.65
-            setRingProgress('ringCal', 314.16, totalCal / targetCal);
-            setRingProgress('ringProt', 238.76, totalP / targetProt);
-            setRingProgress('ringCarb', 169.65, totalC / targetCarb);
+            // Apple Activity Concentric Rings (Calorie, Protein, Carbs, Fat)
+            // Circumferences: Outer Calorie = 376.99, Second Protein = 311.02, Third Carbs = 245.04, Inner Fat = 179.07
+            setRingProgress('ringCal', 376.99, totalCal / targetCal);
+            setRingProgress('ringProt', 311.02, totalP / targetProt);
+            setRingProgress('ringCarb', 245.04, totalC / targetCarb);
+            setRingProgress('ringFat', 179.07, totalF / targetFat);
 
             // Unsynced badge
             const unsyncedCount = appState.meals.filter(m => !m.synced).length;
@@ -2476,12 +2681,12 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                 container.innerHTML = `
                     <div class="quick-entry-box">
                         <div style="font-size:12px; font-weight:800; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px;">Direct Quick Entry</div>
-                        <input type="text" id="quickName" placeholder="Khana ko name (e.g. Hotel Lunch, Fruit)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                            <input type="number" id="quickCal" placeholder="Calories (kcal)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
-                            <input type="number" id="quickP" placeholder="Protein (g)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
-                            <input type="number" id="quickC" placeholder="Carbs (g)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
-                            <input type="number" id="quickF" placeholder="Fat (g)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none;">
+                        <input type="text" id="quickName" placeholder="Khana ko name (e.g. Hotel Lunch, Fruit)" style="background:#090B0F; border:1px solid var(--border); color:#fff; padding:10px 14px; border-radius:10px; font-size:13.5px; outline:none; width:100%; box-sizing:border-box;">
+                        <div class="quick-inputs-grid">
+                            <input type="number" id="quickCal" placeholder="Calories (kcal)">
+                            <input type="number" id="quickP" placeholder="Protein (g)">
+                            <input type="number" id="quickC" placeholder="Carbs (g)">
+                            <input type="number" id="quickF" placeholder="Fat (g)">
                         </div>
                         <button onclick="submitDirectQuickAdd()" style="background:var(--accent); color:#000000; border:none; padding:12px; border-radius:12px; font-weight:800; font-size:13.5px; cursor:pointer; margin-top:2px; transition:transform 0.12s;">
                             + Add to Meal Now
@@ -2502,7 +2707,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                                             <span class="macro-tag tag-fat">${f.f}g F</span>
                                         </div>
                                     </div>
-                                    <div class="lib-food-cal">+${f.cal} kcal</div>
+                                    <div class="lib-food-cal"><span class="lib-food-cal-num">+${f.cal}</span> <span class="lib-food-cal-lbl">kcal</span></div>
                                 </div>
                             `;
                         }).join('')}
@@ -2560,7 +2765,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                         </div>
                     </div>
                     <div class="lib-food-cal">
-                        +${f.cal} kcal
+                        <span class="lib-food-cal-num">+${f.cal}</span> <span class="lib-food-cal-lbl">kcal</span>
                     </div>
                 </div>
             `).join('');
@@ -2652,6 +2857,16 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
             saveState();
             renderDashboard();
             updateAICoachTip();
+            const elName = document.getElementById('quickName');
+            const elCal = document.getElementById('quickCal');
+            const elP = document.getElementById('quickP');
+            const elC = document.getElementById('quickC');
+            const elF = document.getElementById('quickF');
+            if (elName) elName.value = '';
+            if (elCal) elCal.value = '';
+            if (elP) elP.value = '';
+            if (elC) elC.value = '';
+            if (elF) elF.value = '';
             closeModal('addFoodModal');
             showToast(`${name} (+${cal} kcal) logged!`);
         }
@@ -2742,13 +2957,23 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
         function closeModal(id) {
             const el = document.getElementById(id);
             if (el) el.classList.remove('open');
+            // Sync bottom nav back to Diary if no modals are open
+            const anyOpen = Array.from(document.querySelectorAll('.modal')).some(m => m.classList.contains('open'));
+            if (!anyOpen) {
+                document.querySelectorAll('.bottom-nav .nav-item').forEach(item => item.classList.remove('active'));
+                const diaryNav = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+                if (diaryNav) diaryNav.classList.add('active');
+            }
         }
 
         function closeAllModals() {
             document.querySelectorAll('.modal').forEach(m => m.classList.remove('open'));
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(item => item.classList.remove('active'));
+            const diaryNav = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+            if (diaryNav) diaryNav.classList.add('active');
         }
 
-        // Tap backdrop to dismiss bottom sheet modal
+        // Tap backdrop to dismiss modal
         document.querySelectorAll('.modal').forEach(modalEl => {
             modalEl.addEventListener('click', (e) => {
                 if (e.target === modalEl) {
@@ -2760,6 +2985,63 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
         // Escape key to dismiss modals
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeAllModals();
+        });
+
+        // Touch Drag-Down to Dismiss Bottom Sheets on Mobile
+        document.querySelectorAll('.modal').forEach(modalEl => {
+            const content = modalEl.querySelector('.modal-content');
+            const handle = modalEl.querySelector('.sheet-handle');
+            const header = modalEl.querySelector('.modal-header');
+            if (!content) return;
+
+            let startY = 0;
+            let currentY = 0;
+            let isDragging = false;
+
+            [handle, header].filter(Boolean).forEach(dragEl => {
+                dragEl.addEventListener('touchstart', (e) => {
+                    if (e.target.closest('.btn-close-modal') || e.target.closest('button')) return;
+                    startY = e.touches[0].clientY;
+                    currentY = startY;
+                    isDragging = true;
+                    content.style.transition = 'none';
+                }, { passive: true });
+
+                dragEl.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentY = e.touches[0].clientY;
+                    const deltaY = currentY - startY;
+                    if (deltaY > 0) {
+                        content.style.transform = `translateY(${deltaY}px)`;
+                    }
+                }, { passive: true });
+
+                const endDrag = () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    const deltaY = currentY - startY;
+                    content.style.transition = 'transform 0.24s cubic-bezier(0.16, 1, 0.3, 1)';
+                    if (deltaY > 100) {
+                        content.style.transform = 'translateY(100%)';
+                        setTimeout(() => {
+                            closeModal(modalEl.id);
+                            content.style.transform = '';
+                            content.style.transition = '';
+                        }, 220);
+                    } else {
+                        content.style.transform = 'translateY(0)';
+                        setTimeout(() => { content.style.transition = ''; }, 240);
+                    }
+                };
+
+                dragEl.addEventListener('touchend', endDrag, { passive: true });
+                dragEl.addEventListener('touchcancel', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    content.style.transform = '';
+                    content.style.transition = '';
+                }, { passive: true });
+            });
         });
 
         function switchNav(tab) {
@@ -2842,8 +3124,8 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
                     daysMeals.forEach(m => m.synced = true);
                     saveState();
                     renderDashboard();
-                    msg.innerHTML = `<span style="color:var(--protein); font-weight:700;">🎉 ${data.synced_count} items MyFitnessPal ma sync bhayo! (${data.total_calories} kcal)</span>`;
-                    showToast('MyFitnessPal sync complete! 🚀');
+                    msg.innerHTML = `<span style="color:var(--protein); font-weight:700;">${data.synced_count} items MyFitnessPal ma sync bhayo! (${data.total_calories} kcal)</span>`;
+                    showToast('MyFitnessPal sync complete!');
                 } else {
                     throw new Error('Bridge returned non-200');
                 }
@@ -2898,7 +3180,7 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
             // 2. Optional Gemini Cloud AI
             if (appState.profile.geminiKey) {
-                const aiThinking = appendChatBubble('Thinking... 🤖', 'ai');
+                const aiThinking = appendChatBubble('Thinking...', 'ai');
                 try {
                     const prompt = `You are NutriPulse AI Coach, an expert fitness & nutrition coach in Nepal speaking friendly Nepali-English mix (Romanized Nepali).
 User stats: ${appState.profile.weight}kg, Goal: ${appState.profile.goal}.
@@ -2917,8 +3199,9 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
                         aiThinking.innerText = reply;
                         return;
                     }
+                    aiThinking.remove();
                 } catch(e) {
-                    // Fall back to offline reasoning
+                    aiThinking.remove();
                 }
             }
 
@@ -3098,7 +3381,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             renderDashboard();
             updateAICoachTip();
             closeModal('profileModal');
-            showToast('Profile & Targets updated! 🎯');
+            showToast('Profile & Targets updated!');
         }
 
         // ==========================================
@@ -3262,7 +3545,8 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
 
             appState.meals.push({
                 id: 'm_' + Date.now(),
-                name: '📷 ' + name,
+                name: name,
+                scanned: true,
                 meal_id: mealId,
                 cal: cal,
                 calories: cal,
@@ -3293,7 +3577,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             dlAnchor.setAttribute("href", dataStr);
             dlAnchor.setAttribute("download", `nutripulse_backup_${getTodayDateStr()}.json`);
             dlAnchor.click();
-            showToast('Backup JSON downloaded! 📥');
+            showToast('Backup JSON downloaded!');
         }
 
         function importDataBackup(event) {
@@ -3311,7 +3595,7 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
                         renderDashboard();
                         updateAICoachTip();
                         closeModal('profileModal');
-                        showToast('Data restored successfully! 📤');
+                        showToast('Data restored successfully!');
                     } else {
                         throw new Error('Invalid schema');
                     }
@@ -3323,17 +3607,19 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             event.target.value = '';
         }
 
+        let toastTimer = null;
         function showToast(msg) {
             const toast = document.getElementById('toast');
             const msgEl = document.getElementById('toastMsg');
             msgEl.innerText = msg;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2600);
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2600);
         }
 
         // Service Worker Auto-Update & Cache Management
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js?v=5').then((reg) => {
+            navigator.serviceWorker.register('./sw.js?v=6').then((reg) => {
                 reg.update();
                 reg.addEventListener('updatefound', () => {
                     const newWorker = reg.installing;
