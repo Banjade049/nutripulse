@@ -9,6 +9,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NutriPulse">
     <meta name="theme-color" content="#090d16" id="themeMeta">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
 
@@ -1163,6 +1166,10 @@ Tip: Malai sidhai 'Add 2 boiled eggs' ya 'Log chicken momo for dinner' bhanda pa
 
                 <button onclick="saveProfile()" style="background: var(--accent); color: #090d16; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-top: 6px;">
                     Save &amp; Recalculate Target
+                </button>
+
+                <button type="button" onclick="forceUpdateAndClearCache()" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--accent); padding: 11px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    🔄 Force Refresh &amp; Update App (v4)
                 </button>
             </div>
         </div>
@@ -2383,9 +2390,36 @@ Provide concise, energetic, practical advice with Nepali food options like Dal B
             setTimeout(() => { toast.classList.remove('show'); }, 2600);
         }
 
-        // Service Worker
+        // Service Worker Auto-Update & Cache Management
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').catch(() => {});
+            navigator.serviceWorker.register('./sw.js?v=4').then((reg) => {
+                reg.update();
+                reg.addEventListener('updatefound', () => {
+                    const newWorker = reg.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            showToast('🔄 Naya Update ready cha! Reloading...');
+                            setTimeout(() => { window.location.reload(); }, 1200);
+                        }
+                    });
+                });
+            }).catch(() => {});
+        }
+
+        async function forceUpdateAndClearCache() {
+            showToast('🔄 Clearing Cache & Updating...');
+            try {
+                if ('caches' in window) {
+                    const keys = await caches.keys();
+                    await Promise.all(keys.map(k => caches.delete(k)));
+                }
+                if ('serviceWorker' in navigator) {
+                    const regs = await navigator.serviceWorker.getRegistrations();
+                    for (let r of regs) { await r.unregister(); }
+                }
+            } catch(e) {}
+            // Bypass browser cache with timestamp parameter
+            window.location.href = window.location.origin + window.location.pathname + '?t=' + Date.now();
         }
 
         // Initialize
